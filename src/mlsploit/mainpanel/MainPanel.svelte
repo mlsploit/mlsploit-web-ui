@@ -1,5 +1,7 @@
 <script>
-import Panel from './Panel.svelte'
+  import Panel from './Panel.svelte'
+  import NewPipeline from './pipeline/newpipeline/NewPipeline.svelte';
+
 </script>
 
 <style>
@@ -14,4 +16,9 @@ import Panel from './Panel.svelte'
 <div id="main-panel">
   Main Panel
   <Panel />
+  <NewPipeline />
+  <NewPipeline />
+  <NewPipeline />
+  <NewPipeline />
+  <NewPipeline />
 </div>

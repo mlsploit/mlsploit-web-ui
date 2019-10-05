@@ -29,7 +29,7 @@
 
   <div class="container">
     <LeftPanel />
-    <MainPanel />
-    <RightPanel />
+    <!-- <MainPanel /> -->
+    <!-- <RightPanel /> -->
   </div>
 </div>

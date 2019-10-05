@@ -10,7 +10,7 @@
     width: 400px;
     height: 100vh;
     padding: 10px;
-    background-color: white
+    background-color: var(--gray);
   }
 </style>
 

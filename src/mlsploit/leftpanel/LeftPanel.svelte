@@ -1,6 +1,6 @@
 <style>
   #left-panel {
-    background-color: white;
+    background-color: var(--gray);
   }
 
   .module-li {
@@ -10,7 +10,7 @@
 
   .module-button {
     border: 0px;
-    background-color: white;
+    background-color: var(--gray);
     border-radius: 5px;
     font-size: 20px;
   }

@@ -4,3 +4,5 @@ node_modules
 public/bundle.*
 public/assets/js/bundle.*
 public/assets/css/bundle.*
+
+Icon\r

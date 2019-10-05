@@ -1,6 +1,6 @@
 <script>
   import Panel from './Panel.svelte'
-  import NewPipeline from './pipeline/NewPipeline.svelte';
+  import NewPipeline from './pipeline/newpipeline/NewPipeline.svelte';
 
 </script>
 

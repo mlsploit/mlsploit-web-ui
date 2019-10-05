@@ -14,16 +14,22 @@
 
 <style>
   .root {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    height: 100%;
+  }
+  
+  .container {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    height: 100%;
   }
 </style>
 
 <div class="root">
   <Header />
-  
-  <LeftPanel />
-  <MainPanel />
-  <RightPanel />
+
+  <div class="container">
+    <LeftPanel />
+    <MainPanel />
+    <RightPanel />
+  </div>
 </div>

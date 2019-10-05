@@ -1,6 +1,7 @@
 <style>
   #header {
     background-color: red;
+    height: 40px;
   }
 </style>
 

@@ -3,25 +3,23 @@
 let divider = `
     <style>
       .pipeline-divider {
-        width: 20px;
-        height: 100px;
-        padding-top: 40px;
+        display: flex;
+        align-items: center;
+        padding-right: 3px;
+        padding-left: 3px;
       }
-      .pipeline-divider span {
-        font-size: 20cm;
-      }
+
     </style>
     <div class="pipeline-divider">
-      <span class="bp3-icon bp3-icon-arrow-right"></span>
+      <i class="fas fa-arrow-right fa-lg"></i>
     </div>
 `
 </script>
 
 <style> 
 
-
-
 .panel {
+  width: 92%;
   margin-top: 20px;
   margin-bottom: 20px;
   padding-left: 25px;
@@ -66,42 +64,26 @@ let divider = `
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
+
+.header {
+  display: flex;
+  justify-content: center;
+}
+
 </style>
 
-<h1>Hello</h1>
-
 <div class="panel">
+  <div class="header">
+    <p id="headr-label">Name<p>
+    <i id="play-icon" class="fas fa-play"></i>
+    <i id="remove-icon" class="fas fa-trash"></i>
+  </div>
   <div class="component-container">
-    {@html divider}
-    <div class="component">
-      <h3> Function 1 </h3>
-    </div>
-    <div class="component">
-      <h3> Function 1 </h3>
-    </div>
-    <div class="component">
-      <h3> Function 1 </h3>
-    </div>
-    <div class="component">
-      <h3> Function 1 </h3>
-    </div>
-    <div class="component">
-      <h3> Function 1 </h3>
-    </div>
-    <div class="component">
-      <h3> Function 1 </h3>
-    </div>
-    <div class="component">
-      <h3> Function 1 </h3>
-    </div>
-    <div class="component">
-      <h3> Function 1 </h3>
-    </div>
-    <div class="component">
-      <h3> Function 1 </h3>
-    </div>
-    <div class="component">
-      <h3> Function 1 </h3>
-    </div>
+    {#each [1, 2, 3, 4, 5, 6, 7, 8, 9] as func}
+      {@html divider}
+      <div class="component">
+        <h3>Function 1</h3>
+      </div>
+    {/each}
   </div>
 </div>

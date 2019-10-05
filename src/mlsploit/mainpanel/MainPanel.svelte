@@ -4,6 +4,9 @@ import Panel from './Panel.svelte'
 
 <style>
   #main-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: yellow;
   }
 </style>

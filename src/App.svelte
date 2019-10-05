@@ -13,8 +13,11 @@
   $: token = $tokenStore;
 </script>
 
-{#if token === NO_TOKEN}
+<!-- {#if token === NO_TOKEN}
   <Auth />
 {:else}
   <MLsploit />
-{/if}
+{/if} -->
+
+
+<MLsploit />

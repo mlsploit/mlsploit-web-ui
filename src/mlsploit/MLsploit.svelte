@@ -2,8 +2,10 @@
   import { onMount } from 'svelte';
   import API from '../rest.js';
   import { beginPolling } from './polling.js';
-  import Sidebar from './sidebar/Sidebar.svelte';
-  import MainPanel from './body/MainPanel.svelte';
+  import Header from './header/Header.svelte'
+  import LeftPanel from './leftpanel/LeftPanel.svelte'
+  import MainPanel from './mainpanel/MainPanel.svelte'
+  import RightPanel from './rightpanel/RightPanel.svelte'
 
   onMount(() => {
     beginPolling();
@@ -19,6 +21,9 @@
 </style>
 
 <div class="root">
-  <Sidebar />
+  <Header />
+  
+  <LeftPanel />
   <MainPanel />
+  <RightPanel />
 </div>

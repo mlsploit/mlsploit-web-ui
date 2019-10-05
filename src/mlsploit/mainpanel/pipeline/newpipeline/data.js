@@ -1,4 +1,4 @@
-let funcs = [
+let tasks = [
   {
       "name": "say_hello",
       "options": [
@@ -37,4 +37,4 @@ let funcs = [
   }
 ];
 
-export default funcs;
+export default tasks;

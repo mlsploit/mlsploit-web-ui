@@ -5,12 +5,14 @@
 
   .module-li {
     list-style-type: none;
+    padding-bottom: 10px;
   }
 
   .module-button {
     border: 0px;
     background-color: white;
     border-radius: 5px;
+    font-size: 20px;
   }
 
   .module-button:hover {
@@ -21,7 +23,12 @@
 
   .module-fun {
     display: none;
+    margin-bottom: 10px;
+    font-size: 20px;
   }
+
+  button:focus {outline:0;}
+
 </style>
 
 
@@ -30,12 +37,25 @@
   <!-- Create the List for modules -->
   <ul>
     {#each modules as module, module_i}
+      <!-- Module -->
       <li class="module-li">
+
+        <!-- Module icon -->
         <i class="fas fa-angle-right" id={ids_of_list_icon[module_i]}></i>
-          <button id={module.module} class="module-button" on:click={click_module}> {module.module} </button>
+
+        <!-- Module name -->
+        <button id={module.module} class="module-button" on:click={click_module}> 
+          <strong> {module.module} </strong>
+        </button>
+
+        <!-- Module functions -->
         <ul>
+          <!-- For each function -->
           {#each module.function as f}
-            <li class={class_of_list_fun[module_i]}>{f}</li>
+            <!-- Function name -->
+            <div class={class_of_list_fun[module_i]}>
+              <strong> {f} </strong>
+            </div>
           {/each}
         </ul>
       </li>
@@ -55,7 +75,9 @@
   // Get class names of functions
   let class_of_list_fun = []
   modules.forEach(m => {
-    class_of_list_fun.push('module-fun ' + m.module + '-fun')
+    var class_name = 'module-fun ' + m.module + '-fun' 
+    class_name += ' bp3-card bp3-elevation-2 bp3-interactive'
+    class_of_list_fun.push(class_name)
   })
 
   // Get ids of module list icon

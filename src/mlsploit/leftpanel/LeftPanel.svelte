@@ -54,7 +54,7 @@
           <!-- For each function -->
           {#each module.function as f}
             <!-- Function name -->
-            <div class={class_of_list_fun[module_i]}>
+            <div class={class_of_list_fun[module_i]} draggable="true">
               <strong> {f} </strong>
             </div>
           {/each}

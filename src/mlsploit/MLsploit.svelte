@@ -15,9 +15,10 @@
 <style>
   .root {
     height: 100%;
+    overflow-y: hidden;
   }
   
-  .container {
+  .main {
     display: grid;
     grid-template-columns: 20% 60% 20%;
     height: 100%;
@@ -27,7 +28,7 @@
 <div class="root">
   <Header />
 
-  <div class="container">
+  <div class="main">
     <LeftPanel />
     <MainPanel />
     <RightPanel />

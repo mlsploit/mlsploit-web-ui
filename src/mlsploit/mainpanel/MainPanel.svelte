@@ -1,23 +1,25 @@
 <script>
   import Panel from './Panel.svelte'
-  import NewPipeline from './pipeline/newpipeline/NewPipeline.svelte';
+  import Pipeline from './pipeline/Pipeline.svelte';
+  import NewPipeline from './newpipeline/NewPipeline.svelte';
 
 </script>
 
 <style>
   #main-panel {
+    padding-bottom: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: scroll;
   }
 </style>
 
 <div id="main-panel">
-  Main Panel
-  <Panel />
+  <Pipeline />
+  <Pipeline />
+  <Pipeline />
+  <Pipeline />
   <NewPipeline />
-  <NewPipeline />
-  <NewPipeline />
-  <NewPipeline />
-  <NewPipeline />
+  <div style="margin:50px; opacity:0;">-</div>
 </div>

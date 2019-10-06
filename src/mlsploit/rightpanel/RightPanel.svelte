@@ -7,9 +7,7 @@
 
 <style>
   #right-panel {
-    width: 400px;
-    height: 100vh;
-    padding: 10px;
+    padding: 20px;
     background-color: var(--gray);
   }
 </style>

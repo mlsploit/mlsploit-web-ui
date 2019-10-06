@@ -8,6 +8,6 @@
   }
 </style>
 
-<div class="bp3-card bp3-elevation-4 bp3-interactive module">
+<div class="bp3-card bp3-elevation-2 bp3-interactive module">
   {parameters.options[1].name}
 </div>

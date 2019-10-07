@@ -1,6 +1,6 @@
 <style>
   #left-panel {
-    background-color: var(--gray);
+    /* background-color: var(--gray); */
   }
 
   .module-li {

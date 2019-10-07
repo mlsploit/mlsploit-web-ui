@@ -8,7 +8,7 @@
 <style>
   #right-panel {
     padding: 20px;
-    background-color: var(--gray);
+    /* background-color: var(--gray); */
   }
 </style>
 

@@ -6,10 +6,13 @@
 
 <style>
   .task-list {
+    width: 100%;
     display: flex;
     flex-direction: row;
     overflow-x: auto;
-    scrollbar-width: none;
+    padding: 20px;
+    /* border: 1px gray solid; */
+    background-color: rgb(250, 250, 250);
   }
 
   .fa-arrow-right {

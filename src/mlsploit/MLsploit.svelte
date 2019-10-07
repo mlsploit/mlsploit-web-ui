@@ -15,13 +15,15 @@
 <style>
   .root {
     height: 100%;
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
   }
   
   .main {
     display: grid;
-    grid-template-columns: 20% 60% 20%;
+    grid-template-columns: 25% 50% 25%;
     height: 100%;
+    width: 1200px;
+    margin: 0 auto;
   }
 </style>
 

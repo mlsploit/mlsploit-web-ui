@@ -11,7 +11,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    background-color: rgb(250, 250, 250);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
   }
 </style>
 

@@ -17,7 +17,7 @@
   }
 
   .controls {
-    margin: 0 20px;
+    margin: 10px 0 0 20px;
   }
   
   .delete {

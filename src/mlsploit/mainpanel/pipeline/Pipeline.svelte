@@ -8,6 +8,11 @@
     width: 80%;
     margin: 20px;
     padding: 20px;
+    cursor: pointer;
+  }
+
+  .pipeline:hover .heading {
+    text-decoration: underline;
   }
 
   .heading {

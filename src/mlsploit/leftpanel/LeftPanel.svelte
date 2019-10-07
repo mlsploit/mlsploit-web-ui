@@ -1,77 +1,8 @@
-<style>
-  #left-panel {
-    /* background-color: var(--gray); */
-  }
-
-  .module-li {
-    list-style-type: none;
-    padding-bottom: 10px;
-  }
-
-  .module-button {
-    border: 0px;
-    background-color: var(--gray);
-    border-radius: 5px;
-    font-size: 20px;
-  }
-
-  .module-button:hover {
-    border: 0px;
-    background-color: lightgrey;
-    cursor: pointer;
-  }
-
-  .module-fun {
-    display: none;
-    font-size: 20px;
-    margin-bottom: 10px;
-    margin-right: 20px;
-  }
-
-  button:focus {outline:0;}
-
-</style>
-
-
-
-<div id="left-panel">
-  <!-- Create the List for modules -->
-  <ul>
-    {#each modules as module, module_i}
-      <!-- Module -->
-      <li class="module-li">
-
-        <!-- Module icon -->
-        <i class="fas fa-angle-right" id={ids_of_list_icon[module_i]}></i>
-
-        <!-- Module name -->
-        <button id={module.module} class="module-button" on:click={click_module}> 
-          <strong> {module.module} </strong>
-        </button>
-
-        <!-- Module functions -->
-        <ul>
-          <!-- For each function -->
-          {#each module.function as f}
-            <!-- Function name -->
-            <div class={class_of_list_fun[module_i]} draggable="true">
-              <strong> {f} </strong>
-            </div>
-          {/each}
-        </ul>
-      </li>
-    {/each}
-  </ul>
-</div>
-
-
 <script>
-  // TODO: Need to get the real modules
-  let modules = [
-    {module: 'Mod1', function: ['Fun1-1', 'Fun1-2', 'Fun1-3']},
-    {module: 'Mod2', function: ['Fun2-1', 'Fun2-2', 'Fun2-3', 'Fun2-4']},
-    {module: 'Mod3', function: ['Fun3-1', 'Fun3-2']}
-  ]
+  import data from '../../dummydata.js';
+  import Module from './module/Module.svelte';
+
+  let modules = data.modules;
 
   // Get class names of functions
   let class_of_list_fun = []
@@ -130,3 +61,17 @@
   }
 
 </script>
+
+<style>
+  #left-panel {
+    padding: 20px;
+  }
+</style>
+
+
+
+<div id="left-panel">
+  {#each modules as module}
+    <Module {module} />
+  {/each}
+</div>

@@ -1,8 +1,9 @@
 <script>
-  import Panel from './Panel.svelte'
+  import data from '../../dummydata.js';
   import Pipeline from './pipeline/Pipeline.svelte';
   import NewPipeline from './newpipeline/NewPipeline.svelte';
 
+  let pipelines = data.pipelines;
 </script>
 
 <style>
@@ -18,10 +19,11 @@
 </style>
 
 <div id="main-panel">
-  <Pipeline />
-  <Pipeline />
-  <Pipeline />
-  <Pipeline />
+  {#each pipelines as pipeline}
+    <Pipeline {pipeline} />
+  {/each}
+  
   <NewPipeline />
+  
   <div style="margin:50px; opacity:0;">-</div>
 </div>

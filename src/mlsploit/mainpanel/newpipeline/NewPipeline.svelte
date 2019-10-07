@@ -1,5 +1,4 @@
 <script>
-  import tasks from './data.js';
   import TaskList from '../tasklist/TaskList.svelte';
 
   const showDropzone = true;
@@ -32,7 +31,7 @@
     <button type="button" class="delete bp3-button bp3-intent-danger bp3-minimal bp3-icon-cross"></button>
   </div>
   
-  <TaskList tasks={tasks} showDropzone={showDropzone} />
+  <TaskList {showDropzone} />
 
   <div class="controls">
     <button type="button" class="bp3-button bp3-intent-primary bp3-icon-floppy-disk">Save</button>

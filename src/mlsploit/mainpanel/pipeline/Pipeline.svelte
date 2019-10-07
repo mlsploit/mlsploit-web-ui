@@ -1,6 +1,8 @@
 <script>
-  import tasks from './data.js';
   import TaskList from '../tasklist/TaskList.svelte';
+
+  export let pipeline;
+  let tasks = pipeline.tasks;
 </script>
 
 <style>
@@ -31,7 +33,7 @@
 
 <div class="pipeline bp3-card bp3-elevation-2">
   <div class="heading">
-    <h5>Pipeline Name</h5>
+    <h5>{pipeline.name}</h5>
     <button type="button" class="delete bp3-button bp3-intent-danger bp3-minimal bp3-icon-cross"></button>
   </div>
   

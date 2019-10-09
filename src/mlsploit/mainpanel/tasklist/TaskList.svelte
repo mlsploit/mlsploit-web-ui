@@ -45,7 +45,7 @@
   }
 
   .fa-arrow-right {
-    margin: auto;
+    margin: auto 10px;
   }
 
   .dropzone {

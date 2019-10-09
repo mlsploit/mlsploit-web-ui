@@ -22,7 +22,7 @@
     display: grid;
     grid-template-columns: 25% 50% 25%;
     height: 100%;
-    width: 1200px;
+    width: 100%;
     margin: 0 auto;
   }
 </style>

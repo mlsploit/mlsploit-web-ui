@@ -1,9 +1,12 @@
 <script>
+  import { onMount } from 'svelte';
   import data from '../../../dummydata.js';
   
   export let task;
   export let isModuleTask = false;
   export let isNewPipelineTask = false;
+
+  let taskComponent;
 
   let task_function = (
     task.intended_function
@@ -19,22 +22,45 @@
     e.target.style.opacity = 1.0;
     jQuery('.dropzone.over').removeClass('over');
   };
+
+  onMount(() => {
+    jQuery(taskComponent).focus(e => {
+      console.log('task in focus', taskComponent);
+    });
+  });
 </script>
 
 <style>
   .task {
-    margin: 20px 10px;
+    margin: 20px;
+    padding: 20px;
+    min-width: 160px;
+    max-width: 280px;
     display: inline-block;
+    cursor: pointer;
+    font-weight: 300;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
   }
 
-  .task[draggable=true] {
-    cursor: move;
+  .task:hover {
+    box-shadow: var(--outer-shadow);
+  }
+
+  .task:focus {
+    font-weight: 600;
+    box-shadow: var(--outer-shadow);
   }
 </style>
 
-<div class="task bp3-card bp3-elevation-1 bp3-interactive" 
+<div class="card text-center task"
+     bind:this={taskComponent}
+     tabindex="-1"
      draggable={isModuleTask} 
      on:dragstart={handleDragStart}
      on:dragend={handleDragEnd}>
+  
   {task_function.name}
+
 </div>

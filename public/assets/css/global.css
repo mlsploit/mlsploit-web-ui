@@ -1,6 +1,7 @@
 :root {
-	--gray: rgb(230, 230, 230);
-	--darkergray: rgb(57, 75, 89);
+	--outer-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+	--outer-shadow-sm: 0 .125rem .25rem rgba(0,0,0,.075);
+	--outer-shadow-lg: 0 1rem 3rem rgba(0,0,0,.175);
 }
 
 html, body {
@@ -8,69 +9,4 @@ html, body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-}
-
-body {
-	color: #333;
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
-}
-
-#app {
-	height: 100%;
-}
-
-a {
-	color: rgb(0,100,200);
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-a:visited {
-	color: rgb(0,80,160);
-}
-
-label {
-	display: block;
-}
-
-input, button, select, textarea {
-	font-family: inherit;
-	font-size: inherit;
-	padding: 0.4em;
-	margin: 0 0 0.5em 0;
-	box-sizing: border-box;
-	border: 1px solid #ccc;
-	border-radius: 2px;
-}
-
-input:disabled {
-	color: #ccc;
-}
-
-input[type="range"] {
-	height: 0;
-}
-
-button {
-	color: #333;
-	background-color: #f4f4f4;
-	outline: none;
-}
-
-button:active {
-	background-color: #ddd;
-}
-
-button:focus {
-	border-color: #666;
-}
-
-.bp3-button.bp3-large:empty {
-	padding: 5px 15px !important;
 }

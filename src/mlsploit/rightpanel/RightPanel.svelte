@@ -8,11 +8,10 @@
 <style>
   #right-panel {
     padding: 20px;
-    /* background-color: var(--gray); */
   }
 </style>
 
-<div id="right-panel">
+<div id="right-panel" class="col-md-3 collapse">
   <h1> Parameters </h1>
   <Module />
   <Age />

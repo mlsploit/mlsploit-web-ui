@@ -4,53 +4,59 @@
   
   export let module;
 
-  let isExpanded = false;
   const toggleIsExpanded = () => {
-    isExpanded = !isExpanded;
+    jQuery('#module-'+module.id+'-tasks').collapse('toggle');
   };
 
   let tasks = module.functions.map(f => {
-    return {
-      "intended_function": f
-    };
+    return { "intended_function": f };
   });
 </script>
 
 <style>
   .module {
-    margin: 10px;
-  }
-
-  .module-name {
-    padding: 10px;
-    border: 0px;
-    background-color: var(--gray);
-    border-radius: 5px;
-    font-size: 20px;
     cursor: pointer;
   }
 
-  .module-name:hover {
-    background-color: lightgrey;
+  .module:hover .card-title {
+    font-weight: bolder;
+  }
+
+  .module-icon {
+    width: 100%;
+  }
+
+  .module-tasks {
+    margin-top: 20px;
+    overflow-x: auto;
+    background-color: rgb(250, 250, 250);
+  }
+
+  .module-tasks:hover {
+    cursor: default;
   }
 </style>
 
-<div class="module">
-  <div class="module-name" on:click={toggleIsExpanded}>
-    {#if isExpanded}
-      <i class="fas fa-angle-down"></i>
-    {:else}
-      <i class="fas fa-angle-right"></i>
-    {/if}
-    
-    <strong>{module.name}</strong>
-  </div>
+<div class="card module">
+  <div class="card-body" on:click={toggleIsExpanded}>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <img src="/assets/img/module.jpg" alt={module.name} class="img-fluid img-thumbnail module-icon">
+        </div>
+        
+        <div class="col-md-9">
+          <h4 class="card-title">{module.name}</h4>
+          <h6 class="card-subtitle mb-2 text-muted">Module tagline here...</h6>
+        </div>
+      </div>
 
-  {#if isExpanded}
-    <ul>
-      {#each tasks as task}
-        <Task {task} isModuleTask={true} />
-      {/each}
-    </ul>
-  {/if}
+      <div id="module-{module.id}-tasks" class="row collapse rounded module-tasks"
+           on:click={(e) => { e.stopPropagation(); }}>
+        {#each tasks as task}
+          <Task {task} isModuleTask={true} />
+        {/each}
+      </div>
+    </div>
+  </div>
 </div>

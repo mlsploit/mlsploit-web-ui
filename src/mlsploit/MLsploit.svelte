@@ -12,27 +12,12 @@
   });
 </script>
 
-<style>
-  .root {
-    height: 100%;
-    /* overflow-y: hidden; */
-  }
-  
-  .main {
-    display: grid;
-    grid-template-columns: 25% 50% 25%;
-    height: 100%;
-    width: 100%;
-    margin: 0 auto;
-  }
-</style>
+<Header />
 
-<div class="root">
-  <Header />
-
-  <div class="main">
-    <LeftPanel />
+<main class="container-fluid h-100" role="main">
+  <div class="row h-100">
+    <LeftPanel /> 
     <MainPanel />
     <RightPanel />
   </div>
-</div>
+</main>

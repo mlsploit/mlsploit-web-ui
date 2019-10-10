@@ -1,29 +1,37 @@
 <script>
   import data from '../../dummydata.js';
+  import {newPipelineVisibleStore} from '../../store.js';
   import Pipeline from './pipeline/Pipeline.svelte';
-  import NewPipeline from './newpipeline/NewPipeline.svelte';
 
+  export let showNewPipeline = false;
+  
   let pipelines = data.pipelines;
+
+  const toggleShowNewPipeline = () => { 
+    $newPipelineVisibleStore = !newPipelineVisibleStore; 
+  };
 </script>
 
 <style>
   #main-panel {
-    padding-bottom: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* overflow-y: scroll; */
+    padding: 20px;
     background-color: rgb(250, 250, 250);
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
   }
 </style>
 
-<div id="main-panel">
+<div id="main-panel" class="col-md-6 shadow">
+  {#if $newPipelineVisibleStore}
+    <Pipeline isNewPipeline={true} toggleShowNewPipeline={toggleShowNewPipeline} />
+  {/if}
+  
   {#each pipelines as pipeline}
     <Pipeline {pipeline} />
   {/each}
-  
-  <NewPipeline />
-  
-  <div style="margin:50px; opacity:0;">-</div>
+  {#each pipelines as pipeline}
+    <Pipeline {pipeline} />
+  {/each}
+  {#each pipelines as pipeline}
+    <Pipeline {pipeline} />
+  {/each}
+
 </div>

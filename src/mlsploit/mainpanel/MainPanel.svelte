@@ -19,7 +19,7 @@
   }
 </style>
 
-<div id="main-panel" class="col-md-6 shadow">
+<div id="main-panel" class="col-md-6">
   {#if $newPipelineVisibleStore}
     <Pipeline isNewPipeline={true} toggleShowNewPipeline={toggleShowNewPipeline} />
   {/if}

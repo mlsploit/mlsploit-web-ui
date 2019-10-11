@@ -16,6 +16,8 @@
 <style>
   .module {
     cursor: pointer;
+    border-radius: 0;
+    border-right: 0;
   }
 
   .module:hover .card-title {
@@ -23,7 +25,13 @@
   }
 
   .module-icon {
+    padding: 0;
+  }
+
+  .module-icon > img {
     width: 100%;
+    height: 100%;
+    object-fit: fit;
   }
 
   .module-tasks {
@@ -41,11 +49,11 @@
   <div class="card-body" on:click={toggleIsExpanded}>
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
-          <img src="/assets/img/module.jpg" alt={module.name} class="img-fluid img-thumbnail module-icon">
+        <div class="col-md-5 module-icon">
+          <img src="/assets/img/module.jpg" alt={module.name} />
         </div>
         
-        <div class="col-md-9">
+        <div class="col-md-7">
           <h4 class="card-title">{module.name}</h4>
           <h6 class="card-subtitle mb-2 text-muted">Module tagline here...</h6>
         </div>

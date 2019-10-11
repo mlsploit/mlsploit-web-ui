@@ -39,17 +39,17 @@
     box-shadow: var(--outer-shadow);
   }
 
-  .pipeline:focus .title h5 {
-    font-weight: 600;
-    text-decoration: underline;
+  .title {
+    margin: 0 0 10px 20px;
   }
 
   .pipeline:hover .title {
     text-decoration: underline;
   }
 
-  .title {
-    margin: 0 0 10px 20px;
+  .pipeline:focus .title h5 {
+    font-weight: 600;
+    text-decoration: underline;
   }
 
   .title > h5, input {
@@ -60,11 +60,16 @@
     float: right;
     margin-top: -5px;
     cursor: pointer;
-    color: red;
+    color: gray;
+    opacity: 0.0;
+  }
+
+  .pipeline:hover .delete {
     opacity: 0.5;
   }
 
-  .delete:hover {
+  .pipeline:hover .delete:hover {
+    color: red;
     opacity: 1.0;
   }
 

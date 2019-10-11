@@ -8,11 +8,7 @@
 
 <style>
   #left-panel {
-    padding: 20px;
-  }
-
-  .accordion {
-    margin: 20px;
+    padding: 0;
   }
 </style>
 

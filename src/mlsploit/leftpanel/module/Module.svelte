@@ -48,6 +48,7 @@
 <div class="card module">
   <div class="card-body" on:click={toggleIsExpanded}>
     <div class="container">
+      
       <div class="row">
         <div class="col-md-5 module-icon">
           <img src="/assets/img/module.jpg" alt={module.name} />
@@ -65,6 +66,7 @@
           <Task {task} isModuleTask={true} />
         {/each}
       </div>
+
     </div>
   </div>
 </div>

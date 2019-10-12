@@ -1,9 +1,12 @@
 <script>
   import data from '../../dummydata.js';
   import Module from './module/Module.svelte';
+  import FileManager from './filemanager/FileManager.svelte';
 
+  // Modules
   let modules = data.modules;
   modules.sort((a, b) => (a.name > b.name) ? 1 : -1)
+
 </script>
 
 <style>
@@ -13,9 +16,17 @@
 </style>
 
 <div id="left-panel" class="col-md-3">
+
+  <!-- Module -->
   <div class="accordion">
     {#each modules as module}
       <Module {module} />
     {/each}
   </div>
+
+  <!-- File manager -->
+  <div id="file-manager">
+    <FileManager {FileManager} />
+  </div>
+
 </div>

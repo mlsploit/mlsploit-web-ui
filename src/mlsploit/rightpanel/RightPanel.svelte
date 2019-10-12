@@ -8,6 +8,8 @@
 <style>
   #right-panel {
     padding: 20px;
+    overflow-y: scroll;
+    height: 100vh;
   }
 </style>
 

@@ -42,6 +42,7 @@
     white-space: nowrap;
     overflow: hidden !important;
     text-overflow: ellipsis;
+    transition: box-shadow 0.3s ease-in-out;
   }
 
   .task:hover {

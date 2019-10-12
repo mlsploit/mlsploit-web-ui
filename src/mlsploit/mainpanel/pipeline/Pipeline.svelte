@@ -33,6 +33,7 @@
     margin: 20px;
     margin-bottom: 40px;
     padding: 20px;
+    transition: box-shadow 0.3s ease-in-out;
   }
 
   .pipeline:focus {

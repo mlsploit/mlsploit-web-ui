@@ -41,7 +41,15 @@
   }
 
   .title {
-    margin: 0 0 10px 20px;
+    margin: 0 0 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title h5 {
+    font-size: 20px;
+    margin: 0;
   }
 
   .pipeline:hover .title {
@@ -51,10 +59,6 @@
   .pipeline:focus .title h5 {
     font-weight: 600;
     text-decoration: underline;
-  }
-
-  .title > h5, input {
-    display: inline;
   }
   
   .delete {
@@ -78,6 +82,7 @@
     margin: 20px;
     margin-bottom: 0px;
   }
+
 </style>
 
 <div class="pipeline card" 
@@ -91,7 +96,7 @@
     {:else}
       <h5>{pipeline.name}</h5>
     {/if}
-    <i class="fas fa-times-circle delete" on:click={deletePipeline}></i>
+    <i class="fa fa-lg fa-times-circle delete" on:click={deletePipeline}></i>
   </div>
   
   <TaskList tasks={tasks} showDropzone={showDropzone} />

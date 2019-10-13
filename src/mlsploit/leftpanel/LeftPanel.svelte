@@ -11,7 +11,8 @@
 
 <style>
   #left-panel {
-    padding: 0;
+    padding: 2rem 2rem 0 0;
+    margin-left: -0.15rem;
     overflow-y: scroll;
     height: 100vh;
   }

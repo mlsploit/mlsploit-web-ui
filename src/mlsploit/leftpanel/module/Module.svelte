@@ -16,8 +16,9 @@
 <style>
   .module {
     cursor: pointer;
-    border-radius: 0;
-    border-right: 0;
+    /* border-radius: 0;
+    border-right: 0; */
+    box-shadow: var(--outer-shadow);
   }
 
   .module:hover .card-title {
@@ -50,11 +51,11 @@
     <div class="container">
       
       <div class="row">
-        <div class="col-md-5 module-icon">
+        <div class="col-md-3 module-icon">
           <img src="/assets/img/module.jpg" alt={module.name} />
         </div>
         
-        <div class="col-md-7">
+        <div class="col-md-9">
           <h4 class="card-title">{module.name}</h4>
           <h6 class="card-subtitle mb-2 text-muted">Module tagline here...</h6>
         </div>

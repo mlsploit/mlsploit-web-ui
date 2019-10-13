@@ -61,27 +61,33 @@
     text-decoration: underline;
   }
   
-  .delete, .check {
+  .delete, .check, .play {
     opacity: 0.0;
   }
 
-  .delete, .check, .sticky-check, .sticky-delete{
+  .delete, .check, .sticky-check, .sticky-delete, .play{
     margin-left: 5px;
     cursor: pointer;
     color: rgb(155, 155, 155);
   }
 
-  .pipeline:hover .delete, .pipeline:hover .check, .sticky-delete, .sticky-check{
+  .pipeline:hover .delete, .pipeline:hover .check, .pipeline:hover .play,
+  .sticky-delete, .sticky-check{
     opacity: 0.5;
   }
 
   .pipeline:hover .delete:hover, .sticky-delete:hover {
-    color: red;
+    color: var(--g-red);
     opacity: 1.0;
   }
 
   .pipeline:hover .check:hover, .sticky-check:hover {
-    color: #28A745;
+    color: var(--g-green);
+    opacity: 1.0;
+  }
+
+  .pipeline:hover .play:hover {
+    color: var(--g-blue);
     opacity: 1.0;
   }
 
@@ -109,7 +115,7 @@
   
   <div class="title">
     {#if isNewPipeline}
-      <input id="name-input" type="text" class="form-control w-50" value="New Pipeline" />
+      <input id="name-input" type="text" class="form-control w-50" placeholder="New Pipeline" />
     {:else}
       <h5>{pipeline.name}</h5>
     {/if}
@@ -118,6 +124,7 @@
         <i class="fa fa-lg fa-check-circle sticky-check"></i>
         <i class="fa fa-lg fa-times-circle sticky-delete" on:click={deletePipeline}></i>
       {:else}
+        <i class="fa fa-lg fa-play-circle play"></i>
         <i class="fa fa-lg fa-times-circle delete" on:click={deletePipeline}></i>
       {/if}
     </div>

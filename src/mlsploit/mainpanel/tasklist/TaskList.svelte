@@ -54,7 +54,9 @@
     margin: 20px;
     padding: 20px;
     min-width: 160px;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 3px;
     border-style: dashed;
     border-width: 1px;

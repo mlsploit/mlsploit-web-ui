@@ -60,7 +60,7 @@
             <i class="fas fa-plus-square"></i> New Pipeline
           </button>
           
-          <button type="button" class="btn btn-secondary">
+          <button type="button" class="btn btn-secondary" id="btn-files">
             <i class="fas fa-file"></i> Files
           </button>
           

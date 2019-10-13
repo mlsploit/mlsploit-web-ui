@@ -52,7 +52,7 @@
     margin: 0;
   }
 
-  .pipeline:hover .title {
+  .pipeline:hover .title h5 {
     text-decoration: underline;
   }
 
@@ -61,20 +61,27 @@
     text-decoration: underline;
   }
   
-  .delete {
-    float: right;
-    margin-top: -5px;
-    cursor: pointer;
-    color: gray;
+  .delete, .check {
     opacity: 0.0;
   }
 
-  .pipeline:hover .delete {
+  .delete, .check, .sticky-check, .sticky-delete{
+    margin-left: 5px;
+    cursor: pointer;
+    color: rgb(155, 155, 155);
+  }
+
+  .pipeline:hover .delete, .pipeline:hover .check, .sticky-delete, .sticky-check{
     opacity: 0.5;
   }
 
-  .pipeline:hover .delete:hover {
+  .pipeline:hover .delete:hover, .sticky-delete:hover {
     color: red;
+    opacity: 1.0;
+  }
+
+  .pipeline:hover .check:hover, .sticky-check:hover {
+    color: #28A745;
     opacity: 1.0;
   }
 
@@ -83,6 +90,16 @@
     margin-bottom: 0px;
   }
 
+  .title-controls{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  #name-input {
+    font-size: 20px;
+    color: rgb(155, 155, 155);
+  }
 </style>
 
 <div class="pipeline card" 
@@ -92,15 +109,24 @@
   
   <div class="title">
     {#if isNewPipeline}
-      <input type="text" class="form-control w-50" value="New Pipeline" />
+      <input id="name-input" type="text" class="form-control w-50" value="New Pipeline" />
     {:else}
       <h5>{pipeline.name}</h5>
     {/if}
-    <i class="fa fa-lg fa-times-circle delete" on:click={deletePipeline}></i>
+    <div class="title-controls">
+      {#if isNewPipeline}
+        <i class="fa fa-lg fa-check-circle sticky-check"></i>
+        <i class="fa fa-lg fa-times-circle sticky-delete" on:click={deletePipeline}></i>
+      {:else}
+        <i class="fa fa-lg fa-times-circle delete" on:click={deletePipeline}></i>
+      {/if}
+    </div>
+
   </div>
   
   <TaskList tasks={tasks} showDropzone={showDropzone} />
 
+  <!--
   {#if isNewPipeline}
     <div class="controls text-right">
       <button type="button" class="btn btn-primary">
@@ -108,4 +134,5 @@
       </button>
     </div>
   {/if}
+  -->
 </div>

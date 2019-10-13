@@ -102,7 +102,7 @@
     align-items: center;
   }
 
-  #name-input {
+  #name-input, #name-input::placeholder {
     font-size: 20px;
     color: rgb(155, 155, 155);
   }

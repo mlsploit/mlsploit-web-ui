@@ -16,8 +16,6 @@
   #main-panel {
     padding: 20px;
     background-color: rgb(250, 250, 250);
-    overflow-y: scroll;
-    height: 100vh;
   }
 </style>
 

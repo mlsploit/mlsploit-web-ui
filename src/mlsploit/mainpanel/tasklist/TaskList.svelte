@@ -33,7 +33,7 @@
       jQuery(newTaskElement).focus();
       numTasks = currentNumTasks;
     }
-	});
+  });
 </script>
 
 <style>
@@ -41,13 +41,11 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
     overflow-x: auto;
-    padding: 20px;
     background-color: rgb(250, 250, 250);
-  }
-
-  .fa-arrow-right {
-    margin: auto 10px;
+    padding: 20px 0;
   }
 
   .dropzone {
@@ -80,7 +78,13 @@
       <i class="fas fa-arrow-right"></i>
     {/if}
     
-    <Task task={task} isNewPipelineTask={hasNewPipelineTasks} />
+    <Task task={task}
+      isNewPipelineTask={hasNewPipelineTasks}>
+      <!--
+      <span slot="input-vis"> Input </span>
+      <span slot="output-vis"> Onput </span>
+      -->
+    </Task>
   {/each}
 
   {#if showDropzone}
@@ -89,10 +93,10 @@
     {/if}
     
     <div class="dropzone" 
-         on:dragenter={handleDragEnter}
-         on:dragleave={handleDragLeave}
-         on:dragover={handleDragOver}
-         on:drop={handleDrop}>
+        on:dragenter={handleDragEnter}
+        on:dragleave={handleDragLeave}
+        on:dragover={handleDragOver}
+        on:drop={handleDrop}>
       <span>drag here...</span>
     </div>
   {/if}

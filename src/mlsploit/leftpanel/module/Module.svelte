@@ -16,9 +16,7 @@
 <style>
   .module {
     cursor: pointer;
-    /* border-radius: 0;
-    border-right: 0; */
-    box-shadow: var(--outer-shadow);
+    border-bottom: var(--border);
   }
 
   .module:hover .card-title {
@@ -46,7 +44,7 @@
   }
 </style>
 
-<div class="card module">
+<div class="module">
   <div class="card-body" on:click={toggleIsExpanded}>
     <div class="container">
       

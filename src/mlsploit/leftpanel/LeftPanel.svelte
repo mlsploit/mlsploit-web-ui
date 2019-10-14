@@ -11,25 +11,46 @@
 
 <style>
   #left-panel {
-    padding: 2rem 2rem 0 0;
-    margin-left: -0.15rem;
+    padding: 2rem;
+  }
+
+  .sidebar {
+    height: 70vh;
+    margin-left: -2.125rem;
+  }
+
+  .sidebar-header {
+    padding: 1.25rem;
+    border-bottom: var(--border);
+  }
+
+  .sidebar-header > h3 {
+    margin: 0;
+    font-weight: 100;
+  }
+
+  .sidebar-contents {
     overflow-y: scroll;
-    height: 100vh;
   }
 </style>
 
 <div id="left-panel" class="col-md-3">
 
-  <!-- Module -->
-  <div class="accordion">
-    {#each modules as module}
-      <Module {module} />
-    {/each}
+  <div class="accordion card shadow sidebar">
+    <div class="sidebar-header">
+      <h3>Research Modules</h3>
+    </div>
+    
+    <div class="sidebar-contents">
+      {#each modules as module}
+        <Module {module} />
+      {/each}
+    </div>
   </div>
 
   <!-- File manager -->
-  <div id="file-manager">
+  <!-- <div id="file-manager">
     <FileManager {FileManager} />
-  </div>
+  </div> -->
 
 </div>

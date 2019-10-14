@@ -68,7 +68,7 @@
   .delete, .check, .sticky-check, .sticky-delete, .play{
     margin-left: 5px;
     cursor: pointer;
-    color: rgb(155, 155, 155);
+    color: var(--g-dark-gray);
   }
 
   .pipeline:hover .delete, .pipeline:hover .check, .pipeline:hover .play,
@@ -104,7 +104,7 @@
 
   #name-input, #name-input::placeholder {
     font-size: 20px;
-    color: rgb(155, 155, 155);
+    color: var(--g-dark-gray);
   }
 </style>
 

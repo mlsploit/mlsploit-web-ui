@@ -15,7 +15,7 @@
 <style>
   #main-panel {
     padding: 20px;
-    background-color: rgb(250, 250, 250);
+    background-color: var(--g-light-gray);
   }
 </style>
 

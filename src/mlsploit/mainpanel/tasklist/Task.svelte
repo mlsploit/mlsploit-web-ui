@@ -59,7 +59,7 @@
     position: absolute;
     top: 5px;
     right: 5px;
-    color: rgb(155, 155, 155);
+    color: var(--g-dark-gray);
     opacity: 0.5;
   }
 
@@ -79,8 +79,9 @@
 
 </style>
 
+<slot name="input-vis"></slot>
+
 <div class="task-container">
-  <slot name="input-vis"></slot>
 
   <div class="card task"
       bind:this={taskComponent}
@@ -95,5 +96,5 @@
     {/if}
   </div>
 
-  <slot name="output-vis"></slot>
 </div>
+<slot name="output-vis"></slot>

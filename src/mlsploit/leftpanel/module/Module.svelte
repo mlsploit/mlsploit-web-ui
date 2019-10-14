@@ -36,7 +36,7 @@
   .module-tasks {
     margin-top: 20px;
     overflow-x: auto;
-    background-color: rgb(250, 250, 250);
+    background-color: var(--g-light-gray);
   }
 
   .module-tasks:hover {

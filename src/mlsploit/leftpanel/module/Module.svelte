@@ -42,6 +42,12 @@
   .module-tasks:hover {
     cursor: default;
   }
+
+  .task-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 </style>
 
 <div class="module">
@@ -61,9 +67,11 @@
 
       <div id="module-{module.id}-tasks" class="row collapse rounded module-tasks"
            on:click={(e) => { e.stopPropagation(); }}>
-        {#each tasks as task}
-          <Task {task} isModuleTask={true} />
-        {/each}
+        <div class="task-wrapper">
+          {#each tasks as task}
+            <Task {task} isModuleTask={true} />
+          {/each}
+        </div>
       </div>
 
     </div>

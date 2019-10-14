@@ -45,7 +45,6 @@
     align-items: center;
     overflow-x: auto;
     background-color: rgb(250, 250, 250);
-    padding: 20px 0;
   }
 
   .dropzone {

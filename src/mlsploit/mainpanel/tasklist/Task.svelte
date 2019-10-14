@@ -36,7 +36,11 @@
     padding: 20px;
     min-width: 160px;
     max-width: 280px;
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
     cursor: pointer;
     font-weight: 300;
     white-space: nowrap;
@@ -45,23 +49,45 @@
     transition: box-shadow 0.3s ease-in-out;
   }
 
+  .delete {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: rgb(155, 155, 155);
+    opacity: 0.0;
+  }
+
   .task:hover {
     box-shadow: var(--outer-shadow);
+  }
+
+  .task:hover .delete {
+    opacity: 0.5;
+  }
+
+  .task:hover .delete:hover {
+    opacity: 1;
+    color: var(--g-red);
   }
 
   .task:focus {
     font-weight: 600;
     box-shadow: var(--outer-shadow);
   }
+
+
 </style>
 
-<div class="card text-center task"
+<div class="card task"
      bind:this={taskComponent}
      tabindex="-1"
      draggable={isModuleTask} 
      on:dragstart={handleDragStart}
      on:dragend={handleDragEnd}>
   
-  {task_function.name}
+  <span class="function-name">{task_function.name}</span>
+  {#if !isModuleTask}
+    <i class="fa fa-s fa-times-circle delete"></i>
+  {/if}
 
 </div>

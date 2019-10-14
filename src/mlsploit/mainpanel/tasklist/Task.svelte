@@ -54,18 +54,14 @@
     top: 5px;
     right: 5px;
     color: rgb(155, 155, 155);
-    opacity: 0.0;
+    opacity: 0.5;
   }
 
   .task:hover {
     box-shadow: var(--outer-shadow);
   }
 
-  .task:hover .delete {
-    opacity: 0.5;
-  }
-
-  .task:hover .delete:hover {
+  .delete:hover {
     opacity: 1;
     color: var(--g-red);
   }
@@ -86,7 +82,7 @@
      on:dragend={handleDragEnd}>
   
   <span class="function-name">{task_function.name}</span>
-  {#if !isModuleTask}
+  {#if isNewPipelineTask}
     <i class="fa fa-s fa-times-circle delete"></i>
   {/if}
 

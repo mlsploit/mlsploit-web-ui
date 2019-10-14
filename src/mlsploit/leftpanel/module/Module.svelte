@@ -1,27 +1,72 @@
 <script>
+  import { onMount } from 'svelte';
   import data from '../../../dummydata.js';
+  import { detailViewItemStore } from '../../../store.js';
+  import detailViewTypes from '../../rightpanel/detailviews/types.js';
   import Task from '../../mainpanel/tasklist/Task.svelte';
   
   export let module;
 
-  const toggleIsExpanded = () => {
+  let moduleComponent;
+
+  const moduleDetailViewItem = {
+    type: detailViewTypes.MODULE,
+    item: module
+  }
+
+  let isExpanded = false;
+  const toggleIsExpanded = (e) => {
+    if (e.stopPropagation) { e.stopPropagation(); }
+
+    isExpanded = !isExpanded;
     jQuery('#module-'+module.id+'-tasks').collapse('toggle');
   };
 
   let tasks = module.functions.map(f => {
     return { "intended_function": f };
   });
+
+  onMount(() => {
+    jQuery(moduleComponent)
+      .focus(e => {
+        if (e.stopPropagation) { e.stopPropagation(); }
+        $detailViewItemStore = moduleDetailViewItem;
+      }).focusout(e => {
+        if (e.stopPropagation) { e.stopPropagation(); }
+        if ($detailViewItemStore === moduleDetailViewItem) {
+          $detailViewItemStore = null;
+        }
+      });
+  });
 </script>
 
 <style>
   .module {
     cursor: pointer;
-    border-radius: 0;
-    border-right: 0;
+    border-bottom: var(--border);
   }
 
-  .module:hover .card-title {
-    font-weight: bolder;
+  .expand-btn {
+    opacity: 0;
+    float: right;
+    font-size: 1.5rem;
+  }
+
+  .module:hover .module-name {
+    font-weight: var(--font-weight-hover);
+  }
+
+  .module:focus .module-name {
+    font-weight: var(--font-weight-focus);
+  }
+
+  .module:hover .expand-btn {
+    opacity: 0.4;
+  }
+
+  .module .expand-btn:hover {
+    opacity: 1;
+    color: var(--g-blue);
   }
 
   .module-icon {
@@ -37,34 +82,43 @@
   .module-tasks {
     margin-top: 20px;
     overflow-x: auto;
-    background-color: rgb(250, 250, 250);
+    background-color: var(--g-light-gray);
   }
 
   .module-tasks:hover {
     cursor: default;
   }
+
+  .task-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 </style>
 
-<div class="card module">
-  <div class="card-body" on:click={toggleIsExpanded}>
+<div class="module" tabindex="-1" bind:this={moduleComponent}>
+  <div class="card-body">
     <div class="container">
       
       <div class="row">
-        <div class="col-md-5 module-icon">
+        <div class="col-md-3 module-icon">
           <img src="/assets/img/module.jpg" alt={module.name} />
         </div>
         
-        <div class="col-md-7">
-          <h4 class="card-title">{module.name}</h4>
-          <h6 class="card-subtitle mb-2 text-muted">Module tagline here...</h6>
+        <div class="col-md-9">
+          <i class="fas fa-chevron-{isExpanded ? 'up' : 'down'} expand-btn" on:click={toggleIsExpanded}></i>
+          <h4 class="module-name">{module.name}</h4>
+          <h6 class="mb-2 text-muted">Module tagline here...</h6>
         </div>
       </div>
 
       <div id="module-{module.id}-tasks" class="row collapse rounded module-tasks"
-           on:click={(e) => { e.stopPropagation(); }}>
-        {#each tasks as task}
-          <Task {task} isModuleTask={true} />
-        {/each}
+           tabindex="-1" on:click={(e) => { e.stopPropagation(); }}>
+        <div class="task-wrapper">
+          {#each tasks as task}
+            <Task {task} isModuleTask={true} />
+          {/each}
+        </div>
       </div>
 
     </div>

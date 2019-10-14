@@ -6,22 +6,18 @@
   export let showNewPipeline = false;
   
   let pipelines = data.pipelines;
-
-  const toggleShowNewPipeline = () => { 
-    $newPipelineVisibleStore = !newPipelineVisibleStore; 
-  };
 </script>
 
 <style>
   #main-panel {
     padding: 20px;
-    background-color: rgb(250, 250, 250);
+    background-color: var(--g-light-gray);
   }
 </style>
 
 <div id="main-panel" class="col-md-6">
   {#if $newPipelineVisibleStore}
-    <Pipeline isNewPipeline={true} toggleShowNewPipeline={toggleShowNewPipeline} />
+    <Pipeline isNewPipeline={true} />
   {/if}
   
   {#each pipelines as pipeline}

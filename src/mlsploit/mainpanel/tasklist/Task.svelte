@@ -64,7 +64,7 @@
   }
 
   .task:hover {
-    box-shadow: var(--outer-shadow);
+    font-weight: var(--font-weight-hover);
   }
 
   .delete:hover {
@@ -73,7 +73,7 @@
   }
 
   .task:focus {
-    font-weight: 600;
+    font-weight: var(--font-weight-focus);
     box-shadow: var(--outer-shadow);
   }
 

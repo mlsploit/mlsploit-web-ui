@@ -53,12 +53,11 @@
   }
 
   .pipeline:hover .title h5 {
-    text-decoration: underline;
+    font-weight: var(--font-weight-hover);
   }
 
   .pipeline:focus .title h5 {
-    font-weight: 600;
-    text-decoration: underline;
+    font-weight: var(--font-weight-focus);
   }
   
   .delete, .check, .play {

@@ -4,7 +4,11 @@
   
   export let module;
 
-  const toggleIsExpanded = () => {
+  let isExpanded = false;
+  const toggleIsExpanded = (e) => {
+    if (e.stopPropagation) { e.stopPropagation(); }
+
+    isExpanded = !isExpanded;
     jQuery('#module-'+module.id+'-tasks').collapse('toggle');
   };
 
@@ -19,8 +23,27 @@
     border-bottom: var(--border);
   }
 
-  .module:hover .card-title {
-    font-weight: bolder;
+  .expand-btn {
+    opacity: 0;
+    float: right;
+    font-size: 1.5rem;
+  }
+
+  .module:hover .module-name {
+    font-weight: var(--font-weight-hover);
+  }
+
+  .module:focus .module-name {
+    font-weight: var(--font-weight-focus);
+  }
+
+  .module:hover .expand-btn {
+    opacity: 0.4;
+  }
+
+  .module .expand-btn:hover {
+    opacity: 1;
+    color: var(--g-blue);
   }
 
   .module-icon {
@@ -50,8 +73,8 @@
   }
 </style>
 
-<div class="module">
-  <div class="card-body" on:click={toggleIsExpanded}>
+<div class="module" tabindex="-1">
+  <div class="card-body">
     <div class="container">
       
       <div class="row">
@@ -60,8 +83,9 @@
         </div>
         
         <div class="col-md-9">
-          <h4 class="card-title">{module.name}</h4>
-          <h6 class="card-subtitle mb-2 text-muted">Module tagline here...</h6>
+          <i class="fas fa-chevron-{isExpanded ? 'up' : 'down'} expand-btn" on:click={toggleIsExpanded}></i>
+          <h4 class="module-name">{module.name}</h4>
+          <h6 class="mb-2 text-muted">Module tagline here...</h6>
         </div>
       </div>
 

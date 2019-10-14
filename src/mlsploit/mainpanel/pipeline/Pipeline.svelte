@@ -1,19 +1,28 @@
 <script>
   import { onMount } from 'svelte';
+  import { detailViewItemStore, newPipelineVisibleStore } from '../../../store.js';
+  import detailViewTypes from '../../rightpanel/detailviews/types.js';
   import TaskList from '../tasklist/TaskList.svelte';
 
-  export let pipeline = {};
+  export let pipeline;
   export let isNewPipeline = false;
-  export let toggleShowNewPipeline = () => {};
 
   let pipelineComponent;
+
+  const pipelineDetailViewItem = {
+    type: detailViewTypes.PIPELINE,
+    item: pipeline
+  }
   
   let tasks = isNewPipeline ? [] : pipeline.tasks;
   const showDropzone = isNewPipeline;
   const cursorStyle = isNewPipeline ? 'default' : 'pointer';
 
   const deletePipeline = (e) => {
-    if (isNewPipeline) { toggleShowNewPipeline(); }
+    if (isNewPipeline) { 
+      $newPipelineVisibleStore = false;
+      $detailViewItemStore = null;
+    }
     else {
       // delete pipeline
     }
@@ -23,10 +32,12 @@
     jQuery(pipelineComponent)
       .focus(e => {
         if (e.stopPropagation) { e.stopPropagation(); }
-        console.log('pipeline got focus', pipelineComponent);
+        $detailViewItemStore = pipelineDetailViewItem;
       }).focusout(e => {
         if (e.stopPropagation) { e.stopPropagation(); }
-        console.log('pipeline lost focus', pipelineComponent);
+        if ($detailViewItemStore === pipelineDetailViewItem) {
+          $detailViewItemStore = null;
+        }
       });
     
     if (isNewPipeline) { jQuery(pipelineComponent).focus(); }

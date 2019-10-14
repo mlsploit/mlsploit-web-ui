@@ -1,11 +1,18 @@
 <script>
   import { onMount } from 'svelte';
   import data from '../../../dummydata.js';
+  import { detailViewItemStore } from '../../../store.js';
+  import detailViewTypes from '../../rightpanel/detailviews/types.js';
   import Task from '../../mainpanel/tasklist/Task.svelte';
   
   export let module;
 
   let moduleComponent;
+
+  const moduleDetailViewItem = {
+    type: detailViewTypes.MODULE,
+    item: module
+  }
 
   let isExpanded = false;
   const toggleIsExpanded = (e) => {
@@ -23,10 +30,12 @@
     jQuery(moduleComponent)
       .focus(e => {
         if (e.stopPropagation) { e.stopPropagation(); }
-        console.log('module got focus', moduleComponent);
+        $detailViewItemStore = moduleDetailViewItem;
       }).focusout(e => {
         if (e.stopPropagation) { e.stopPropagation(); }
-        console.log('module lost focus', moduleComponent);
+        if ($detailViewItemStore === moduleDetailViewItem) {
+          $detailViewItemStore = null;
+        }
       });
   });
 </script>

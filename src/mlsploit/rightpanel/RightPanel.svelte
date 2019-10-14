@@ -1,5 +1,10 @@
 <script>
   import { onMount } from 'svelte';
+  import { detailViewItemStore } from '../../store.js';
+  import detailViewTypes from './detailviews/types.js';
+  import ModuleDetailView from './detailviews/module/ModuleDetailView.svelte';
+  import PipelineDetailView from './detailviews/pipeline/PipelineDetailView.svelte';
+  import TaskDetailView from './detailviews/task/TaskDetailView.svelte';
   
   let detailViewContainer;
 
@@ -25,19 +30,26 @@
       position: fixed;
       bottom: 0;
       right: 15px;
-      z-index: 1020;
-      border: 2px solid red;
     }
-  }
-
-  .top-spacer {
-    height: 2rem;
   }
 </style>
 
 <div id="right-panel" class="col-md-3">
   <div class="detail-view-container" bind:this={detailViewContainer}>
-    <div class="top-spacer"></div>
-    <span>Right Panel</span>
+    {#if $detailViewItemStore !== null}
+      
+      {#if $detailViewItemStore.type === detailViewTypes.MODULE}
+        <ModuleDetailView module={$detailViewItemStore.item} />
+      
+      {:else if $detailViewItemStore.type === detailViewTypes.PIPELINE}
+        <PipelineDetailView pipeline={$detailViewItemStore.item} />
+      
+      {:else if $detailViewItemStore.type === detailViewTypes.TASK}
+        <TaskDetailView task={$detailViewItemStore.item} 
+                        meta={$detailViewItemStore.meta || {}} />
+      
+      {/if}
+    
+    {/if}
   </div>
 </div>

@@ -1,12 +1,23 @@
 <script>
   import { onMount } from 'svelte';
   import data from '../../../dummydata.js';
+  import { detailViewItemStore } from '../../../store.js';
+  import detailViewTypes from '../../rightpanel/detailviews/types.js';
   
   export let task;
   export let isModuleTask = false;
   export let isNewPipelineTask = false;
 
   let taskComponent;
+
+  const taskDetailViewItem = {
+    type: detailViewTypes.TASK,
+    item: task,
+    meta: {
+      isModuleTask: isModuleTask,
+      isNewPipelineTask: isNewPipelineTask
+    }
+  }
 
   let task_function = (
     task.intended_function
@@ -27,10 +38,12 @@
     jQuery(taskComponent)
       .focus(e => {
         if (e.stopPropagation) { e.stopPropagation(); }
-        console.log('task got focus', taskComponent);
+        $detailViewItemStore = taskDetailViewItem;
       }).focusout(e => {
         if (e.stopPropagation) { e.stopPropagation(); }
-        console.log('task lost focus', taskComponent);
+        if ($detailViewItemStore === taskDetailViewItem) {
+          $detailViewItemStore = null;
+        }
       });
 
     if (isNewPipelineTask) { jQuery(taskComponent).focus(); }

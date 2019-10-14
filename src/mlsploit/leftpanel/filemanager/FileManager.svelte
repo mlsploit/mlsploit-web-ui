@@ -1,11 +1,20 @@
 <script>
-  
+
+  // File list
+  // TODO: Need to get the real file list from upload
+  var file_list = ['file1', 'file2', 'file3', 'file4'];
+
+  // File selection click 
+  // let file_select_box = document.getElementById("file-select");
+  // console.log(file_select_box)
+  // // file_select_box.onclick = function() {file_select_all()};
+
+  function file_select_all() {
+    console.log('click')
+  }
+
   // Export filemanager
   export let FileManager;
-
-  // File-type
-  let file_type_div = document.getElementById("file-type");
-  // file_type_div.
 
 </script>
 
@@ -40,6 +49,14 @@
     display: inline;
   }
 
+  #file-list {
+      margin-left: 15px;
+  }
+
+  .file-each-select-box {
+    padding-right: 5px;
+  }
+
 </style>
 
 <!-- File user input -->
@@ -48,8 +65,8 @@
 
     <!-- File select option -->
     <div id="file-select" class="file-options">
-      <!-- <i class="far fa-check-square fa-2x" id="file-check"></i> -->
-      <i class="far fa-square fa-2x" id="file-uncheck"></i>
+      <i class="far fa-check-square fa-2x" id="file-check" style="display: none;"></i>
+      <i class="far fa-square fa-2x" id="file-uncheck" style="display: inline;"></i>
       <i class="fas fa-caret-down fa-lg" id="file-select-option"></i>
     </div>
     
@@ -70,6 +87,12 @@
 
   <!-- File list -->
   <div id="file-list">
-    File-list
+    {#each file_list as file}
+      <div>
+        <i class="far fa-square fa-lg file-each-select-box" style="display: none;"></i> 
+        <i class="far fa-square fa-lg" id="file-uncheck" style="display: inline;"></i>
+        {file}
+      </div>
+    {/each}
   </div>
 </div>

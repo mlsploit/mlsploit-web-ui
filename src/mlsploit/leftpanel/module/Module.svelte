@@ -1,8 +1,11 @@
 <script>
+  import { onMount } from 'svelte';
   import data from '../../../dummydata.js';
   import Task from '../../mainpanel/tasklist/Task.svelte';
   
   export let module;
+
+  let moduleComponent;
 
   let isExpanded = false;
   const toggleIsExpanded = (e) => {
@@ -14,6 +17,17 @@
 
   let tasks = module.functions.map(f => {
     return { "intended_function": f };
+  });
+
+  onMount(() => {
+    jQuery(moduleComponent)
+      .focus(e => {
+        if (e.stopPropagation) { e.stopPropagation(); }
+        console.log('module got focus', moduleComponent);
+      }).focusout(e => {
+        if (e.stopPropagation) { e.stopPropagation(); }
+        console.log('module lost focus', moduleComponent);
+      });
   });
 </script>
 
@@ -73,7 +87,7 @@
   }
 </style>
 
-<div class="module" tabindex="-1">
+<div class="module" tabindex="-1" bind:this={moduleComponent}>
   <div class="card-body">
     <div class="container">
       
@@ -90,7 +104,7 @@
       </div>
 
       <div id="module-{module.id}-tasks" class="row collapse rounded module-tasks"
-           on:click={(e) => { e.stopPropagation(); }}>
+           tabindex="-1" on:click={(e) => { e.stopPropagation(); }}>
         <div class="task-wrapper">
           {#each tasks as task}
             <Task {task} isModuleTask={true} />

@@ -20,9 +20,14 @@
   };
 
   onMount(() => {
-    jQuery(pipelineComponent).focus(e => {
-      console.log('pipeline in focus', pipelineComponent);
-    });
+    jQuery(pipelineComponent)
+      .focus(e => {
+        if (e.stopPropagation) { e.stopPropagation(); }
+        console.log('pipeline got focus', pipelineComponent);
+      }).focusout(e => {
+        if (e.stopPropagation) { e.stopPropagation(); }
+        console.log('pipeline lost focus', pipelineComponent);
+      });
     
     if (isNewPipeline) { jQuery(pipelineComponent).focus(); }
   });

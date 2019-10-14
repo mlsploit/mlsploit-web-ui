@@ -24,9 +24,16 @@
   };
 
   onMount(() => {
-    jQuery(taskComponent).focus(e => {
-      console.log('task in focus', taskComponent);
-    });
+    jQuery(taskComponent)
+      .focus(e => {
+        if (e.stopPropagation) { e.stopPropagation(); }
+        console.log('task got focus', taskComponent);
+      }).focusout(e => {
+        if (e.stopPropagation) { e.stopPropagation(); }
+        console.log('task lost focus', taskComponent);
+      });
+
+    if (isNewPipelineTask) { jQuery(taskComponent).focus(); }
   });
 </script>
 

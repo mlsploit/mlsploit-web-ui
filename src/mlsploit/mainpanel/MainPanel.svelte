@@ -11,7 +11,7 @@
 
 <style>
   #main-panel {
-    padding: 20px;
+    padding: 2rem;
     background-color: var(--g-light-gray);
   }
 </style>

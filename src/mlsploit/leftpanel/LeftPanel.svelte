@@ -15,6 +15,7 @@
 
   .sidebar {
     height: 70vh;
+    margin-top: 1rem;
     margin-left: -2.125rem;
   }
 

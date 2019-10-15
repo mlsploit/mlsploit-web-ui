@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { detailViewItemStore } from '../../store.js';
+  import { setupDetailViewHandlers } from './detailview.js';
   import detailViewTypes from './detailviews/types.js';
   import ModuleDetailView from './detailviews/module/ModuleDetailView.svelte';
   import PipelineDetailView from './detailviews/pipeline/PipelineDetailView.svelte';
@@ -20,8 +21,12 @@
     }
   }
 
-  onMount(resizeDetailViewContainer);
-  jQuery(window).resize(resizeDetailViewContainer);
+  onMount(() => {
+    resizeDetailViewContainer();
+    jQuery(window).resize(resizeDetailViewContainer);
+    
+    setupDetailViewHandlers(detailViewContainer);
+  });
 </script>
 
 <style>
@@ -35,7 +40,7 @@
 </style>
 
 <div id="right-panel" class="col-md-3">
-  <div class="detail-view-container" bind:this={detailViewContainer}>
+  <div class="detail-view-container" tabindex="-1" bind:this={detailViewContainer}>
     {#if $detailViewItemStore !== null}
       
       {#if $detailViewItemStore.type === detailViewTypes.MODULE}

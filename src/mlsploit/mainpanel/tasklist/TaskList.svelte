@@ -48,7 +48,7 @@
         inputType: 'image',
         inputSource: 'https://nimages2.champdogs.net/29893/l46292823.jpg',
         showOutput: true,
-        outputTyle: 'image',
+        outputType: 'image',
         outputSource: 'https://nimages2.champdogs.net/29893/l46292823.jpg'
       };
       taskInputOutput = [...taskInputOutput, rule];
@@ -59,7 +59,6 @@
       ]
     }
   })
-  console.log(taskInputOutput)
 
 </script>
 
@@ -97,55 +96,33 @@
     border-width: 2px;
   }
 
-  .output, .input {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .hidden {
-    opacity: 0.0;
-  }
-
-  .first {
-    margin-left: 20px;
-  }
-
 </style>
 
 <div class="task-list rounded" bind:this={taskListComponent}>
   {#if !showDropzone}
     {#each tasks as task, idx}
-      <Task task={task} isNewPipelineTask={hasNewPipelineTasks}>
-        <!-- Input slot-->
-        <div slot="input-vis">
-          {#if taskInputOutput[idx].showInput}
-            <div class="input first">
-              <i class="fas fa-arrow-right hidden"></i>
-              <ImageVis imageURL={taskInputOutput[idx].inputSource} isInput/>
-              <i class="fas fa-arrow-right"></i>
-            </div>
-          {/if}  
-        </div>
 
-        <!-- Output Slot-->
-        <div class="output" slot="output-vis">
-          {#if taskInputOutput[idx].showOutput}
-            {#if idx !== tasks.length - 1}
-              <i class="fas fa-arrow-right hidden"></i>
-                <ImageVis imageURL={taskInputOutput[idx].outputSource}/>
-              <i class="fas fa-arrow-right"></i>
-            {:else}
-              <ImageVis imageURL={taskInputOutput[idx].outputSource}/>
-            {/if}
-          {:else}
-            {#if idx !== tasks.length - 1}
-              <i class="fas fa-arrow-right"></i>
-            {/if}
-          {/if}
-        </div>
-      </Task>
+      <!-- Add an input component if this task requires to show one -->
+      {#if taskInputOutput[idx].showInput}
+        {#if taskInputOutput[idx].inputType === 'image'}
+         <ImageVis imageURL={taskInputOutput[idx].inputSource} isInput/>
+        {/if}
+        <i class="fas fa-arrow-right"></i>
+      {/if}
+
+      <Task task={task} isNewPipelineTask={hasNewPipelineTasks}/>
+
+      <!-- Add an output component if this task requires to show one -->
+      {#if taskInputOutput[idx].showOutput}
+        <i class="fas fa-arrow-right"></i>
+        {#if taskInputOutput[idx].outputType === 'image'}
+         <ImageVis imageURL={taskInputOutput[idx].outputSource} />
+        {/if}
+      {/if}
+
+      {#if idx !== tasks.length - 1}
+        <i class="fas fa-arrow-right"></i>
+      {/if}
     {/each}
   {/if}
 

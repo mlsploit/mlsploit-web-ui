@@ -25,8 +25,9 @@
       $detailViewItemStore = null;
     }
     else {
-      jQuery('#alertModal').modal('toggle')
       // delete pipeline
+      // Toggle the deletion confirmation dialog
+      jQuery('#alertModal').modal('toggle')
     }
   };
 
@@ -155,7 +156,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-body">
-          Do you want to delete "{pipeline.name}"?
+          Do you want to delete "{isNewPipeline ? 'this new Pipeline' : pipeline.name}"?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">

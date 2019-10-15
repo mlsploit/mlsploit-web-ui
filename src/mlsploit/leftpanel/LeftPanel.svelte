@@ -50,9 +50,4 @@
     </div>
   </div>
 
-  <!-- File manager -->
-  <!-- <div id="file-manager">
-    <FileManager {FileManager} />
-  </div> -->
-
 </div>

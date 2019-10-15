@@ -82,8 +82,10 @@
 
   .task-wrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
   }
 </style>
 

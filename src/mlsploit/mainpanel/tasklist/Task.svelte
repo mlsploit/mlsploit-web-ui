@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import data from '../../../dummydata.js';
-  import { detailViewItemStore } from '../../../store.js';
+  import { setupDetailViewHandlers } from '../../rightpanel/detailview.js';
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
   
   export let task;
@@ -35,17 +35,7 @@
   };
 
   onMount(() => {
-    jQuery(taskComponent)
-      .focus(e => {
-        if (e.stopPropagation) { e.stopPropagation(); }
-        $detailViewItemStore = taskDetailViewItem;
-      }).focusout(e => {
-        if (e.stopPropagation) { e.stopPropagation(); }
-        if ($detailViewItemStore === taskDetailViewItem) {
-          $detailViewItemStore = null;
-        }
-      });
-
+    setupDetailViewHandlers(taskComponent, taskDetailViewItem);
     if (isNewPipelineTask) { jQuery(taskComponent).focus(); }
   });
 </script>

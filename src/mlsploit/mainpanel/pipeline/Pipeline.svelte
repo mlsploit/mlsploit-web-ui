@@ -1,10 +1,11 @@
 <script>
   import { onMount } from 'svelte';
+  import { setupDetailViewHandlers } from '../../rightpanel/detailview.js';
   import { detailViewItemStore, newPipelineVisibleStore } from '../../../store.js';
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
   import TaskList from '../tasklist/TaskList.svelte';
 
-  export let pipeline;
+  export let pipeline = null;
   export let isNewPipeline = false;
 
   let pipelineComponent;
@@ -29,17 +30,7 @@
   };
 
   onMount(() => {
-    jQuery(pipelineComponent)
-      .focus(e => {
-        if (e.stopPropagation) { e.stopPropagation(); }
-        $detailViewItemStore = pipelineDetailViewItem;
-      }).focusout(e => {
-        if (e.stopPropagation) { e.stopPropagation(); }
-        if ($detailViewItemStore === pipelineDetailViewItem) {
-          $detailViewItemStore = null;
-        }
-      });
-    
+    setupDetailViewHandlers(pipelineComponent, pipelineDetailViewItem);
     if (isNewPipeline) { jQuery(pipelineComponent).focus(); }
   });
 </script>

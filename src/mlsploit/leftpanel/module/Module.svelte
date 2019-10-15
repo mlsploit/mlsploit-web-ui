@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import data from '../../../dummydata.js';
-  import { detailViewItemStore } from '../../../store.js';
+  import { setupDetailViewHandlers } from '../../rightpanel/detailview.js';
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
   import Task from '../../mainpanel/tasklist/Task.svelte';
   
@@ -27,16 +27,7 @@
   });
 
   onMount(() => {
-    jQuery(moduleComponent)
-      .focus(e => {
-        if (e.stopPropagation) { e.stopPropagation(); }
-        $detailViewItemStore = moduleDetailViewItem;
-      }).focusout(e => {
-        if (e.stopPropagation) { e.stopPropagation(); }
-        if ($detailViewItemStore === moduleDetailViewItem) {
-          $detailViewItemStore = null;
-        }
-      });
+    setupDetailViewHandlers(moduleComponent, moduleDetailViewItem);
   });
 </script>
 

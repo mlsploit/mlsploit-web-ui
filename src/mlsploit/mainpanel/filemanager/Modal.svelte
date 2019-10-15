@@ -38,12 +38,10 @@
 </style>
 
 <div class='modal-background' on:click='{() => dispatch("close")}'></div>
-
 <div class='modal'>
 	<slot name='header'></slot>
 	<hr>
 	<slot></slot>
 	<hr>
-
 	<button on:click='{() => dispatch("close")}'>close modal</button>
 </div>

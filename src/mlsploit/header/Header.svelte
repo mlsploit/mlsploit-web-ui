@@ -8,8 +8,10 @@
 
   const onFileManagerBtnClicked = (e) => {
     console.log("onFileManagerBtnClicked")
+
     if (e.preventDefault) { e.preventDefault(); }
-    $FileManagerVisibleStore = true;
+    $FileManagerVisibleStore = !($FileManagerVisibleStore);
+
   };
 
 </script>

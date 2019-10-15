@@ -12,23 +12,24 @@
     align-items: stretch;
   }
 
-  .detail-view-header, .detail-view-body, .detail-view-footer {
+  :global(.detail-view-header, .detail-view-body, .detail-view-footer) {
     flex-shrink: 1;
+    overflow-y: scroll;
     padding: 2rem 1rem;
   }
 
-  .detail-view-header {
+  :global(.detail-view-header) {
     border-bottom: var(--border);
     font-size: 1.2rem;
     font-weight: 1000;
   }
 
-  .detail-view-body {
+  :global(.detail-view-body) {
     flex-grow: 1;
-    overflow-y: scroll;
+    min-height: 40vh;
   }
 
-  .detail-view-footer {
+  :global(.detail-view-footer) {
     border-top: var(--border);
     font-size: 0.8rem;
     color: #6c757d;
@@ -50,7 +51,7 @@
 
   <slot name="detail-view-footer">
     {#if footer}
-      <div class="footer-text">
+      <div class="detail-view-footer">
         <span>{footer}</span>
       </div>
     {/if}

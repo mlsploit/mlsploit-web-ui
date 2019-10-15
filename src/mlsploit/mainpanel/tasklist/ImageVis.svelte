@@ -17,7 +17,7 @@
     <img src="${imageURL}"
       alt="Larger Visualization of the input/output image."
       style="width:100%">
-    ` 
+  ` 
 </script>
 
 <style>

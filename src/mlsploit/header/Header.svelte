@@ -42,7 +42,7 @@
   }
 </style>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm sticky-top">
   <div class="container-fluid">
     <div class="row w-100">
       <div class="col-md-6">

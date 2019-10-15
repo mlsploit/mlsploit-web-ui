@@ -31,23 +31,28 @@
   .detail-view-footer {
     border-top: var(--border);
     font-size: 0.8rem;
+    color: #6c757d;
   }
 </style>
 
 <div class="detail-view">
-  <div class="detail-view-header">
-    <slot name="detail-view-header" >
-      <span>{title}</span>
-    </slot>
-  </div>
+  <slot name="detail-view-header">
+    {#if title}
+      <div class="detail-view-header" >
+        <span>{title}</span>
+      </div>
+    {/if}
+  </slot>
 
   <div class="detail-view-body">
     <slot />
   </div>
 
-  <div class="detail-view-footer">
-    <slot name="footer-text text-muted">
-      <span class="text-muted">{footer}</span>
-    </slot>
-  </div>
+  <slot name="detail-view-footer">
+    {#if footer}
+      <div class="footer-text">
+        <span>{footer}</span>
+      </div>
+    {/if}
+  </slot>
 </div>

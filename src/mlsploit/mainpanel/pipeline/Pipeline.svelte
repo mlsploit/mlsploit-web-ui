@@ -46,9 +46,9 @@
 
 <style>
   .pipeline {
-    margin: 20px;
-    margin-bottom: 40px;
-    padding: 20px;
+    margin: 1rem;
+    margin-bottom: 3rem;
+    padding: 2rem;
     transition: box-shadow 0.3s ease-in-out;
   }
 

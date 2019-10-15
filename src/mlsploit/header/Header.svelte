@@ -70,6 +70,7 @@
           </button>
           
           <button type="button" class="btn btn-secondary" id="btn-files"
+                  data-toggle="modal" data-target="#FileManagerModal"
                   on:click={onFileManagerBtnClicked}>
             <i class="fas fa-file"></i> Files
           </button>

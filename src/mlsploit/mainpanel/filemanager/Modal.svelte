@@ -1,16 +1,19 @@
 <script>
 
-	// TODO: Get the real file list
-	let file_list = ['file1', 'file2', 'file3', 'file4'];
+	// TODO: Get the real files
+	let files = {
+		'file1': {'type': 'type1'},
+		'file2': {'type': 'type2'},
+		'file3': {'type': 'type2'},
+		'file4': {'type': 'type3'},
+	}
 
 	// Keep track of file status
 	let file_status = {};
-	file_list.forEach(file => file_status[file] = false);
+	Object.keys(files).forEach(file => file_status[file] = false);
 
 	// File check all-or-none
 	const file_check_all_none = (e) => {
-		
-		console.log("will uncheck/check all file");
 
 		if (e.preventDefault) { e.preventDefault(); }
 
@@ -40,7 +43,7 @@
 			});
 
 			// Add all files into file_status
-			file_list.forEach(file => file_status[file] = true);
+			Object.keys(files).forEach(file => file_status[file] = true);
 		}
 		// Uncheck all file icons
 		else {
@@ -57,7 +60,7 @@
 			});
 
 			// Delete all files from file_status
-			file_list.forEach(file => file_status[file] = false);
+			Object.keys(files).forEach(file => file_status[file] = false);
 		}
 
 		console.log("Now file_status:", file_status);
@@ -65,7 +68,8 @@
 
 	// Click one file
 	const click_one_file = (e) => {
-		console.log("click", e.target.id)
+		
+		if (e.preventDefault) { e.preventDefault(); }
 
 		// Get file name
 		let file = e.target.id.split('-').pop();
@@ -111,9 +115,20 @@
 				uncheck_icon.style.display = "inline";
 				all_check_icon.style.display = "none";
 			}
-		}
-		
+		}	
+
+		console.log("Now file_status:", file_status);
 	}
+
+	// File select options
+	const file_select_option = (e) => {
+
+		if (e.preventDefault) { e.preventDefault(); }
+
+
+
+	}
+
 </script>
 
 <style>
@@ -145,6 +160,22 @@
 		display: inline;
 	}
 
+	.file-bullet-contents {
+		display: inline-block;
+		transform: translate(0px, -2px);
+	}
+
+	#file-tag {
+		margin-left: 31.5vh;
+	}
+
+	#file-download {
+		margin-left: 10px;
+	}
+
+	#file-trash {
+		margin-left: 10px;
+	}
 </style>
 
 <!-- File manager modal window -->
@@ -160,10 +191,20 @@
 					id="file-uncheck" on:click={file_check_all_none}></i>
 				<i class="far fa-check-square fa-2x file-icon" style="display: none;" 
 					id="file-check" on:click={file_check_all_none}></i>
-				<i class="fas fa-caret-down fa-lg file-icon" id="file-select-option"></i>
+				<i class="fas fa-caret-down fa-lg file-icon" 
+					id="file-select-option" on:click={file_select_option}></i>
 
 				<!-- Title -->
 				<h5 class="modal-title" id="exampleModalLabel">Files</h5>
+
+				<!-- Tag -->
+				<i class="fas fa-tag fa-2x file-icon" id="file-tag"></i>
+
+				<!-- Download -->
+				<i class="fas fa-file-download fa-2x file-icon" id="file-download"></i>
+
+				<!-- Trash -->
+				<i class="fas fa-trash fa-2x file-icon" id="file-trash"></i>
 
 				<!-- Close button -->
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -174,7 +215,7 @@
 			<!-- Local file manager -->
       <div class="modal-body">
 				<ul class="file-list">
-					{#each file_list as file}
+					{#each Object.keys(files) as file}
 						<!-- File check bullet -->
 						<i id={"file-bullet-check-" + file} 
 							class="far fa-check-square fa-2x file-icon file-bullet file-bullet-check" 
@@ -186,17 +227,11 @@
 							style="display: inline;" on:click={click_one_file}></i>
 
 						<!-- Filename -->
-						<li class="file-bullet"> <text> {file} </text> </li>
+						<li class="file-bullet-contents"> <h5 class="file-bullet-contents"> {file} </h5> </li>
 						<br>
 					{/each}
 				</ul>
       </div> 
-
-			<!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
 
     </div>
   </div>

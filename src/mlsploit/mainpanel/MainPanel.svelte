@@ -32,7 +32,9 @@
     <Pipeline {pipeline} />
   {/each}
 
+  <!-- Filemanager modal -->
+  <Modal></Modal>
+  
 </div>
 
-<!-- Filemanager modal -->
-<Modal></Modal>
+

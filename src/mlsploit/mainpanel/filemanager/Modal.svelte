@@ -21,8 +21,8 @@
 		position: absolute;
 		z-index: 1; 
 		display: block;
-		left: 50%;
-		top: 50%;
+		left: 88%;
+		top: 55%;
 		width: calc(100vw - 4em);
 		max-width: 32em;
 		max-height: calc(100vh - 4em);

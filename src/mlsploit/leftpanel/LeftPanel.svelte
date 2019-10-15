@@ -14,6 +14,8 @@
   }
 
   .sidebar {
+    position: sticky;
+    top: 8rem;
     height: 70vh;
     margin-top: 1rem;
     margin-left: -2.125rem;

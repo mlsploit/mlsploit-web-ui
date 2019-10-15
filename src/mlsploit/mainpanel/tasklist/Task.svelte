@@ -41,15 +41,9 @@
 </script>
 
 <style>
-  .task-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 20px 20px;
-  }
-
   .task {
-    padding: 20px;
+    margin: 2rem;
+    padding: 2rem;
     min-width: 160px;
     max-width: 280px;
     display: flex;
@@ -89,22 +83,16 @@
 
 </style>
 
-<slot name="input-vis"></slot>
-
-<div class="task-container">
-
-  <div class="card task"
+<div class="card task"
       bind:this={taskComponent}
       tabindex="-1"
       draggable={isModuleTask} 
       on:dragstart={handleDragStart}
       on:dragend={handleDragEnd}>
     
-    <span class="function-name">{task_function.name}</span>
-    {#if isNewPipelineTask}
-      <i class="fa fa-s fa-times-circle delete"></i>
-    {/if}
-  </div>
+  <span class="function-name">{task_function.name}</span>
+  {#if isNewPipelineTask}
+    <i class="fa fa-s fa-times-circle delete"></i>
+  {/if}
 
 </div>
-<slot name="output-vis"></slot>

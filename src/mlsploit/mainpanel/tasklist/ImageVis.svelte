@@ -8,11 +8,15 @@
 
 <style>
 
+.image-vis {
+  margin: 0 20px;
+}
+
 .image-vis img {
   object-fit: cover;
-  width: 20px;
-  height: 20px;
-  margin: 5px 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 3px;
 }
 
 </style>

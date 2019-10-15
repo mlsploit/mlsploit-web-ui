@@ -38,6 +38,7 @@
 </style>
 
 <div class='modal-background' on:click='{() => dispatch("close")}'></div>
+
 <div class='modal'>
 	<slot name='header'></slot>
 	<hr>

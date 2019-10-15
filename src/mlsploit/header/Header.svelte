@@ -1,5 +1,5 @@
 <script>
-  import { newPipelineVisibleStore, FileManagerVisibleStore } from '../../store.js';
+  import { newPipelineVisibleStore } from '../../store.js';
   import Modal from '../mainpanel/filemanager/Modal.svelte';
 
   const onNewPipelineBtnClicked = (e) => {
@@ -7,13 +7,7 @@
     $newPipelineVisibleStore = true;
   };
 
-  const onFileManagerBtnClicked = (e) => {
-
-    console.log("file manager btn clicked")
-    
-    if (e.preventDefault) { e.preventDefault() ;}
-    $FileManagerVisibleStore = true;
-  }
+  let showModal = false;
 
 </script>
 
@@ -70,16 +64,37 @@
             <i class="fas fa-plus-square"></i> New Pipeline
           </button>
           
-          <button type="button" class="btn btn-secondary" id="btn-files" 
-                  on:click={onFileManagerBtnClicked}>
+          <button type="button" class="btn btn-secondary" id="btn-files"
+                  on:click={() => showModal = true}>
             <i class="fas fa-file"></i> Files
           </button>
-          
+
           <button type="button" class="btn btn-secondary">
             <i class="fas fa-cog"></i>
           </button>
+
         </div>
       </div>
     </div>
   </div>
 </nav>
+
+{#if showModal}
+  <Modal on:close="{() => showModal = false}">
+    <h2 slot="header">
+      modal
+      <small><em>adjective</em>  mod·al \ˈmō-dəl\</small>
+    </h2>
+
+    <ol class="definition-list">
+      <li>of or relating to modality in logic</li>
+      <li>containing provisions as to the mode of procedure or the manner of taking effect —used of a contract or legacy</li>
+      <li>of or relating to a musical mode</li>
+      <li>of or relating to structure as opposed to substance</li>
+      <li>of, relating to, or constituting a grammatical form or category characteristically indicating predication</li>
+      <li>of or relating to a statistical mode</li>
+    </ol>
+
+    <a href="https://www.merriam-webster.com/dictionary/modal">merriam-webster.com</a>
+  </Modal>
+{/if}

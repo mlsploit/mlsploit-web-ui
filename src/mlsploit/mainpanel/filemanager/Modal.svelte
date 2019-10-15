@@ -7,15 +7,6 @@
 </script>
 
 <style>
-/* 
-  .modal-background {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: rgba(0,0,0,0.3);
-	} */
 
 	.modal {
 		position: absolute;
@@ -44,33 +35,31 @@
 
 </style>
 
-<div class="modal fade" id="FileManagerModal" tabindex="-1" role="dialog" 
-	aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- File manager modal window -->
+<div class="modal fade" id="FileManagerModal" 
+	tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+
+			<!-- Modal header -->
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
+			<!-- Modal body -->
       <div class="modal-body">
         ...
       </div> 
+
+			<!-- Modal footer -->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
+			
     </div>
   </div>
 </div>
-
-<!-- 
-<div class='modal-background' on:click='{() => dispatch("close")}'></div>
-<div class='modal'>
-	<slot name='header'></slot>
-	<hr>
-	<slot></slot>
-	<hr>
-	<button on:click='{() => dispatch("close")}'>close modal</button>
-</div> -->

@@ -6,14 +6,6 @@
     $newPipelineVisibleStore = true;
   };
 
-  const onFileManagerBtnClicked = (e) => {
-    console.log("onFileManagerBtnClicked")
-
-    if (e.preventDefault) { e.preventDefault(); }
-    $FileManagerVisibleStore = !($FileManagerVisibleStore);
-
-  };
-
 </script>
 
 <style>
@@ -70,8 +62,7 @@
           </button>
           
           <button type="button" class="btn btn-secondary" id="btn-files"
-                  data-toggle="modal" data-target="#FileManagerModal"
-                  on:click={onFileManagerBtnClicked}>
+                  data-toggle="modal" data-target="#FileManagerModal">
             <i class="fas fa-file"></i> Files
           </button>
 

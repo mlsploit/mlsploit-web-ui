@@ -19,6 +19,8 @@
 
 	.modal {
 		position: absolute;
+		z-index: 1; 
+		display: block;
 		left: 50%;
 		top: 50%;
 		width: calc(100vw - 4em);

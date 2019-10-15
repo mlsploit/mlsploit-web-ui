@@ -1,10 +1,20 @@
 <script>
-  import { newPipelineVisibleStore } from '../../store.js';
+  import { newPipelineVisibleStore, FileManagerVisibleStore } from '../../store.js';
+  import Modal from '../mainpanel/filemanager/Modal.svelte';
 
   const onNewPipelineBtnClicked = (e) => {
     if (e.preventDefault) { e.preventDefault(); }
     $newPipelineVisibleStore = true;
   };
+
+  const onFileManagerBtnClicked = (e) => {
+
+    console.log("file manager btn clicked")
+    
+    if (e.preventDefault) { e.preventDefault() ;}
+    $FileManagerVisibleStore = true;
+  }
+
 </script>
 
 <style>
@@ -60,7 +70,8 @@
             <i class="fas fa-plus-square"></i> New Pipeline
           </button>
           
-          <button type="button" class="btn btn-secondary" id="btn-files">
+          <button type="button" class="btn btn-secondary" id="btn-files" 
+                  on:click={onFileManagerBtnClicked}>
             <i class="fas fa-file"></i> Files
           </button>
           

@@ -1,7 +1,6 @@
 <script>
   import data from '../../dummydata.js';
   import Module from './module/Module.svelte';
-  import FileManager from './filemanager/FileManager.svelte';
 
   // Modules
   let modules = data.modules;

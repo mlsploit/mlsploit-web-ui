@@ -163,11 +163,7 @@
 		// Check if we want to check the file
 		let will_check_the_file = e.target.id.includes("uncheck");
 
-		// Get global check / uncheck icons
-		let all_check_icon = document.getElementById("file-check");
-		let uncheck_icon = document.getElementById("file-uncheck");
-
-		// Toggle check/uncheck
+		// Toggle check/uncheck in file item rows
 		let file_check_bullet = document.getElementById("file-bullet-check-" + file);
 		let file_uncheck_bullet = document.getElementById("file-bullet-uncheck-" + file);
 		if (will_check_the_file) {
@@ -185,25 +181,58 @@
 			file_status[file] = false;
 		}
 
-		// Manage the global check / uncheck icon
-		let got_all_checked = Object.values(file_status).every(if_checked => if_checked);
-		if (will_check_the_file) {
-			// If all files checked, update the global check / uncheck icons
-			if (got_all_checked) {
-				// Toggle global check icons
-				uncheck_icon.style.display = "none";
-				all_check_icon.style.display = "inline";
-			}
-		} else {
-			// If there is one or more files unchecked, update the global check / uncheck icons
-			if (!got_all_checked) {
-				// Toggle global check icons
-				uncheck_icon.style.display = "inline";
-				all_check_icon.style.display = "none";
-			}
-		}	
+		// Check the current type selection
+		let file_type_div_in_header = document.getElementById("file-type");
+		let file_type_text_in_header = file_type_div_in_header.children[0];
+		let type = file_type_text_in_header.textContent.split(" ").pop().toLowerCase();
+		update_global_checkbox(type);
 
 		console.log("Now file_status:", file_status);
+	}
+
+	// Update global check / uncheck icon
+	const update_global_checkbox = (type) => {
+
+		// Get global check / uncheck icons
+		let all_check_icon = document.getElementById("file-check");
+		let uncheck_icon = document.getElementById("file-uncheck");
+
+		if (type == 'all') {
+
+			// Update the global check box
+			let if_all_checked = Object.values(file_status).every(if_checked => if_checked);
+			if (if_all_checked) {
+				all_check_icon.style.display = "inline";
+				uncheck_icon.style.display = "none";
+			} else {
+				all_check_icon.style.display = "none";
+				uncheck_icon.style.display = "inline";
+			}
+
+		} else {
+
+			// Check if all files of the corresponding type are checked
+			let if_type_all_checked = true;
+			for(var file in file_status) {
+				let file_type = files[file]["type"];
+				if (type == file_type) {
+					if (!(file_status[file])) {
+						if_type_all_checked = false;
+					}
+				}
+			}
+			
+			// Update the global check / uncheck icons
+			if (if_type_all_checked) {
+				all_check_icon.style.display = "inline";
+				uncheck_icon.style.display = "none";
+			} else {
+				all_check_icon.style.display = "none";
+				uncheck_icon.style.display = "inline";
+			}
+
+		}
+		
 	}
 
 	// Select all type
@@ -224,6 +253,8 @@
 		let file_type_text_in_header = file_type_div_in_header.children[0];
 		file_type_text_in_header.textContent = "Type: All";
 
+		// Update the global check box
+		update_global_checkbox('all');
 	}
 
 	// Select one type
@@ -252,6 +283,9 @@
 		let file_type_div_in_header = document.getElementById("file-type");
 		let file_type_text_in_header = file_type_div_in_header.children[0];
 		file_type_text_in_header.textContent = "Type: " + type;
+
+		// Update global checkbox
+		update_global_checkbox(type);
 
 	}
 
@@ -476,7 +510,7 @@
 </div>
 
 <!-- Select option modal window -->
-<div class="modal fade" id="selectOptionModal" 
+<div class="modal fade" data-backdrop="false" id="selectOptionModal" 
 	tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
 	<div class="modal-dialog" id="select-option-modal-dialog" role="document">

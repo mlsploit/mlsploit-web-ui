@@ -51,25 +51,26 @@
   <label>{name}</label>
   
   {#if hasInput}
-    {#if type === 'str'}
-      <input type="text" class="form-control form-control-sm"
-             bind:value={value} readonly={isReadonly}>
+    {#if isReadonly}
+      <input class="form-control" type="text" readonly
+           placeholder={value} />
+    
+    {:else if type === 'str'}
+      <input type="text" class="form-control" bind:value={value}>
 
     {:else if (type === 'enum' || type === 'bool')}
-      <select class="form-control form-control-sm custom-select"
-              bind:value={value} disabled={isReadonly}>
+      <select class="form-control custom-select" bind:value={value}>
         {#each allowed_values as item}
           <option value={item}>{item}</option>
         {/each}
       </select>
     
     {:else if (type === 'int')}
-      <input type="number" class="form-control form-control-sm"
-             bind:value={value} readonly={isReadonly}>
+      <input type="number" class="form-control" bind:value={value}>
     
     {:else if (type === 'float')}
-      <input type="number" step=any class="form-control form-control-sm"
-             bind:value={value} readonly={isReadonly}>
+      <input type="number" step=any class="form-control" bind:value={value}>
+    
     {/if}
   {/if}
   

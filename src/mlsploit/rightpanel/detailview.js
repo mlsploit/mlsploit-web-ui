@@ -8,7 +8,10 @@ export const setupDetailViewHandlers = (el, detailViewItem) => {
     
     if (detailViewItem !== undefined) {
       detailViewItem.target = el;
-      detailViewItemStore.set(detailViewItem);
+      detailViewItemStore.set(null);
+      setTimeout(() => { 
+        detailViewItemStore.set(detailViewItem); 
+      }, 10);
     }
 
     const timeout = get(detailViewResetTimeoutStore);
@@ -28,7 +31,7 @@ export const setupDetailViewHandlers = (el, detailViewItem) => {
     };
 
     detailViewResetTimeoutStore.set(
-      setTimeout(resetDetailView, 100)
+      setTimeout(resetDetailView, 10)
     );
   });
 };

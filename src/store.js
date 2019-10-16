@@ -7,3 +7,5 @@ export const detailViewResetTimeoutStore = writable(null);
 
 export const tokenStore = writable('');
 export const fileStore = writable([]);
+
+export const taskListIDOffsetStore = writable(0);

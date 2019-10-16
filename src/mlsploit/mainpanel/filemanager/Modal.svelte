@@ -2,10 +2,10 @@
 
 	// TODO: Get the real files
 	let files = {
-		'file111111111111111111111111111111': {'type': 'type1'},
-		'file2': {'type': 'type2222'},
-		'file3': {'type': 'type2222'},
-		'file4': {'type': 'type3'},
+		'file1.csv': {'type': 'type1'},
+		'file2.txt': {'type': 'type2222'},
+		'file33333.csv': {'type': 'type2222'},
+		'file4.txt': {'type': 'type3'},
 	}
 
 	// Get file types
@@ -21,10 +21,8 @@
 	let file_status = {};
 	Object.keys(files).forEach(file => file_status[file] = false);
 
-	// File check all-or-none
-	const file_check_all_none = (e) => {
-
-		if (e.preventDefault) { e.preventDefault(); }
+	// File check all
+	const file_check_all = () => {
 
 		// Get global check / uncheck icons
 		let all_check_icon = document.getElementById("file-check");
@@ -34,45 +32,74 @@
 		let bullet_check_icons = document.getElementsByClassName("file-bullet-check");
 		let bullet_uncheck_icons = document.getElementsByClassName("file-bullet-uncheck");
 
+		// Toggle check / uncheck icons
+		uncheck_icon.style.display = "none";
+		all_check_icon.style.display = "inline";
+
+
+		// Check all bullet icons
+		Array.from(bullet_check_icons).forEach(bullet_check_icon => {
+			bullet_check_icon.style.display = "inline";
+		});
+		Array.from(bullet_uncheck_icons).forEach(bullet_uncheck_icon => {
+			bullet_uncheck_icon.style.display = "none";
+		});
+
+		// Add all files into file_status
+		Object.keys(files).forEach(file => file_status[file] = true);
+
+		console.log("Now file_status:", file_status);
+	}
+
+	// File uncheck all
+	const file_uncheck_all = () => {
+
+		// Get global check / uncheck icons
+		let all_check_icon = document.getElementById("file-check");
+		let uncheck_icon = document.getElementById("file-uncheck");
+
+		// Get bullet check / uncheck icons
+		let bullet_check_icons = document.getElementsByClassName("file-bullet-check");
+		let bullet_uncheck_icons = document.getElementsByClassName("file-bullet-uncheck");
+
+		// Toggle check /uncheck icons
+		uncheck_icon.style.display = "inline";
+		all_check_icon.style.display = "none";
+
+		// Uncheck all bullet icons
+		Array.from(bullet_check_icons).forEach(bullet_check_icon => {
+			bullet_check_icon.style.display = "none";
+		});
+		Array.from(bullet_uncheck_icons).forEach(bullet_uncheck_icon => {
+			bullet_uncheck_icon.style.display = "inline";
+		});
+
+		// Delete all files from file_status
+		Object.keys(files).forEach(file => file_status[file] = false);
+
+		console.log("Now file_status:", file_status);
+	}
+
+	// File check all-or-none
+	const file_check_all_none = (e) => {
+
+		if (e.preventDefault) { e.preventDefault(); }
+
+		// Get global check / uncheck icons
+		let all_check_icon = document.getElementById("file-check");
+
 		// Check if we want to check all or non-check all
 		let will_check_all = all_check_icon.style.display == "none";
 		
 		// Check all file icons
 		if (will_check_all) {
-			// Toggle check icons
-			uncheck_icon.style.display = "none";
-			all_check_icon.style.display = "inline";
-
-			// Check all bullet icons
-			Array.from(bullet_check_icons).forEach(bullet_check_icon => {
-				bullet_check_icon.style.display = "inline";
-			});
-			Array.from(bullet_uncheck_icons).forEach(bullet_uncheck_icon => {
-				bullet_uncheck_icon.style.display = "none";
-			});
-
-			// Add all files into file_status
-			Object.keys(files).forEach(file => file_status[file] = true);
+			file_check_all();
 		}
 		// Uncheck all file icons
 		else {
-			// Toggle check icons
-			uncheck_icon.style.display = "inline";
-			all_check_icon.style.display = "none";
-
-			// Uncheck all bullet icons
-			Array.from(bullet_check_icons).forEach(bullet_check_icon => {
-				bullet_check_icon.style.display = "none";
-			});
-			Array.from(bullet_uncheck_icons).forEach(bullet_uncheck_icon => {
-				bullet_uncheck_icon.style.display = "inline";
-			});
-
-			// Delete all files from file_status
-			Object.keys(files).forEach(file => file_status[file] = false);
+			file_uncheck_all()
 		}
 
-		console.log("Now file_status:", file_status);
 	}
 
 	// Click one file
@@ -127,6 +154,50 @@
 		}	
 
 		console.log("Now file_status:", file_status);
+	}
+
+	// Select all type
+	const select_all_type = (e) => {
+
+		if (e.preventDefault) { e.preventDefault(); }
+
+		// Get all file rows
+		let file_rows = document.getElementsByClassName("file-rows");
+
+		// Show all file rows
+		Array.from(file_rows).forEach(file_row => {
+			file_row.style.display = "grid";
+		});
+
+	}
+
+	// Select one type
+	const select_one_type = (e) => {
+
+		if (e.preventDefault) { e.preventDefault(); }
+
+		// Get type
+		let type = e.target.id.split('-').pop();
+		
+		// Get all file rows
+		let file_rows = document.getElementsByClassName("file-rows");
+
+		// Show only rows of the corresponding type
+		Array.from(file_rows).forEach(file_row => {
+			let file_row_class = file_row.getAttribute("class");
+			let file_row_type = file_row_class.split(' ')[1].split('-').pop();
+			if (type == file_row_type) {
+				file_row.style.display = "grid";
+			} else {
+				file_row.style.display = "none";
+			}
+		});
+
+		// Update the type text
+		let file_type_div_in_header = document.getElementById("file-type");
+		let file_type_text_in_header = file_type_div_in_header.children[0];
+		file_type_text_in_header.textContent = "Type: " + type;
+
 	}
 
 </script>
@@ -311,7 +382,7 @@
       <div class="modal-body">
 				<ul class="simple-list">
 					{#each Object.keys(files) as file}
-						<div class="file-rows">
+						<div class={"file-rows file-rows-" + files[file]['type']}>
 							<!-- File bullet checkbox -->
 							<div class="file-bullet-icons">
 								<!-- File bullet check -->
@@ -357,15 +428,17 @@
 
 			<div class="modal-body" id="select-option-modal-body">
 				<ul class="simple-list">
-					<div class="select-option-modal-items"> 
-						<h5> All </h5>
+					<!-- Check all types -->
+					<div class="select-option-modal-items" data-dismiss="modal"
+						id="select-option-All" on:click={select_all_type}> 
+						<h5> All types </h5>
 					</div>
-					<div class="select-option-modal-items"> 
-						<h5> None </h5>
-					</div>
+
+					<!-- Add each file type -->
 					{#each types as type}
-						<div class="select-option-modal-items"> 
-							<h5> {type} </h5>
+						<div class="select-option-modal-items" data-dismiss="modal" 
+							id={"select-option-" + type} on:click={select_one_type}> 
+							<h5 id={"select-option-text-" + type}> {type} </h5>
 						</div>
 					{/each}
 				</ul>

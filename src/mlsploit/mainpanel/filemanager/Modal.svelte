@@ -6,7 +6,7 @@
 		'file2.txt': {'type': ''},
 		'file33333.csv': {'type': ''},
 		'file4.txt': {'type': ''},
-	}
+	};
 
 	// Get file types
 	let types = [];
@@ -88,19 +88,68 @@
 
 		// Get global check / uncheck icons
 		let all_check_icon = document.getElementById("file-check");
+		let uncheck_icon = document.getElementById("file-uncheck");
 
 		// Check if we want to check all or non-check all
 		let will_check_all = all_check_icon.style.display == "none";
-		
+
+		// Check if type-filter is applied
+		let type = document.getElementById("file-type").children[0].textContent.split(' ').pop();
+
 		// Check all file icons
-		if (will_check_all) {
+		if (will_check_all && (type == "All")) {
 			file_check_all();
-		}
+		} 
 		// Uncheck all file icons
-		else {
+		else if (!will_check_all && (type == "All")) {
 			file_uncheck_all();
 		}
+		// Check only files of the corresponding filtered type
+		else if (will_check_all && !(type == "All")) {
+			// Get all file rows
+			let file_rows = document.getElementsByClassName("file-rows");
 
+			// Show / check only rows of the corresponding type
+			Array.from(file_rows).forEach(file_row => {
+				let file_row_class = file_row.getAttribute("class");
+				let file_row_type = file_row_class.split(' ')[1].split('-').pop();
+				if (type == file_row_type) {
+					let file_row_icons = file_row.children[0];
+					let file_row_check_icon = file_row_icons.children[0];
+					let file_row_uncheck_icon = file_row_icons.children[1];
+					let file_name = file_row.id.split("-").pop();
+					file_status[file_name] = true;
+					file_row_check_icon.style.display = "inline";
+					file_row_uncheck_icon.style.display = "none";
+				}
+			});
+			uncheck_icon.style.display = "none";
+			all_check_icon.style.display = "inline";
+		}
+		// Uncheck only files of the corresponding filtered type
+		else if (!will_check_all && !(type == "All")) {
+			// Get all file rows
+			let file_rows = document.getElementsByClassName("file-rows");
+
+			// Show / uncheck only rows of the corresponding type
+			Array.from(file_rows).forEach(file_row => {
+				let file_row_class = file_row.getAttribute("class");
+				let file_row_type = file_row_class.split(' ')[1].split('-').pop();
+				if (type == file_row_type) {
+					let file_row_icons = file_row.children[0];
+					let file_row_check_icon = file_row_icons.children[0];
+					let file_row_uncheck_icon = file_row_icons.children[1];
+					let file_name = file_row.id.split("-").pop();
+					file_status[file_name] = false;
+					file_row_check_icon.style.display = "none";
+					file_row_uncheck_icon.style.display = "inline";
+				}
+			});
+			uncheck_icon.style.display = "inline";
+			all_check_icon.style.display = "none";
+		}
+
+		console.log("file_status:", file_status)
 	}
 
 	// Click one file
@@ -188,7 +237,7 @@
 		// Get all file rows
 		let file_rows = document.getElementsByClassName("file-rows");
 
-		// Show only rows of the corresponding type
+		// Show / check only rows of the corresponding type
 		Array.from(file_rows).forEach(file_row => {
 			let file_row_class = file_row.getAttribute("class");
 			let file_row_type = file_row_class.split(' ')[1].split('-').pop();
@@ -388,7 +437,8 @@
       <div class="modal-body">
 				<ul class="simple-list">
 					{#each Object.keys(files) as file}
-						<div class={"file-rows file-rows-" + files[file]['type']}>
+						<div class={"file-rows file-rows-" + files[file]['type']} 
+							id={"file-rows-" + file}>
 							<!-- File bullet checkbox -->
 							<div class="file-bullet-icons">
 								<!-- File bullet check -->

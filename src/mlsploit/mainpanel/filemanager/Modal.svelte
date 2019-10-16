@@ -2,16 +2,17 @@
 
 	// TODO: Get the real files
 	let files = {
-		'file1.csv': {'type': 'type1'},
-		'file2.txt': {'type': 'type2222'},
-		'file33333.csv': {'type': 'type2222'},
-		'file4.txt': {'type': 'type3'},
+		'file1.csv': {'type': ''},
+		'file2.txt': {'type': ''},
+		'file33333.csv': {'type': ''},
+		'file4.txt': {'type': ''},
 	}
 
 	// Get file types
 	let types = [];
 	Object.keys(files).forEach(file => {
-		let type = files[file]['type'];
+		let type = file.split('.').pop();
+		files[file]['type'] = type;
 		if (!(types.includes(type))) {
 			types.push(type);
 		}
@@ -97,7 +98,7 @@
 		}
 		// Uncheck all file icons
 		else {
-			file_uncheck_all()
+			file_uncheck_all();
 		}
 
 	}
@@ -168,6 +169,11 @@
 		Array.from(file_rows).forEach(file_row => {
 			file_row.style.display = "grid";
 		});
+
+		// Update the type text
+		let file_type_div_in_header = document.getElementById("file-type");
+		let file_type_text_in_header = file_type_div_in_header.children[0];
+		file_type_text_in_header.textContent = "Type: All";
 
 	}
 
@@ -343,7 +349,7 @@
 
 				<!-- File types -->
 				<div id="file-type">
-					<h5 class="modal-title">Type: all</h5>
+					<h5 class="modal-title">Type: All</h5>
 				</div>
 				
 				<!-- File names -->

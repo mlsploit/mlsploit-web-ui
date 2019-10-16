@@ -65,18 +65,18 @@
 <style>
   .task-list {
     width: 100%;
-    margin-top: 1px;
+    margin-top: 5px;
+    padding-bottom: 15px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     overflow-x: auto;
-    background-color: var(--g-light-gray);
+    /* background-color: var(--g-light-gray); */
   }
 
   .dropzone {
-    margin: 20px;
-    padding: 20px;
-    min-width: 160px;
+    padding: 10px;
+    min-height: 43px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -88,8 +88,12 @@
     user-select: none;
   }
 
-  .dropzone > span {
+  .dropzone .dragzone-label {
+    font-size: 14px;
     pointer-events: none;
+    white-space: nowrap;
+    display: inline-block;
+    overflow: hidden;
   }
 
   .over {
@@ -149,7 +153,7 @@
         on:dragleave={handleDragLeave}
         on:dragover={handleDragOver}
         on:drop={handleDrop}>
-      <span>drag here...</span>
+      <div class="dragzone-label">drag here...</div>
     </div>
   {/if}
 

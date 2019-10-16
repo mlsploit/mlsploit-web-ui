@@ -44,7 +44,7 @@
   .task {
     padding: 10px;
     max-width: 300px;
-    display: inline-block;
+    display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
@@ -67,7 +67,6 @@
     text-overflow: ellipsis;
     display: inline-block;
     overflow: hidden;
-    margin: auto;
   }
 
   /* Add additional style to the tasks in the left panel */
@@ -77,8 +76,9 @@
 
   .delete {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 2px;
+    right: 2px;
+    font-size: 10px;
     color: var(--g-dark-gray);
     opacity: 0.5;
   }

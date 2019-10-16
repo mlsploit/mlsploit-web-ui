@@ -42,10 +42,15 @@
     margin: 1rem;
     margin-bottom: 3rem;
     padding: 1rem 1.5rem 0.5rem 1.5rem;
-    transition: box-shadow 0.3s ease-in-out;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+
+  .pipeline:hover {
+    border-color: var(--g-dark-gray);
   }
 
   .pipeline:focus {
+    border-color: var(--g-dark-gray);
     box-shadow: var(--outer-shadow);
   }
 
@@ -61,6 +66,7 @@
     margin: 0;
   }
 
+  /*
   .pipeline:hover .title h5 {
     font-weight: var(--font-weight-hover);
   }
@@ -68,6 +74,7 @@
   .pipeline:focus .title h5 {
     font-weight: var(--font-weight-focus);
   }
+  */
   
   .delete, .check, .play {
     opacity: 0.0;

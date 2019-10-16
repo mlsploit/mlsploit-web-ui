@@ -50,13 +50,31 @@
     align-items: center;
     flex-wrap: nowrap;
     cursor: pointer;
-    transition: box-shadow 0.3s ease-in-out;
+    transition: border-color 0.2s ease-in-out,
+      box-shadow 0.3s ease-in-out,
+      background-color 0.2s ease-in-out;
 
     /* Mimic Bootstrap Card component */
     position: relative;
     border: 1px solid rgba(0,0,0,.125);
     background: #ffffff;
     border-radius: .25rem;
+  }
+
+  .task:hover {
+    border-color: var(--g-dark-gray);
+    background: var(--g-light-gray);
+  }
+
+  .task:focus {
+    border-color: var(--g-dark-gray);
+    background: var(--g-light-gray);
+    box-shadow: var(--outer-shadow);
+  }
+
+  /* Add additional style to the tasks in the left panel */
+  .task.module {
+    margin: 1rem;
   }
 
   .task .function-name {
@@ -69,11 +87,6 @@
     overflow: hidden;
   }
 
-  /* Add additional style to the tasks in the left panel */
-  .task.module {
-    margin: 1rem;
-  }
-
   .delete {
     position: absolute;
     top: 2px;
@@ -83,18 +96,9 @@
     opacity: 0.5;
   }
 
-  .task:hover .function-name{
-    font-weight: var(--font-weight-hover);
-  }
-
   .delete:hover {
     opacity: 1;
     color: var(--g-red);
-  }
-
-  .task:focus {
-    font-weight: var(--font-weight-focus);
-    box-shadow: var(--outer-shadow);
   }
 
 </style>

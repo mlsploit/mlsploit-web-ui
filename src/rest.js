@@ -98,6 +98,16 @@ API.signup = (username, password1, password2) => fetch(
   })
 ).then(parseResponse);
 
+API.getModules = () => fetch(
+  API.ENDPOINTS.MODULES,
+  createGETRequestOptionsWithAuth()
+).then(parseResponse);
+
+API.getFunctions = () => fetch(
+  API.ENDPOINTS.FUNCTIONS,
+  createGETRequestOptionsWithAuth()
+).then(parseResponse);
+
 API.getCurrentUser = () => fetch(
   API.ENDPOINTS.USER,
   createGETRequestOptionsWithAuth()
@@ -105,6 +115,26 @@ API.getCurrentUser = () => fetch(
 
 API.getFiles = () => fetch(
   API.ENDPOINTS.FILES,
+  createGETRequestOptionsWithAuth()
+).then(parseResponse);
+
+API.getPipelines = () => fetch(
+  API.ENDPOINTS.PIPELINES,
+  createGETRequestOptionsWithAuth()
+).then(parseResponse);
+
+API.getTasks = () => fetch(
+  API.ENDPOINTS.TASKS,
+  createGETRequestOptionsWithAuth()
+).then(parseResponse);
+
+API.getRuns = () => fetch(
+  API.ENDPOINTS.RUNS,
+  createGETRequestOptionsWithAuth()
+).then(parseResponse);
+
+API.getJobs = () => fetch(
+  API.ENDPOINTS.JOBS,
   createGETRequestOptionsWithAuth()
 ).then(parseResponse);
 

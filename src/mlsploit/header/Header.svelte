@@ -1,5 +1,5 @@
 <script>
-  import { newPipelineVisibleStore, FileManagerVisibleStore } from '../../store.js';
+  import { newPipelineVisibleStore } from '../../store.js';
 
   const onNewPipelineBtnClicked = (e) => {
     if (e.preventDefault) { e.preventDefault(); }

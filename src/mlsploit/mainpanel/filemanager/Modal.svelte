@@ -8,6 +8,15 @@
 		'file4': {'type': 'type3'},
 	}
 
+	// Get file types
+	let types = [];
+	Object.keys(files).forEach(file => {
+		let type = files[file]['type'];
+		if (!(types.includes(type))) {
+			types.push(type);
+		}
+	});
+
 	// Keep track of file status
 	let file_status = {};
 	Object.keys(files).forEach(file => file_status[file] = false);
@@ -120,21 +129,20 @@
 		console.log("Now file_status:", file_status);
 	}
 
-	// File select options
-	const file_select_option = (e) => {
-
-		if (e.preventDefault) { e.preventDefault(); }
-
-
-
-	}
-
 </script>
 
 <style>
 
+	/***** General *****/
+
 	button {
 		display: block;
+	}
+
+	.simple-list {
+		list-style: none;
+		padding-left: 0px;
+		margin-bottom: 0px;
 	}
 
 	/***** Modal global *****/
@@ -150,7 +158,7 @@
 
 	/***** Modal header *****/
 
-	.modal-header {
+	.file-manager-header {
 		display: grid;
 		grid-template-columns: 10% 25% 40% 20% 5%;
 		grid-auto-rows: 100%;
@@ -198,11 +206,6 @@
 		grid-auto-rows: auto;
 	}
 
-	.file-list {
-		list-style: none;
-		padding-left: 0px;
-	}
-
 	.file-bullet-icons {
 		grid-column-start: 1;
 		grid-column-end: 2;
@@ -214,6 +217,32 @@
 	}
 
 
+	/***** Modal select option *****/
+
+	#select-option-modal-body {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+	#select-option-modal-dialog {
+		max-width: 200px;
+	}
+
+	#select-option-modal-content {
+		transform: translate(-12vh, 14vh);
+	}
+
+	.select-option-modal-items {
+		cursor: pointer;
+		padding-top: 3px;
+		padding-bottom: 2px;
+		padding-left: 20px;
+	}
+
+	.select-option-modal-items:hover {
+		background-color: var(--g-middle-gray);
+	}
+
 </style>
 
 <!-- File manager modal window -->
@@ -223,23 +252,27 @@
     <div class="modal-content">
 
 			<!-- Global file manager -->
-      <div class="modal-header">
+      <div class="modal-header file-manager-header">
+				
 				<!-- File checker icons -->
 				<div class=global-file-icon>
+					<!-- File global check -->
 					<i class="far fa-square fa-2x file-icon" 
 						id="file-uncheck" on:click={file_check_all_none}>
 					</i>
+					<!-- File global uncheck -->
 					<i class="far fa-check-square fa-2x file-icon" style="display: none;" 
 						id="file-check" on:click={file_check_all_none}>
 					</i>
-					<i class="fas fa-caret-down fa-lg file-icon" 
-						id="file-select-option" on:click={file_select_option}>
+					<!-- File select option -->
+					<i class="fas fa-caret-down fa-lg file-icon" id="file-select-option" 
+						data-toggle="modal" data-target="#selectOptionModal">
 					</i>
 				</div>
 
 				<!-- File types -->
 				<div id="file-type">
-					<h5 class="modal-title">Type</h5>
+					<h5 class="modal-title">Type: all</h5>
 				</div>
 				
 				<!-- File names -->
@@ -276,7 +309,7 @@
 
 			<!-- Local file manager -->
       <div class="modal-body">
-				<ul class="file-list">
+				<ul class="simple-list">
 					{#each Object.keys(files) as file}
 						<div class="file-rows">
 							<!-- File bullet checkbox -->
@@ -313,4 +346,32 @@
 
     </div>
   </div>
+</div>
+
+<!-- Select option modal window -->
+<div class="modal fade" id="selectOptionModal" 
+	tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+	<div class="modal-dialog" id="select-option-modal-dialog" role="document">
+		<div class="modal-content" id="select-option-modal-content">
+
+			<div class="modal-body" id="select-option-modal-body">
+				<ul class="simple-list">
+					<div class="select-option-modal-items"> 
+						<h5> All </h5>
+					</div>
+					<div class="select-option-modal-items"> 
+						<h5> None </h5>
+					</div>
+					{#each types as type}
+						<div class="select-option-modal-items"> 
+							<h5> {type} </h5>
+						</div>
+					{/each}
+				</ul>
+			</div>
+
+		</div>
+	</div>
+
 </div>

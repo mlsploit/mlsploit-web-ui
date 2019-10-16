@@ -2,9 +2,9 @@
 
 	// TODO: Get the real files
 	let files = {
-		'file1': {'type': 'type1'},
-		'file2': {'type': 'type2'},
-		'file3': {'type': 'type2'},
+		'file111111111111111111111111111111': {'type': 'type1'},
+		'file2': {'type': 'type2222'},
+		'file3': {'type': 'type2222'},
 		'file4': {'type': 'type3'},
 	}
 
@@ -137,18 +137,65 @@
 		display: block;
 	}
 
+	/***** Modal global *****/
+
 	#FileManagerModal {
 		margin-top: 10vh;
 	}
 
-	#file-select-option {
-		padding-top: 6px;
-		padding-left: 3px;
-		padding-right: 3px;
-	}
-
 	.file-icon {
 		cursor: pointer;
+	}
+
+
+	/***** Modal header *****/
+
+	.modal-header {
+		display: grid;
+		grid-template-columns: 10% 25% 40% 20% 5%;
+		grid-auto-rows: 100%;
+	}
+
+	.global-file-icon {
+		grid-column-start: 1;
+		grid-column-end: 2;
+	}
+
+	.modal-title {
+		margin-left: 5px;
+	}
+
+	#file-select-option {
+		transform: translate(3px, -3px);
+	}
+
+	#file-type {
+		grid-column-start: 2;
+		grid-column-end: 3;
+	}
+
+	#file-name {
+		grid-column-start: 3;
+		grid-column-end: 4;
+	}
+
+	#file-tag-download-trash {
+		grid-column-start: 4;
+		grid-column-end: 5;
+		margin-left: 2px;
+	}
+
+	.file-tag-download-trash-icon {
+		margin-left: 7%;
+	}
+
+
+	/***** Modal body *****/
+
+	.file-rows {
+		display: grid;
+		grid-template-columns: 11% 25% 64%;
+		grid-auto-rows: auto;
 	}
 
 	.file-list {
@@ -156,26 +203,17 @@
 		padding-left: 0px;
 	}
 
-	.file-bullet {
-		display: inline;
+	.file-bullet-icons {
+		grid-column-start: 1;
+		grid-column-end: 2;
 	}
 
-	.file-bullet-contents {
-		display: inline-block;
-		transform: translate(0px, -2px);
+	.file-bullet-types {
+		grid-column-start: 2;
+		grid-column-end: 3;
 	}
 
-	#file-tag {
-		margin-left: 31.5vh;
-	}
 
-	#file-download {
-		margin-left: 10px;
-	}
-
-	#file-trash {
-		margin-left: 10px;
-	}
 </style>
 
 <!-- File manager modal window -->
@@ -187,48 +225,88 @@
 			<!-- Global file manager -->
       <div class="modal-header">
 				<!-- File checker icons -->
-				<i class="far fa-square fa-2x file-icon" 
-					id="file-uncheck" on:click={file_check_all_none}></i>
-				<i class="far fa-check-square fa-2x file-icon" style="display: none;" 
-					id="file-check" on:click={file_check_all_none}></i>
-				<i class="fas fa-caret-down fa-lg file-icon" 
-					id="file-select-option" on:click={file_select_option}></i>
+				<div class=global-file-icon>
+					<i class="far fa-square fa-2x file-icon" 
+						id="file-uncheck" on:click={file_check_all_none}>
+					</i>
+					<i class="far fa-check-square fa-2x file-icon" style="display: none;" 
+						id="file-check" on:click={file_check_all_none}>
+					</i>
+					<i class="fas fa-caret-down fa-lg file-icon" 
+						id="file-select-option" on:click={file_select_option}>
+					</i>
+				</div>
 
-				<!-- Title -->
-				<h5 class="modal-title" id="exampleModalLabel">Files</h5>
+				<!-- File types -->
+				<div id="file-type">
+					<h5 class="modal-title">Type</h5>
+				</div>
+				
+				<!-- File names -->
+				<div id="file-name">
+					<h5 class="modal-title" id="file-name">File Name</h5>
+				</div>
+				
+				<!-- File relevant icons -->
+				<div id="file-tag-download-trash">
+					<!-- Tag -->
+					<i class="fas fa-tag fa-2x file-icon file-tag-download-trash-icon" 
+						id="file-tag-icon">
+					</i>
 
-				<!-- Tag -->
-				<i class="fas fa-tag fa-2x file-icon" id="file-tag"></i>
+					<!-- Download -->
+					<i class="fas fa-file-download fa-2x file-icon file-tag-download-trash-icon" 
+						id="file-download-icon">
+					</i>
 
-				<!-- Download -->
-				<i class="fas fa-file-download fa-2x file-icon" id="file-download"></i>
-
-				<!-- Trash -->
-				<i class="fas fa-trash fa-2x file-icon" id="file-trash"></i>
-
+					<!-- Trash -->
+					<i class="fas fa-trash fa-2x file-icon file-tag-download-trash-icon" 
+						id="file-trash">
+					</i>
+				</div>
+				
 				<!-- Close button -->
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+				<div class="file-close">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+        
       </div>
 
 			<!-- Local file manager -->
       <div class="modal-body">
 				<ul class="file-list">
 					{#each Object.keys(files) as file}
-						<!-- File check bullet -->
-						<i id={"file-bullet-check-" + file} 
-							class="far fa-check-square fa-2x file-icon file-bullet file-bullet-check" 
-							style="display: none;" on:click={click_one_file}></i>
+						<div class="file-rows">
+							<!-- File bullet checkbox -->
+							<div class="file-bullet-icons">
+								<!-- File bullet check -->
+								<i id={"file-bullet-check-" + file} 
+									class="far fa-check-square fa-2x file-icon file-bullet-check" 
+									style="display: none;" on:click={click_one_file}></i>
 
-						<!-- File uncheck bullet -->
-						<i id={"file-bullet-uncheck-" + file}  
-							class="far fa-square fa-2x file-icon file-bullet file-bullet-uncheck" 
-							style="display: inline;" on:click={click_one_file}></i>
+								<!-- File bullet uncheck -->
+								<i id={"file-bullet-uncheck-" + file}  
+									class="far fa-square fa-2x file-icon file-bullet-uncheck" 
+									style="display: inline;" on:click={click_one_file}></i>
+							</div>
 
-						<!-- Filename -->
-						<li class="file-bullet-contents"> <h5 class="file-bullet-contents"> {file} </h5> </li>
-						<br>
+							<!-- File types -->
+							<div class="file-bullet-types">
+								<li class="file-bullet-contents"> 
+									<h5 class="file-bullet-contents"> {files[file]["type"]} </h5> 
+								</li>
+							</div>
+							
+							<!-- File names -->
+							<div class="file-bullet-filenames">
+								<li class="file-bullet-contents"> 
+									<h5 class="file-bullet-contents"> {file} </h5> 
+								</li>
+							</div>
+
+						</div>
 					{/each}
 				</ul>
       </div> 

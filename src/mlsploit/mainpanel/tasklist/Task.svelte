@@ -42,21 +42,37 @@
 
 <style>
   .task {
-    margin: 2rem;
-    padding: 2rem;
-    min-width: 160px;
-    max-width: 280px;
-    display: flex;
+    padding: 10px;
+    max-width: 300px;
+    display: inline-block;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     flex-wrap: nowrap;
     cursor: pointer;
-    font-weight: 300;
-    white-space: nowrap;
-    overflow: hidden !important;
-    text-overflow: ellipsis;
     transition: box-shadow 0.3s ease-in-out;
+
+    /* Mimic Bootstrap Card component */
+    position: relative;
+    border: 1px solid rgba(0,0,0,.125);
+    background: #ffffff;
+    border-radius: .25rem;
+  }
+
+  .task .function-name {
+    font-weight: 300;
+    font-size: 14px;
+    max-width: 280px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    overflow: hidden;
+    margin: auto;
+  }
+
+  /* Add additional style to the tasks in the left panel */
+  .task.module {
+    margin: 1rem;
   }
 
   .delete {
@@ -67,7 +83,7 @@
     opacity: 0.5;
   }
 
-  .task:hover {
+  .task:hover .function-name{
     font-weight: var(--font-weight-hover);
   }
 
@@ -83,14 +99,21 @@
 
 </style>
 
-<div class="card task"
+<!--
+  Bootsrap Card component has weird behavior with ellipsis overflow text element
+  and flex parent, so we are not using it here.
+-->
+<div class="task"
+      class:module={isModuleTask}
       bind:this={taskComponent}
       tabindex="-1"
       draggable={isModuleTask} 
       on:dragstart={handleDragStart}
       on:dragend={handleDragEnd}>
-    
-  <span class="function-name">{task_function.name}</span>
+  
+  <!-- Use div instead of span for text ellipsis overflow -->
+  <div class="function-name">{task_function.name}</div>
+
   {#if isNewPipelineTask}
     <i class="fa fa-s fa-times-circle delete"></i>
   {/if}

@@ -23,13 +23,13 @@
 <style>
 
 .image-vis {
-  margin: 0 20px;
+  margin: 0 0;
 }
 
 .image-vis img {
   object-fit: cover;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   border-radius: 3px;
 }
 

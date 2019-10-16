@@ -65,8 +65,8 @@
 <style>
   .task-list {
     width: 100%;
+    margin-top: 1px;
     display: flex;
-    flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     overflow-x: auto;
@@ -96,6 +96,10 @@
     border-width: 2px;
   }
 
+  .arrow {
+    margin: 1rem;
+  }
+
 </style>
 
 <div class="task-list rounded" bind:this={taskListComponent}>
@@ -107,21 +111,21 @@
         {#if taskInputOutput[idx].inputType === 'image'}
          <ImageVis imageURL={taskInputOutput[idx].inputSource} isInput/>
         {/if}
-        <i class="fas fa-arrow-right"></i>
+        <i class="fas fa-arrow-right arrow"></i>
       {/if}
 
       <Task task={task} isNewPipelineTask={hasNewPipelineTasks}/>
 
       <!-- Add an output component if this task requires to show one -->
       {#if taskInputOutput[idx].showOutput}
-        <i class="fas fa-arrow-right"></i>
+        <i class="fas fa-arrow-right arrow"></i>
         {#if taskInputOutput[idx].outputType === 'image'}
          <ImageVis imageURL={taskInputOutput[idx].outputSource} />
         {/if}
       {/if}
 
       {#if idx !== tasks.length - 1}
-        <i class="fas fa-arrow-right"></i>
+        <i class="fas fa-arrow-right arrow"></i>
       {/if}
     {/each}
   {/if}
@@ -129,7 +133,7 @@
   {#if showDropzone}
     {#each tasks as task, idx}
       {#if idx !== 0}
-        <i class="fas fa-arrow-right"></i>
+        <i class="fas fa-arrow-right arrow"></i>
       {/if}
       
       <Task task={task} isNewPipelineTask={hasNewPipelineTasks}>
@@ -137,7 +141,7 @@
     {/each}
 
     {#if tasks.length > 0}
-      <i class="fas fa-arrow-right"></i>
+      <i class="fas fa-arrow-right arrow"></i>
     {/if}
     
     <div class="dropzone" 

@@ -86,6 +86,9 @@ export const getResourceByURL = resourceURL => {
       // Otherwise query the API
       API.getResourceFromURLWithAuth(resourceURL)
          .then(resolve);
+
+      // Also refresh the corresponding resource store
+      populateResourceStore(resourceType);
     }
   });
 };

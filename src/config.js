@@ -7,5 +7,6 @@ const REST_API_PORT = '8000';
 const REST_API_URL = REST_API_HOST + (REST_API_PORT ? ':' + REST_API_PORT : '');
 
 export default {
-  REST_API_URL
+  DEBUG: true,
+  REST_API_URL: REST_API_URL,
 };

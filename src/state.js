@@ -1,5 +1,7 @@
 // Best of rest.js and store.js
 import { get } from 'svelte/store';
+import config from './config.js';
+import dummydata from './dummydata.js';
 import API from './rest.js';
 import {
   moduleStore,
@@ -32,10 +34,16 @@ export const resourceMap = {
   JOB: m(API.ENDPOINTS.JOBS, '/jobs/', API.getJobs, jobStore)
 }
 
-export const populateResourceStore = r => {
-  let resourceItem = resourceMap[r];
+export const populateResourceStore = resourceType => {
+  let resourceItem = resourceMap[resourceType];
   let resourceStore = resourceItem.STORE;
   let getResourcesFromAPI = resourceItem.API_FN;
+
+  if (config.DEBUG) {
+    return Promise.resolve(
+      resourceStore.set(dummydata[resourceType])
+    );
+  }
   
   return new Promise((resolve, reject) => {
     getResourcesFromAPI()

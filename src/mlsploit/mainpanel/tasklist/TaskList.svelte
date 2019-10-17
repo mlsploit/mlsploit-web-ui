@@ -39,22 +39,19 @@
     let innerWidth = jqTaskList.innerWidth();
     let contentWidth = jqTaskList[0].scrollWidth;
 
+    let scrolledLeft = (scrolled == 0);
+    let scrolledRight = (scrolled + innerWidth >= contentWidth);
+    
     // User scrolls to the left end
-    if (scrolled == 0) {
-      jqLeftEdge.css('opacity');
-      jqLeftEdge.css('opacity', 0.0);
+    if (scrolledLeft) { jqLeftEdge.hide(); }
     
     // User scrolls to the right end
-    } else if (scrolled + innerWidth >= contentWidth) {
-      jqRightEdge.css('opacity');
-      jqRightEdge.css('opacity', 0.0);
-
+    if (scrolledRight) { jqRightEdge.hide(); }
+    
     // User is in the middle of scrolling
-    } else {
-      jqLeftEdge.css('opacity');
-      jqLeftEdge.css('opacity', 1.0);
-      jqRightEdge.css('opacity');
-      jqRightEdge.css('opacity', 1.0);
+    if (!(scrolledLeft || scrolledRight)) {
+      jqLeftEdge.show();
+      jqRightEdge.show();
     }
   };
 

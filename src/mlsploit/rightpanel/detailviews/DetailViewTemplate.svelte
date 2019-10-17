@@ -22,6 +22,7 @@
     border-bottom: var(--border);
     font-size: 1.2rem;
     font-weight: 1000;
+    text-overflow: ellipsis;
   }
 
   :global(.detail-view-body) {

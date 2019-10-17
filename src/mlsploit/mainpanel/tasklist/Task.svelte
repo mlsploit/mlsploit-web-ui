@@ -1,6 +1,28 @@
+<script context="module">
+  import { get } from 'svelte/store';
+  import API from '../../../rest.js';
+  import { getResourceByURL } from '../../../state.js';
+  import { functionStore } from '../../../store.js';
+
+  export const getTaskFunction = task_ => {
+    return new Promise((resolve, reject) => {
+      if (task_.intended_function !== undefined) {
+        resolve(task_.intended_function);
+      } else {
+        let functionURL = task_.function;
+        getResourceByURL(functionURL).then(resolve);
+      }
+    }).then(taskFunction => {
+      return {
+        ...taskFunction, 
+        options: JSON.parse(taskFunction.options)
+      };
+    });
+  };
+</script>
+
 <script>
   import { onMount } from 'svelte';
-  import data from '../../../dummydata.js';
   import { setupDetailViewHandlers } from '../../rightpanel/detailview.js';
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
   
@@ -18,10 +40,6 @@
       isNewPipelineTask: isNewPipelineTask
     }
   }
-
-  let task_function = (
-    task.intended_function
-    || data.functions.find(f => (f.url === task.function)));
 
   const handleDragStart = e => {
     e.target.style.opacity = 0.4;
@@ -116,7 +134,9 @@
       on:dragend={handleDragEnd}>
   
   <!-- Use div instead of span for text ellipsis overflow -->
-  <div class="function-name">{task_function.name}</div>
+  {#await getTaskFunction(task) then task_function}
+    <div class="function-name">{task_function.name}</div>
+  {/await}
 
   {#if isNewPipelineTask}
     <i class="fa fa-s fa-times-circle delete"></i>

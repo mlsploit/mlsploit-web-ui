@@ -1,11 +1,16 @@
 <script>
-  import data from '../../dummydata.js';
+  import { get } from 'svelte/store';
+  import { moduleStore } from '../../store.js';
   import Module from './module/Module.svelte';
 
-  // Modules
-  let modules = data.modules;
-  modules.sort((a, b) => (a.name > b.name) ? 1 : -1)
-
+  const sortModules = (a, b) => ((a.name > b.name) ? 1 : -1);
+  
+  let modules = get(moduleStore);
+  modules.sort(sortModules);
+  moduleStore.subscribe(modules_ => {
+    modules = [...modules_];
+    modules.sort(sortModules);
+  });
 </script>
 
 <style>

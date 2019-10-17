@@ -1,13 +1,13 @@
 <script>
-  import data from '../../dummydata.js';
-  import { newPipelineVisibleStore } from '../../store.js';
+  import { get } from 'svelte/store';
+  import { newPipelineVisibleStore, pipelineStore } from '../../store.js';
   import Pipeline from './pipeline/Pipeline.svelte';
   import Modal from './filemanager/Modal.svelte';
-
-  export let showNewPipeline = false;
   
-  let pipelines = data.pipelines;
-
+  let pipelines = get(pipelineStore);
+  pipelineStore.subscribe(pipelines_ => {
+    pipelines = pipelines_;
+  });
 </script>
 
 <style>

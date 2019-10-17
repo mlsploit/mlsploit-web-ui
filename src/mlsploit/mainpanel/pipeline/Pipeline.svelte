@@ -16,7 +16,7 @@
   }
   
   let tasks = isNewPipeline ? [] : pipeline.tasks;
-  const showDropzone = isNewPipeline;
+  const showDropzone = Boolean(isNewPipeline);
   const cursorStyle = isNewPipeline ? 'default' : 'pointer';
 
   const deletePipeline = (e) => {

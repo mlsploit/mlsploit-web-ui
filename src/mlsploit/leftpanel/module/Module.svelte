@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte';
-  import data from '../../../dummydata.js';
   import { setupDetailViewHandlers } from '../../rightpanel/detailview.js';
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
   import Task from '../../mainpanel/tasklist/Task.svelte';
@@ -15,7 +14,8 @@
   }
 
   let isExpanded = false;
-  const toggleIsExpanded = (e) => {
+  const toggleIsExpanded = e => {
+    if (e.preventDefault) { e.preventDefault(); }
     if (e.stopPropagation) { e.stopPropagation(); }
 
     isExpanded = !isExpanded;
@@ -23,11 +23,14 @@
   };
 
   let tasks = module.functions.map(f => {
-    return { "intended_function": f };
+    return { 'intended_function': f };
   });
 
   onMount(() => {
-    setupDetailViewHandlers(moduleComponent, moduleDetailViewItem);
+    setupDetailViewHandlers(
+      moduleComponent, 
+      moduleDetailViewItem
+    );
   });
 </script>
 

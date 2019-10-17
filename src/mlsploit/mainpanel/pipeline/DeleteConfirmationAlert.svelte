@@ -9,7 +9,7 @@
   }
 </style>
 
-<div id="delete-pipeline-{pipeline.id}-confirm"
+<div id="delete-pipeline-{pipeline == null ? 'new' : pipeline.id}-confirm"
      class="modal fade"
      tabindex="-1"
      role="dialog"
@@ -17,7 +17,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body">
-        Do you want to delete "{pipeline.name}"?
+        Do you want to delete "{pipeline == null ? 'this new pipeline' : pipeline.name}"?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">

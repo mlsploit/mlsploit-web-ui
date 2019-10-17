@@ -43,15 +43,24 @@
     let scrolledRight = (scrolled + innerWidth >= contentWidth);
     
     // User scrolls to the left end
-    if (scrolledLeft) { jqLeftEdge.hide(); }
+    if (scrolledLeft) {
+      // JQuery slim needs these two lines to trigger CSS transition
+      jqLeftEdge.css('opacity');
+      jqLeftEdge.css('opacity', 0.0);
+    }
     
     // User scrolls to the right end
-    if (scrolledRight) { jqRightEdge.hide(); }
+    if (scrolledRight) {
+      jqRightEdge.css('opacity');
+      jqRightEdge.css('opacity', 0.0);
+    }
     
     // User is in the middle of scrolling
     if (!(scrolledLeft || scrolledRight)) {
-      jqLeftEdge.show();
-      jqRightEdge.show();
+      jqLeftEdge.css('opacity');
+      jqLeftEdge.css('opacity', 1.0);;
+      jqRightEdge.css('opacity');
+      jqRightEdge.css('opacity', 1.0);
     }
   };
 

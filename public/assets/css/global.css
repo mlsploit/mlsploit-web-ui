@@ -25,4 +25,5 @@ html, body {
 /* The container of bootsrap popover is main, so define the style here */
 .popover {
 	max-width: 400px;
+	pointer-events: none;
 }

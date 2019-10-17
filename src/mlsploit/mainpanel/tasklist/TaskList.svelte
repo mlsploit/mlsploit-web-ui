@@ -72,6 +72,23 @@
       jQuery(newTaskElement).focus();
       numTasks = newNumTasks;
     }
+
+    // Scroll the new pipeline to the right
+    let jqTaskList = jQuery(taskListComponent);
+
+    // Variables to track the progress of current scrolling
+    let scrolled = jqTaskList.scrollLeft();
+    let innerWidth = jqTaskList.innerWidth();
+    let contentWidth = jqTaskList[0].scrollWidth;
+
+    jqTaskList[0].scrollLeft = jqTaskList[0].scrollWidth;
+
+    // Show left fade edge if needed
+    if (jqTaskList.scrollLeft() !== 0) {
+      let jqLeftEdge = jQuery(taskListWrapperComponent).children('.fade-edge.left');
+      jqLeftEdge.css('opacity')
+      jqLeftEdge.css('opacity', 1.0)
+    }
   });
 
   // Create input and output rule for each task in the task list
@@ -139,6 +156,10 @@
       rgba(255, 255, 255, 0));
   }
 
+  .new-pipeline-edge {
+    top: 72px;
+  }
+
   .dropzone {
     padding: 10px;
     min-height: 43px;
@@ -172,8 +193,8 @@
 </style>
 
 <div class="task-list-wrapper" bind:this={taskListWrapperComponent}>
-  <div class="fade-edge left"></div>
-  <div class="fade-edge right"></div>
+  <div class="fade-edge left" class:new-pipeline-edge={showDropzone}></div>
+  <div class="fade-edge right" class:new-pipeline-edge={showDropzone}></div>
 
   <div class="task-list rounded" bind:this={taskListComponent}>
 

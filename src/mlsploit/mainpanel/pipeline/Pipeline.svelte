@@ -4,6 +4,7 @@
   import { detailViewItemStore, newPipelineVisibleStore } from '../../../store.js';
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
   import TaskList from '../tasklist/TaskList.svelte';
+  import DeleteConfirmationAlert from './DeleteConfirmationAlert.svelte';
 
   export let pipeline = null;
   export let isNewPipeline = false;
@@ -25,9 +26,8 @@
       $detailViewItemStore = null;
     }
     else {
-      // delete pipeline
       // Toggle the deletion confirmation dialog
-      jQuery('#alertModal').modal('toggle')
+      jQuery(`#delete-pipeline-${pipeline.id}-confirm`).modal('toggle');
     }
   };
 
@@ -117,11 +117,6 @@
     align-items: center;
   }
 
-  .modal-body {
-    padding: 20px;
-    font-size: 16px;
-  }
-
   #name-input, #name-input::placeholder {
     font-size: 20px;
     color: var(--g-dark-gray);
@@ -139,6 +134,7 @@
     {:else}
       <h5>{pipeline.name}</h5>
     {/if}
+    
     <div class="title-controls">
       {#if isNewPipeline}
         <i class="fa fa-lg fa-check-circle sticky-check"></i>
@@ -148,32 +144,10 @@
         <i class="fa fa-lg fa-times-circle delete" on:click={deletePipeline}></i>
       {/if}
     </div>
-
   </div>
   
   <TaskList tasks={tasks} showDropzone={showDropzone} />
 
-  <!-- Alert dialog -->
-  <div class="modal fade"
-    id="alertModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="alertModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-body">
-          Do you want to delete "{isNewPipeline ? 'this new Pipeline' : pipeline.name}"?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Cancel
-          </button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">
-            Yes, delete it
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <DeleteConfirmationAlert {pipeline} />
+
 </div>

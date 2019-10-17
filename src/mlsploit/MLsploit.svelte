@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import API from '../rest.js';
-  import { initStores } from './init.js';
+  import { populateAllResourceStores } from '../state.js';
   import { beginPolling } from './polling.js';
   import Header from './header/Header.svelte'
   import LeftPanel from './leftpanel/LeftPanel.svelte'
@@ -9,8 +9,8 @@
   import RightPanel from './rightpanel/RightPanel.svelte'
 
   onMount(() => {
-    initStores();
-    beginPolling();
+    populateAllResourceStores();
+    // beginPolling();
   });
 </script>
 

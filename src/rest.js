@@ -84,6 +84,11 @@ const parseResponse = (response) => {
   return response.json();
 };
 
+API.getResourceFromURLWithAuth = resourceURL => fetch(
+  resourceURL,
+  createGETRequestOptionsWithAuth()
+).then(parseResponse);
+
 API.signin = (username, password) => fetch(
   API.ENDPOINTS.SIGNIN, 
   createPOSTRequestOptionsForObj({
@@ -98,45 +103,14 @@ API.signup = (username, password1, password2) => fetch(
   })
 ).then(parseResponse);
 
-API.getModules = () => fetch(
-  API.ENDPOINTS.MODULES,
-  createGETRequestOptionsWithAuth()
-).then(parseResponse);
-
-API.getFunctions = () => fetch(
-  API.ENDPOINTS.FUNCTIONS,
-  createGETRequestOptionsWithAuth()
-).then(parseResponse);
-
-API.getCurrentUser = () => fetch(
-  API.ENDPOINTS.USER,
-  createGETRequestOptionsWithAuth()
-).then(parseResponse);
-
-API.getFiles = () => fetch(
-  API.ENDPOINTS.FILES,
-  createGETRequestOptionsWithAuth()
-).then(parseResponse);
-
-API.getPipelines = () => fetch(
-  API.ENDPOINTS.PIPELINES,
-  createGETRequestOptionsWithAuth()
-).then(parseResponse);
-
-API.getTasks = () => fetch(
-  API.ENDPOINTS.TASKS,
-  createGETRequestOptionsWithAuth()
-).then(parseResponse);
-
-API.getRuns = () => fetch(
-  API.ENDPOINTS.RUNS,
-  createGETRequestOptionsWithAuth()
-).then(parseResponse);
-
-API.getJobs = () => fetch(
-  API.ENDPOINTS.JOBS,
-  createGETRequestOptionsWithAuth()
-).then(parseResponse);
+API.getModules = () => API.getResourceFromURLWithAuth(API.ENDPOINTS.MODULES);
+API.getFunctions = () => API.getResourceFromURLWithAuth(API.ENDPOINTS.FUNCTIONS);
+API.getCurrentUser = () => API.getResourceFromURLWithAuth(API.ENDPOINTS.USER);
+API.getFiles = () => API.getResourceFromURLWithAuth(API.ENDPOINTS.FILES);
+API.getPipelines = () => API.getResourceFromURLWithAuth(API.ENDPOINTS.PIPELINES);
+API.getTasks = () => API.getResourceFromURLWithAuth(API.ENDPOINTS.TASKS);
+API.getRuns = () => API.getResourceFromURLWithAuth(API.ENDPOINTS.RUNS);
+API.getJobs = () => API.getResourceFromURLWithAuth(API.ENDPOINTS.JOBS);
 
 window.API = API;
 export default API;

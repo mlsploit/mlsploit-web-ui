@@ -147,7 +147,7 @@
 
   .fade-edge {
     width: 7%;
-    height: 45px;
+    height: 65px;
     z-index: 10;
     pointer-events: none;
     position: absolute;

@@ -20,6 +20,14 @@
 
 </script>
 
+<style>
+  .input-field {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+</style>
+
 {#if pipeline}
   <DetailViewTemplate title="Pipeline: {pipeline.name}">
     {#await loadRuns() then runs}
@@ -38,7 +46,8 @@
           </tbody>
         </table>
       {:else}
-        <input class="form-control" type="text" readonly
+        <input class="form-control input-field" type="text" readonly
+               title="This pipeline has no recorded runs."
                placeholder="This pipeline has no recorded runs." />
       {/if}
     {/await}

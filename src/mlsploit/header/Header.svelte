@@ -52,6 +52,23 @@
   .navbar-buttons button {
     margin: 0 0.1rem;
   }
+
+  @media all and (max-width: 920px) {
+    .brand-text {
+      margin-left: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .brand-tagline {
+      margin-left: 0;
+      font-size: 1rem;
+      font-weight: 200;
+      color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
 </style>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm sticky-top">

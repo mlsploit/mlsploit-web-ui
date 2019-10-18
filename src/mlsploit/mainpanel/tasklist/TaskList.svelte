@@ -62,6 +62,11 @@
       jqRightEdge.css('opacity');
       jqRightEdge.css('opacity', 1.0);
     }
+
+    // At the left end, but it is scrollable to the right
+    if (scrolledLeft && contentWidth > innerWidth) {
+      jqRightEdge.css('opacity', 1.0);
+    }
   };
 
   afterUpdate(() => {
@@ -73,22 +78,23 @@
       numTasks = newNumTasks;
     }
 
-    // Scroll the new pipeline to the right
-    let jqTaskList = jQuery(taskListComponent);
+    // Auto scroll the new pipeline, so the placeholder is always on screen
+    if (showDropzone && numTasks > 0) {
 
-    // Variables to track the progress of current scrolling
-    let scrolled = jqTaskList.scrollLeft();
-    let innerWidth = jqTaskList.innerWidth();
-    let contentWidth = jqTaskList[0].scrollWidth;
-
-    jqTaskList[0].scrollLeft = jqTaskList[0].scrollWidth;
-
-    // Show left fade edge if needed
-    if (jqTaskList.scrollLeft() !== 0) {
-      let jqLeftEdge = jQuery(taskListWrapperComponent).children('.fade-edge.left');
-      jqLeftEdge.css('opacity')
-      jqLeftEdge.css('opacity', 1.0)
-    }
+      // Improve
+      // Need this timeout function, because somehow the program automatically
+      // scrolls back to the left when new task is added
+      setTimeout(function () {
+        let jqTaskList = jQuery(taskListComponent);
+        taskListComponent.scrollTo(taskListComponent.scrollWidth, 0);
+        if (jqTaskList.scrollLeft() !== 0){
+          let jqLeftEdge = jQuery(taskListWrapperComponent).children(
+              '.fade-edge.left');
+          jqLeftEdge.css('opacity');
+          jqLeftEdge.css('opacity', 1.0);
+        };
+      }, 0.5);
+    };
   });
 
   // Create input and output rule for each task in the task list
@@ -116,7 +122,12 @@
   })
 
   onMount(() => {
-    handleScrollPosition();
+    // Need timeout, because TaskList's onMount is called before all its tasks
+    // are rendered (so every TaskList is considered as unscrollable)
+    setTimeout(() => {
+      handleScrollPosition();
+    }, 0.5);
+
     jQuery(taskListComponent).on('scroll', handleScrollPosition);
   })
 
@@ -193,8 +204,8 @@
 </style>
 
 <div class="task-list-wrapper" bind:this={taskListWrapperComponent}>
-  <div class="fade-edge left" class:new-pipeline-edge={showDropzone}></div>
-  <div class="fade-edge right" class:new-pipeline-edge={showDropzone}></div>
+  <div class="fade-edge left" class:new-pipeline-edge={showDropzone} style="opacity: 0"></div>
+  <div class="fade-edge right" class:new-pipeline-edge={showDropzone} style="opacity: 0"></div>
 
   <div class="task-list rounded" bind:this={taskListComponent}>
 

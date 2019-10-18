@@ -9,6 +9,19 @@
 </script>
 
 <style>
+  .brand {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .brand-text {
+    margin-left: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+  }
+
   .logo {
     display: inline-block;
     vertical-align: text-bottom;
@@ -18,55 +31,65 @@
     height: 4rem;
   }
 
-  .brand {
-    margin-left: 0.5rem;
-    display: inline-block;
-  }
-
   .brand-name {
     font-size: 2rem;
     color: white;
   }
   
-  .tagline {
+  .brand-tagline {
+    margin-left: 0.5rem;
     font-size: 1rem;
     font-weight: 200;
-    color: white;
+    color: rgba(255, 255, 255, 0.5);
   }
 
   .navbar-buttons {
-    margin-top: 1rem;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+  }
+
+  .navbar-buttons button {
+    margin: 0 0.1rem;
   }
 </style>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm sticky-top">
   <div class="container-fluid">
-    <div class="row w-100">
+    <div class="row w-100 align-items-center">
       <div class="col-md-6">
-            <div class="logo">
-                <img src="/assets/img/mlsploit-icon.png" alt="MLsploit" />
-            </div>
-
-            <div class="brand">
-              <span class="brand-name" href="/"><strong>ML</strong>sploit</span>
-              <br />
-              <span class="tagline">Experiment with AI Security in your browser!</span>
-            </div>
+        <div class="brand">
+          <div class="logo">
+              <img src="/assets/img/mlsploit-icon.png" alt="MLsploit" />
+          </div>
+          <div class="brand-text">
+            <div class="brand-name" href="/"><strong>ML</strong>sploit</div>
+            <div class="brand-tagline">Experiment with AI Security in your browser!</div>
+          </div>
+        </div>
       </div>
       
       <div class="col-md-6 text-right">
         <div class="navbar-buttons">
-          <button type="button" class="btn btn-primary" 
-                  on:click={onNewPipelineBtnClicked}>
+          <button type="button"
+            class="btn btn-primary"
+            style="order: 3;"
+            on:click={onNewPipelineBtnClicked}>
             <i class="fas fa-plus-square"></i> New Pipeline
           </button>
           
-          <button type="button" class="btn btn-secondary" id="btn-files"
-                  data-toggle="modal" data-target="#file-manager">
+          <button type="button"
+            class="btn btn-secondary"
+            id="btn-files"
+            style="order: 2;"
+            data-toggle="modal"
+            data-target="#file-manager">
             <i class="fas fa-file"></i> Files
           </button>
 
-          <button type="button" class="btn btn-secondary">
+          <button type="button"
+            class="btn btn-secondary"
+            style="order: 1;">
             <i class="fas fa-cog"></i>
           </button>
 

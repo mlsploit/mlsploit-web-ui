@@ -93,6 +93,7 @@
   }
 
   .module-tasks {
+    border-top: var(--border);
     margin-top: 20px;
     overflow-x: auto;
   }
@@ -102,7 +103,6 @@
   }
 
   .task-wrapper {
-    border-top: var(--border);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -114,7 +114,7 @@
 <div class="module" tabindex="-1" bind:this={moduleComponent}>
   <div class="card-body">
     <div class="container">
-      
+
       <div class="row align-items-center">
         <div class="col-md-3 module-icon">
           <div><img src="{moduleIconURL}" alt={module.name} /></div>
@@ -127,7 +127,7 @@
         </div>
       </div>
 
-      <div id="module-{module.id}-tasks" class="row collapse rounded module-tasks"
+      <div id="module-{module.id}-tasks" class="row justify-content-around collapse module-tasks"
            tabindex="-1" on:click={(e) => { e.stopPropagation(); }}>
         <div class="task-wrapper">
           {#each tasks as task}

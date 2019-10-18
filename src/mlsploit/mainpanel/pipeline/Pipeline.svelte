@@ -99,16 +99,6 @@
     margin: 0;
   }
 
-  /*
-  .pipeline:hover .title h5 {
-    font-weight: var(--font-weight-hover);
-  }
-
-  .pipeline:focus .title h5 {
-    font-weight: var(--font-weight-focus);
-  }
-  */
-  
   .delete, .check, .play {
     opacity: 0.0;
   }

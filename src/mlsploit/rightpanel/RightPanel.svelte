@@ -37,6 +37,10 @@
       right: 15px;
     }
   }
+
+  #right-panel {
+    background-color: var(--g-light-gray);
+  }
 </style>
 
 <div id="right-panel" class="col-md-3">

@@ -47,9 +47,9 @@
     cursor: pointer;
   }
   
-  .controls {
+  /* .controls {
     opacity: 0;
-  }
+  } */
 
   tr:hover .controls {
     opacity: 1;

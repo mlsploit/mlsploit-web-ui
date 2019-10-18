@@ -49,8 +49,8 @@
 </script>
 
 <style>
-  td {
-    border-top: 0;
+  table {
+    margin-bottom: 0;
   }
 </style>
 

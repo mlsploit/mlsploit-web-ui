@@ -78,6 +78,7 @@
 
   .module-icon {
     padding: 0;
+    max-width: 65px;
   }
 
   .module-icon img {
@@ -115,7 +116,7 @@
   <div class="card-body">
     <div class="container">
 
-      <div class="row align-items-center">
+      <div class="row align-items-center justify-content-center">
         <div class="col-md-3 module-icon">
           <div><img src="{moduleIconURL}" alt={module.name} /></div>
         </div>

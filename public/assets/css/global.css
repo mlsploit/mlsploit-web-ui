@@ -22,6 +22,16 @@ html, body {
 	font-size: 12px;
 }
 
+#image-vis-popover-container .popover {
+	max-width: 400px;
+	/* Prevent overlay popover flashing */
+	pointer-events: none;
+}
+
+#image-vis-popover-container .popover .popover-body img{
+	max-width: 100%;
+}
+
 .card {
 	border: 0;
 }

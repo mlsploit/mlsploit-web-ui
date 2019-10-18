@@ -15,20 +15,18 @@
   });
 </script>
 
-<style>
-  #image-vis-popover-container  {
-    /* Prevent overlay popover flashing */
-    pointer-events: none;
-  }
-</style>
-
 <Header />
 
 <main class="container-fluid h-100" role="main">
-  <!-- Put our popover in this container -->
+  <!--
+    Put our popover in this container. The style is set in `global.css` (they
+    do not work in this component).
+   -->
   <div id="popover-container">
-    <div id="image-vis-popover-container"></div>
+    <div id="image-vis-popover-container"><div/></div>
   </div>
+
+  <!-- Main page-->
   <div class="row h-100">
     <LeftPanel /> 
     <MainPanel />

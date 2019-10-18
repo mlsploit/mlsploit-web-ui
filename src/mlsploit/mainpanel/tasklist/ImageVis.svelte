@@ -10,15 +10,10 @@
     jQuery('[data-toggle="popover"]').popover()
   });
 
-  // Popover template
-  let popoverTemplate = `'<div class="popover image-vis-popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'`
-  // Need to set the width to 100% because the popover max-width is set to
-  // 300px in the global CSS -> scale the original image to 300px when it is
-  // too large
+  // Can't set style in this html tag -> set in global.css instead
   let tooltipImageTemplate = `
     <img src="${imageURL}"
-      alt="Larger Visualization of the input/output image."
-      style="width:100%">
+      alt="Larger Visualization of the input/output image.">
   ` 
 </script>
 

@@ -195,6 +195,8 @@
 
   .over {
     border-width: 2px;
+    min-height: 47px;
+    /* box-shadow:  inset 0 0 0.5rem rgba(0,0,0,.25); */
   }
 
   .arrow {

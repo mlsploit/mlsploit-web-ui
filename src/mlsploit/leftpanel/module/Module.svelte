@@ -38,6 +38,7 @@
   .module {
     cursor: pointer;
     border-bottom: var(--border);
+    transition: background 500ms;
   }
 
   .expand-btn {
@@ -46,16 +47,21 @@
     font-size: 1.5rem;
   }
 
-  .module:hover .module-name {
-    font-weight: var(--font-weight-hover);
-  }
-
-  .module:focus .module-name {
-    font-weight: var(--font-weight-focus);
+  .module:hover, .module:focus {
+    background: var(--g-light-gray);
   }
 
   .module:hover .expand-btn {
     opacity: 0.4;
+  }
+
+  .module h6 {
+    font-weight: 200;
+    color: var(--g-dark-gray);
+  }
+
+  .module:focus h6 {    
+    color: black;
   }
 
   .module .expand-btn:hover {
@@ -76,7 +82,6 @@
   .module-tasks {
     margin-top: 20px;
     overflow-x: auto;
-    background-color: var(--g-light-gray);
   }
 
   .module-tasks:hover {
@@ -104,7 +109,7 @@
         <div class="col-md-9">
           <i class="fas fa-chevron-{isExpanded ? 'up' : 'down'} expand-btn" on:click={toggleIsExpanded}></i>
           <h4 class="module-name">{module.name}</h4>
-          <h6 class="mb-2 text-muted">Module tagline here...</h6>
+          <h6 class="mb-2">Module tagline here...</h6>
         </div>
       </div>
 

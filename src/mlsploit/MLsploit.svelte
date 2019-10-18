@@ -3,10 +3,11 @@
   import API from '../rest.js';
   import { populateAllResourceStores } from '../state.js';
   import { beginPolling } from './polling.js';
-  import Header from './header/Header.svelte'
-  import LeftPanel from './leftpanel/LeftPanel.svelte'
-  import MainPanel from './mainpanel/MainPanel.svelte'
-  import RightPanel from './rightpanel/RightPanel.svelte'
+  import Header from './header/Header.svelte';
+  import LeftPanel from './leftpanel/LeftPanel.svelte';
+  import MainPanel from './mainpanel/MainPanel.svelte';
+  import RightPanel from './rightpanel/RightPanel.svelte';
+  import FileManager from './filemanager/FileManager.svelte';
 
   onMount(() => {
     populateAllResourceStores();
@@ -22,4 +23,5 @@
     <MainPanel />
     <RightPanel />
   </div>
+  <FileManager />
 </main>

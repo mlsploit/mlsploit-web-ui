@@ -12,3 +12,5 @@ export const pipelineStore = writable([]);
 export const taskStore = writable([]);
 export const runStore = writable([]);
 export const jobStore = writable([]);
+
+export const filterFilesByURLStore = writable([]);

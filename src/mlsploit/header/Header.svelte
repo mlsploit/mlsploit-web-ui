@@ -62,7 +62,7 @@
           </button>
           
           <button type="button" class="btn btn-secondary" id="btn-files"
-                  data-toggle="modal" data-target="#FileManagerModal">
+                  data-toggle="modal" data-target="#file-manager">
             <i class="fas fa-file"></i> Files
           </button>
 

@@ -30,6 +30,7 @@ html, body {
 
 #image-vis-popover-container .popover .popover-body img{
 	max-width: 100%;
+	border-radius: 3px;
 }
 
 .card {

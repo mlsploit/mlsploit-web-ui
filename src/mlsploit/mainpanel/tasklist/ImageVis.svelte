@@ -7,7 +7,9 @@
 
   // Enable tooltips
   onMount(() => {
-    jQuery('[data-toggle="popover"]').popover()
+    jQuery('[data-toggle="popover"]').popover({
+      delay: { show: 200 }
+    })
   });
 
   // Can't set style in this html tag -> set in global.css instead
@@ -39,6 +41,7 @@
   data-trigger="hover"
   data-offset=100%p
   data-html="true"
+  data-delay={{show: 500}}
   data-content={tooltipImageTemplate}>
   <img src="{imageURL}" alt="Visualization of the input/output image.">
 </div>

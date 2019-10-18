@@ -15,9 +15,20 @@
   });
 </script>
 
+<style>
+  #image-vis-popover-container  {
+    /* Prevent overlay popover flashing */
+    pointer-events: none;
+  }
+</style>
+
 <Header />
 
 <main class="container-fluid h-100" role="main">
+  <!-- Put our popover in this container -->
+  <div id="popover-container">
+    <div id="image-vis-popover-container"></div>
+  </div>
   <div class="row h-100">
     <LeftPanel /> 
     <MainPanel />

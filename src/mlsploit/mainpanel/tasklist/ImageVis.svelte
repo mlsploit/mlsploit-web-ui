@@ -7,9 +7,11 @@
 
   // Enable tooltips
   onMount(() => {
-    jQuery('[data-toggle="popover"]').popover();
+    jQuery('[data-toggle="popover"]').popover()
   });
 
+  // Popover template
+  let popoverTemplate = `'<div class="popover image-vis-popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'`
   // Need to set the width to 100% because the popover max-width is set to
   // 300px in the global CSS -> scale the original image to 300px when it is
   // too large
@@ -38,7 +40,7 @@
 <div class="image-vis"
   lass:input={isInput}
   data-toggle="popover"
-  data-container="main"
+  data-container="#image-vis-popover-container"
   data-trigger="hover"
   data-offset=100%p
   data-html="true"

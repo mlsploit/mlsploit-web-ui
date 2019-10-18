@@ -22,13 +22,6 @@ html, body {
 	font-size: 12px;
 }
 
-/* The container of bootsrap popover is main, so define the style here */
-.popover {
-	max-width: 400px;
-	/* Prevent overlay popover flashing */
-	pointer-events: none;
-}
-
 .card {
 	border: 0;
 }

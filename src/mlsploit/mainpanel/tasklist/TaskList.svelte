@@ -6,6 +6,7 @@
 
   export let tasks = [];
   export let showDropzone = false;
+  export let onNewPipelineTasksUpdated;
 
   let taskListWrapperComponent;
   let taskListComponent;
@@ -13,19 +14,45 @@
   let numTasks = tasks.length;
   const hasNewPipelineTasks = Boolean(showDropzone);
 
+  // newPipelineTasksData will track the task data for the rendered UI elements
+  // so DO NOT modify tasks directly, use the below helper functions
+  let newPipelineTasksData = []; 
+  const addNewTask = t => {
+    newPipelineTasksData = [...newPipelineTasksData, t];
+    onNewPipelineTasksUpdated(newPipelineTasksData);
+    
+    // update UI elements AFTER updating store 
+    tasks = [...tasks, t];
+  };
+  const removeTask = idx => {
+    newPipelineTasksData.splice(idx, 1);
+    onNewPipelineTasksUpdated(newPipelineTasksData);
+
+    // update UI elements AFTER updating store 
+    let tempTasks = [...tasks];
+    tempTasks.splice(idx, 1);
+    tasks = [...tempTasks];
+  };
+  const updateNewPipelineTaskData = (idx, taskData) => {
+    newPipelineTasksData[idx] = taskData;
+    onNewPipelineTasksUpdated(newPipelineTasksData);
+  }
+
   const handleDragEnter = e => { e.target.classList.add('over'); };
   const handleDragLeave = e => { e.target.classList.remove('over'); };
 
   const handleDragOver = e => {
-    if (e.preventDefault) { e.preventDefault(); }
+    e.preventDefault();
     e.dataTransfer.dropEffect = 'move'; 
     return false;
   };
 
   const handleDrop = e => {
-    if (e.stopPropagation) { e.stopPropagation(); }
-    let t = JSON.parse(e.dataTransfer.getData('text/json'));
-    tasks = [...tasks, t];
+    e.stopPropagation();
+    let newTaskData = JSON.parse(
+      e.dataTransfer.getData('text/json')
+    );
+    addNewTask(newTaskData);
     return false;
   };
 
@@ -220,7 +247,12 @@
         <i class="fas fa-arrow-right arrow"></i>
       {/if}
 
-      <Task task={task} isNewPipelineTask={hasNewPipelineTasks}/>
+      <Task task={task} 
+            taskIndex={idx}
+            onRemoveTask={removeTask}
+            isLastTask={idx == tasks.length - 1}
+            isNewPipelineTask={hasNewPipelineTasks}
+            onNewTaskDataUpdated={updateNewPipelineTaskData} />
 
       <!-- Add an output component if this task requires to show one -->
       {#if !hasNewPipelineTasks && taskInputOutput[idx].showOutput}

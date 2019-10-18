@@ -27,17 +27,29 @@
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
   
   export let task;
+  export let taskIndex = null;
+  export let isLastTask = false;
   export let isModuleTask = false;
   export let isNewPipelineTask = false;
+  export let onRemoveTask = (idx) => {};
+  export let onNewTaskDataUpdated = (idx, data) => {};
 
   let taskComponent;
+
+  let newTaskData = { arguments: {} };
+  const onNewTaskArgumentValueChanged = (argument, value) => {
+    newTaskData.arguments[argument] = value;
+    onNewTaskDataUpdated(taskIndex, newTaskData);
+  };
 
   const taskDetailViewItem = {
     type: detailViewTypes.TASK,
     item: task,
     meta: {
-      isModuleTask: isModuleTask,
-      isNewPipelineTask: isNewPipelineTask
+      taskIndex,
+      isModuleTask, 
+      isNewPipelineTask,
+      onNewTaskArgumentValueChanged
     }
   }
 
@@ -52,8 +64,16 @@
     jQuery('.dropzone.over').removeClass('over');
   };
 
+  const onRemoveTaskBtnClicked = e => { onRemoveTask(taskIndex); };
+
   onMount(() => {
     setupDetailViewHandlers(taskComponent, taskDetailViewItem);
+    
+    getTaskFunction(task).then(taskFunction => {
+      newTaskData.function = taskFunction;
+      onNewTaskDataUpdated(taskIndex, newTaskData);
+    });
+    
     if (isNewPipelineTask) { jQuery(taskComponent).focus(); }
   });
 </script>
@@ -138,8 +158,12 @@
     <div class="function-name">{task_function.name}</div>
   {/await}
 
-  {#if isNewPipelineTask}
-    <i class="fa fa-s fa-times-circle delete"></i>
+  {#if isNewPipelineTask && isLastTask}
+    <!-- Current logic only supports deletion 
+         if it is the last task of a new pipeline -->
+    <i class="fas fa-minus-circle delete"
+       on:click={onRemoveTaskBtnClicked}>
+    </i>
   {/if}
 
 </div>

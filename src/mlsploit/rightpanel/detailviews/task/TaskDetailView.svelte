@@ -1,4 +1,5 @@
 <script>
+  import { newPipelineDataStore } from '../../../../store.js';
   import { getTaskFunction } from '../../../mainpanel/tasklist/Task.svelte';
   import TaskParam from './TaskParam.svelte';
   import DetailViewTemplate from '../DetailViewTemplate.svelte';
@@ -6,11 +7,14 @@
   export let task;
   export let meta = {};
 
-  $: isModuleTaskDetailView = meta.isModuleTask || false;
-  $: isNewPipelineTaskDetailView = meta.isNewPipelineTask || false;
-  $: isDefaultTaskDetailView = !(isModuleTaskDetailView || isNewPipelineTaskDetailView);
+  let isModuleTaskDetailView = meta.isModuleTask || false;
+  let isNewPipelineTaskDetailView = meta.isNewPipelineTask || false;
+  let isDefaultTaskDetailView = !(isModuleTaskDetailView || isNewPipelineTaskDetailView);
 
-  $: taskArguments = task.arguments ? JSON.parse(task.arguments) : {};
+  let taskArguments = task.arguments ? JSON.parse(task.arguments) : {};
+  if (isNewPipelineTaskDetailView) {
+    taskArguments = $newPipelineDataStore.tasks[meta.taskIndex].arguments;
+  }
 </script>
 
 {#await getTaskFunction(task) then taskFunction}
@@ -19,14 +23,11 @@
       <form>
         {#each taskFunction.options as option}
           <TaskParam config={option}
-                    value={taskArguments[option.name]}
-                    hasInput={!isModuleTaskDetailView}
-                    isReadonly={isDefaultTaskDetailView} />
+                     value={taskArguments[option.name]}
+                     hasInput={!isModuleTaskDetailView}
+                     isReadonly={isDefaultTaskDetailView}
+                     onValueChange={meta.onNewTaskArgumentValueChanged} />
         {/each}
-        
-        {#if isNewPipelineTaskDetailView}
-          <button type="submit" class="btn btn-primary">Submit</button>
-        {/if}
       </form>
     {:else}
       <input class="form-control" type="text" readonly

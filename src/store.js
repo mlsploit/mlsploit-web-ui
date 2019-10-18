@@ -15,3 +15,5 @@ export const jobStore = writable([]);
 
 export const fileManagerModeStore = writable(null);
 export const fileManagerMetaStore = writable({});
+
+export const newPipelineDataStore = writable(null);

@@ -1,10 +1,11 @@
 <script>
-  import { onMount } from 'svelte';
+  import { afterUpdate, onMount } from 'svelte';
   
+  export let config;
+  export let value = null;
   export let hasInput = true;
   export let isReadonly = false;
-  export let value = null;
-  export let config;
+  export let onValueChange = (name, value) => {};
 
   const get_allowed_values = (t) => {
     switch(type) {
@@ -21,6 +22,10 @@
   $: type = config.type;
   $: required = config.required;
   $: allowed_values = get_allowed_values(type);
+
+  const onInputChange = e => {
+    onValueChange(name, value);
+  }
   
   onMount(() => {
     if (value === null) {
@@ -41,6 +46,10 @@
       }
     }
   });
+
+  afterUpdate(() => {
+    onValueChange(name, value);
+  });
 </script>
 
 <style>
@@ -52,24 +61,28 @@
   
   {#if hasInput}
     {#if isReadonly}
-      <input class="form-control" type="text" readonly
-           placeholder={value} />
+      <input type="text" class="form-control" readonly
+             placeholder={value} />
     
     {:else if type === 'str'}
-      <input type="text" class="form-control" bind:value={value}>
+      <input type="text" class="form-control" bind:value={value}
+             on:change={onInputChange} />
 
     {:else if (type === 'enum' || type === 'bool')}
-      <select class="form-control custom-select" bind:value={value}>
+      <select class="form-control custom-select" bind:value={value}
+              on:change={onInputChange}>
         {#each allowed_values as item}
           <option value={item}>{item}</option>
         {/each}
       </select>
     
     {:else if (type === 'int')}
-      <input type="number" class="form-control" bind:value={value}>
+      <input type="number" class="form-control" bind:value={value}
+             on:change={onInputChange} />
     
     {:else if (type === 'float')}
-      <input type="number" step=any class="form-control" bind:value={value}>
+      <input type="number" step=any class="form-control" bind:value={value}
+             on:change={onInputChange} >
     
     {/if}
   {/if}

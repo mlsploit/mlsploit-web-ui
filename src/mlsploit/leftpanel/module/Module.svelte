@@ -24,7 +24,7 @@
   };
 
   let tasks = module.functions.map(f => {
-    return { 'intended_function': f };
+    return { intended_function: f, arguments: '' };
   });
 
   onMount(() => {

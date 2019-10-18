@@ -1,8 +1,19 @@
+<script context="module">
+  const DEFAULT_NEW_PIPELINE_NAME = 'New Pipeline';
+</script>
+
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { setupDetailViewHandlers } from '../../rightpanel/detailview.js';
-  import { detailViewItemStore, newPipelineVisibleStore } from '../../../store.js';
-  import { fileManagerModes, setAndShowFileManager } from '../../filemanager/FileManager.svelte';
+  import { 
+    detailViewItemStore,
+    newPipelineDataStore, 
+    newPipelineVisibleStore 
+  } from '../../../store.js';
+  import { 
+    fileManagerModes, 
+    setAndShowFileManager 
+  } from '../../filemanager/FileManager.svelte';
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
   import TaskList from '../tasklist/TaskList.svelte';
   import DeleteConfirmationAlert from './DeleteConfirmationAlert.svelte';
@@ -11,6 +22,7 @@
   export let isNewPipeline = false;
 
   let pipelineComponent;
+  let newPipelineName = '';
 
   const pipelineDetailViewItem = {
     type: detailViewTypes.PIPELINE,
@@ -24,22 +36,37 @@
   const deletePipeline = (e) => {
     if (isNewPipeline) { 
       $newPipelineVisibleStore = false;
+      $newPipelineDataStore = null;
       $detailViewItemStore = null;
-    }
-    else {
+    } else {
       // Toggle the deletion confirmation dialog
       jQuery(`#delete-pipeline-${pipeline.id}-confirm`).modal('toggle');
     }
   };
 
   const onRunPipelineBtnClicked = e => {
+    e.preventDefault();
+    e.stopPropagation();
     setAndShowFileManager(fileManagerModes.SELECT, {pipeline});
   }
+
+  const onSavePipelineBtnClicked = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    newPipelineName = newPipelineName || DEFAULT_NEW_PIPELINE_NAME;
+    console.log('create new pipeline:', newPipelineName, $newPipelineDataStore);
+  }
+
+  const onNewPipelineTasksUpdated = tasks => {
+    if (isNewPipeline) { $newPipelineDataStore = {tasks}; }
+  };
 
   onMount(() => {
     setupDetailViewHandlers(pipelineComponent, pipelineDetailViewItem);
     if (isNewPipeline) { jQuery(pipelineComponent).focus(); }
   });
+
+  onDestroy(() => { if (isNewPipeline) $newPipelineDataStore = null; });
 </script>
 
 <style>
@@ -136,14 +163,16 @@
   
   <div class="title">
     {#if isNewPipeline}
-      <input id="name-input" type="text" class="form-control w-50" placeholder="New Pipeline" />
+      <input id="name-input" type="text" class="form-control w-50"
+             bind:value={newPipelineName}
+             placeholder={DEFAULT_NEW_PIPELINE_NAME} />
     {:else}
       <h5>{pipeline.name}</h5>
     {/if}
     
     <div class="title-controls">
       {#if isNewPipeline}
-        <i class="fa fa-lg fa-check-circle sticky-check"></i>
+        <i class="fa fa-lg fa-check-circle sticky-check" on:click={onSavePipelineBtnClicked}></i>
         <i class="fa fa-lg fa-times-circle sticky-delete" on:click={deletePipeline}></i>
       {:else}
         <i class="fa fa-lg fa-play-circle play" on:click={onRunPipelineBtnClicked}></i>
@@ -152,7 +181,8 @@
     </div>
   </div>
   
-  <TaskList tasks={tasks} showDropzone={showDropzone} />
+  <TaskList tasks={tasks} showDropzone={showDropzone}
+            onNewPipelineTasksUpdated={onNewPipelineTasksUpdated} />
 
   <DeleteConfirmationAlert {pipeline} />
 

@@ -7,6 +7,7 @@
   export let module;
 
   let moduleComponent;
+  let moduleIconURL = '/assets/img/module-icon-placeholder.svg';
 
   const moduleDetailViewItem = {
     type: detailViewTypes.MODULE,
@@ -55,10 +56,15 @@
     opacity: 0.4;
   }
 
+  .module:focus .module-icon img{
+    -webkit-filter: drop-shadow(0 0.2rem 0.25rem rgba(0,0,0,.3));
+    filter: drop-shadow(0 0.2rem 0.25rem rgba(0,0,0,.3));
+  }
+
   .module h6 {
     font-weight: 300;
     color: var(--g-dark-gray);
-    transition: color 300ms ease;
+    transition: color 300ms ease-in-out;
   }
 
   .module:focus h6 {    
@@ -77,7 +83,13 @@
   .module-icon > img {
     width: 100%;
     height: 100%;
-    object-fit: fit;
+    object-fit: cover;
+    -webkit-transition: 300ms -webkit-filter ease-in-out;
+    -moz-transition: 300ms -moz-filter ease-in-out;
+    -moz-transition: 300ms filter ease-in-out;
+    -ms-transition: 300ms -ms-filter ease-in-out;
+    -o-transition: 300ms -o-filter ease-in-out;
+    transition: 300ms filter ease-in-out, 300ms -webkit-filter ease-in-out;
   }
 
   .module-tasks {
@@ -105,7 +117,7 @@
       
       <div class="row">
         <div class="col-md-3 module-icon">
-          <img src="/assets/img/module.jpg" alt={module.name} />
+          <img src="{moduleIconURL}" alt={module.name} />
         </div>
         
         <div class="col-md-9">

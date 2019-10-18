@@ -1,6 +1,10 @@
 <script>
   import { afterUpdate } from 'svelte';
   import { getResourceByURL } from '../../../../state.js';
+  import { 
+    fileManagerModes, 
+    setAndShowFileManager 
+  } from '../../../filemanager/FileManager.svelte';
 
   export let run;
 
@@ -35,6 +39,10 @@
     return status;
   };
 
+  const onShowOutputFilesBtnClicked = e => {
+    setAndShowFileManager(fileManagerModes.OUTPUT, {run});
+  }
+
   afterUpdate(() => {
     setTimeout(() => {
       jQuery('[data-toggle="tooltip"]').tooltip();
@@ -57,7 +65,8 @@
       <a href="#" data-toggle="tooltip" data-placement="top" title="Show logs">
         <i class="fas fa-scroll"></i>
       </a>
-      <a href="#" data-toggle="tooltip" data-placement="top" title="View output files">
+      <a href="#" on:click={onShowOutputFilesBtnClicked}
+         data-toggle="tooltip" data-placement="top" title="View output files">
         <i class="fas fa-file"></i>
       </a>
     </td>

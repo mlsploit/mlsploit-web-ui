@@ -13,4 +13,5 @@ export const taskStore = writable([]);
 export const runStore = writable([]);
 export const jobStore = writable([]);
 
-export const filterFilesByURLStore = writable([]);
+export const fileManagerModeStore = writable(null);
+export const fileManagerMetaStore = writable({});

@@ -3,14 +3,9 @@
   import { moduleStore } from '../../store.js';
   import Module from './module/Module.svelte';
 
-  const sortModules = (a, b) => ((a.name > b.name) ? 1 : -1);
-  
-  let modules = get(moduleStore);
-  modules.sort(sortModules);
-  moduleStore.subscribe(modules_ => {
-    modules = [...modules_];
-    modules.sort(sortModules);
-  });
+  $: modules = $moduleStore.sort(
+    (a, b) => ((a.name > b.name) ? 1 : -1)
+  );
 </script>
 
 <style>

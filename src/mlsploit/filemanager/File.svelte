@@ -9,74 +9,96 @@
   import { afterUpdate } from 'svelte';
 
   export let file;
+  export let enableSelect;
+  export let onFileSelectionChanged;
 
   let fileComponent;
+  let isSelected = false;
 
   const onDeleteConfirmClick = e => {
     e.preventDefault();
-    console.log('delete', file.url, e);
+    console.log('delete', file.url);
   }
 
-  afterUpdate(() => {
-    setTimeout(() => {
-      jQuery(fileComponent).find('.controls a,button')
-        .each((i, el) => {
-          jQuery(el).tooltip({
-            title: jQuery(el).data('tooltip-title')
-          })
-        });
+  const toggleFileSelected = () => {
+    if (enableSelect) {
+      isSelected = !isSelected;
+      onFileSelectionChanged(file.url, isSelected);
+    }
+  };
 
-      jQuery(fileComponent).find('a.delete-file').popover({
-        title: `Delete "${file.name}"?`,
-        placement: 'bottom',
-        trigger: 'focus',
-        container: jQuery(fileComponent),
-        html: true,
-        content: `<a id="delete-file-${file.id}-confirm" href="#" class="btn btn-danger btn-block">Yes, delete it</a>`
-      }).on('shown.bs.popover', e => {
-        jQuery(fileComponent)
-          .find(`a#delete-file-${file.id}-confirm`)
-          .click(onDeleteConfirmClick);
-      });
-    }, 1000);
+  afterUpdate(() => {
+    if (!enableSelect) {
+      setTimeout(() => {
+        jQuery(fileComponent).find('.controls a,button')
+          .each((i, el) => {
+            jQuery(el).tooltip({
+              title: jQuery(el).data('tooltip-title')
+            })
+          });
+
+        jQuery(fileComponent).find('a.delete-file').popover({
+          title: `Delete "${file.name}"?`,
+          placement: 'bottom',
+          trigger: 'focus',
+          container: jQuery(fileComponent),
+          html: true,
+          content: `<a id="delete-file-${file.id}-confirm" href="#" class="btn btn-danger btn-block">Yes, delete it</a>`
+        }).on('shown.bs.popover', e => {
+          jQuery(fileComponent)
+            .find(`a#delete-file-${file.id}-confirm`)
+            .click(onDeleteConfirmClick);
+        });
+      }, 100);
+    }
   });
 </script>
 
 <style>
   tr {
     cursor: pointer;
-  }
-  
-  /* .controls {
-    opacity: 0;
-  } */
-
-  tr:hover .controls {
-    opacity: 1;
+    font-size: 1.2rem;
+    font-weight: 200;
   }
 </style>
 
-<tr bind:this={fileComponent}>
+<tr on:click={toggleFileSelected} bind:this={fileComponent}>
   <td class="align-middle">
+    {#if isSelected}
+      <i class="fas fa-check"></i>
+    {/if}
     {file.name}
   </td>
+  
   <td class="text-right controls">
-    <a href={file.blob_url} class="btn btn-outline-primary btn-sm"
-       target="_blank"
-       data-tooltip-title="Download file">
-      <i class="fas fa-download"></i>
-    </a>
-
-    {#if file.kind === fileKinds.INPUT}
-      <a href="#" class="btn btn-outline-primary btn-sm"
-        data-tooltip-title="Add a tag">
-        <i class="fas fa-tag"></i>
+    {#if enableSelect}
+      <!-- 
+        Choose later if we want to show check marks here 
+        or beside the file name. Hiding these for now.
+      -->
+      {#if isSelected}
+        <i style="display:none" class="far fa-check-square"></i>
+      {:else}
+        <i style="display:none"class="far fa-square"></i>
+      {/if}
+    {:else}
+      <a href={file.blob_url} class="btn btn-outline-primary btn-sm"
+        target="_blank"
+        data-tooltip-title="Download file">
+        <i class="fas fa-download"></i>
       </a>
 
-      <a href="#" class="btn btn-outline-danger btn-sm delete-file" 
-         data-tooltip-title="Delete file">
-        <i class="fas fa-trash"></i>
-      </a>
+      {#if file.kind === fileKinds.INPUT}
+        <a href="#" class="btn btn-outline-primary btn-sm"
+          data-tooltip-title="Add a tag">
+          <i class="fas fa-tag"></i>
+        </a>
+
+        <a href="#" class="btn btn-outline-danger btn-sm delete-file" 
+          data-tooltip-title="Delete file">
+          <i class="fas fa-trash"></i>
+        </a>
+      {/if}
     {/if}
   </td>
 </tr>

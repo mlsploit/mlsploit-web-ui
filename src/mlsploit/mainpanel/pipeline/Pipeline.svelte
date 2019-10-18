@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { setupDetailViewHandlers } from '../../rightpanel/detailview.js';
   import { detailViewItemStore, newPipelineVisibleStore } from '../../../store.js';
+  import { fileManagerModes, setAndShowFileManager } from '../../filemanager/FileManager.svelte';
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
   import TaskList from '../tasklist/TaskList.svelte';
   import DeleteConfirmationAlert from './DeleteConfirmationAlert.svelte';
@@ -30,6 +31,10 @@
       jQuery(`#delete-pipeline-${pipeline.id}-confirm`).modal('toggle');
     }
   };
+
+  const onRunPipelineBtnClicked = e => {
+    setAndShowFileManager(fileManagerModes.SELECT, {pipeline});
+  }
 
   onMount(() => {
     setupDetailViewHandlers(pipelineComponent, pipelineDetailViewItem);
@@ -141,7 +146,7 @@
         <i class="fa fa-lg fa-check-circle sticky-check"></i>
         <i class="fa fa-lg fa-times-circle sticky-delete" on:click={deletePipeline}></i>
       {:else}
-        <i class="fa fa-lg fa-play-circle play"></i>
+        <i class="fa fa-lg fa-play-circle play" on:click={onRunPipelineBtnClicked}></i>
         <i class="fa fa-lg fa-times-circle delete" on:click={deletePipeline}></i>
       {/if}
     </div>

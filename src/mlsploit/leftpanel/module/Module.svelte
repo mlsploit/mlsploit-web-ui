@@ -80,7 +80,7 @@
     padding: 0;
   }
 
-  .module-icon > img {
+  .module-icon img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -115,15 +115,15 @@
   <div class="card-body">
     <div class="container">
       
-      <div class="row">
+      <div class="row align-items-center">
         <div class="col-md-3 module-icon">
-          <img src="{moduleIconURL}" alt={module.name} />
+          <div><img src="{moduleIconURL}" alt={module.name} /></div>
         </div>
         
         <div class="col-md-9">
           <i class="fas fa-chevron-{isExpanded ? 'up' : 'down'} expand-btn" on:click={toggleIsExpanded}></i>
           <h4 class="module-name">{module.name}</h4>
-          <h6 class="mb-2">Module tagline here...</h6>
+          <h6 class="mb-2">Module long long long long long long long long tagline here</h6>
         </div>
       </div>
 

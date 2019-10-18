@@ -43,12 +43,6 @@
   
 </script>
 
-<style>
-  td {
-    border-top: 0;
-  }
-</style>
-
 <tr>
   {#await loadJobs() then jobs}
     <td>
@@ -59,12 +53,12 @@
       {getStatus(jobs)}
     </td>
     
-    <td>
+    <td class="text-right">
       <a href="#" data-toggle="tooltip" data-placement="top" title="Show logs">
         <i class="fas fa-scroll"></i>
       </a>
       <a href="#" data-toggle="tooltip" data-placement="top" title="View output files">
-        <i class="fas fa-download"></i>
+        <i class="fas fa-file"></i>
       </a>
     </td>
   {/await}

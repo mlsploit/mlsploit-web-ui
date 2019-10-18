@@ -24,7 +24,7 @@
   <DetailViewTemplate title="Pipeline: {pipeline.name}">
     {#await loadRuns() then runs}
       {#if runs.length > 0}
-        <table class="table table-hover">
+        <table class="table table-hover table-borderless">
           <tbody>
             {#each runs as run}
               <Run run={run} />

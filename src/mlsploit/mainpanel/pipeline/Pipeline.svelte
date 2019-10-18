@@ -42,6 +42,7 @@
     margin: 1rem;
     margin-bottom: 3rem;
     padding: 1rem 1.5rem 0.5rem 1.5rem;
+    box-shadow: var(--outer-shadow-sm);
     transition: border-color 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
   }
 

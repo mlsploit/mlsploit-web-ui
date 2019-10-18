@@ -29,7 +29,6 @@
 
   .sidebar-header > h3 {
     margin: 0;
-    font-weight: 100;
   }
 
   .sidebar-contents {

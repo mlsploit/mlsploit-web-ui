@@ -56,8 +56,9 @@
   }
 
   .module h6 {
-    font-weight: 200;
+    font-weight: 300;
     color: var(--g-dark-gray);
+    transition: color 300ms ease;
   }
 
   .module:focus h6 {    
@@ -89,6 +90,7 @@
   }
 
   .task-wrapper {
+    border-top: var(--border);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

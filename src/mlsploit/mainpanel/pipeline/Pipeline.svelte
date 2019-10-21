@@ -30,6 +30,7 @@
   }
   
   let tasks = isNewPipeline ? [] : pipeline.tasks;
+  let runURLs = isNewPipeline ? [] : pipeline.runs;
   const showDropzone = Boolean(isNewPipeline);
   const cursorStyle = isNewPipeline ? 'default' : 'pointer';
 
@@ -171,7 +172,7 @@
     </div>
   </div>
   
-  <TaskList tasks={tasks} showDropzone={showDropzone}
+  <TaskList tasks={tasks} runURLs={runURLs} showDropzone={showDropzone}
             onNewPipelineTasksUpdated={onNewPipelineTasksUpdated} />
 
   <DeleteConfirmationAlert {pipeline} />

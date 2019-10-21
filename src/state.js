@@ -92,3 +92,7 @@ export const getResourceByURL = resourceURL => {
     }
   });
 };
+
+export const getResourcesByURLs = resourceURLs => {
+  return Promise.all(resourceURLs.map(getResourceByURL));
+};

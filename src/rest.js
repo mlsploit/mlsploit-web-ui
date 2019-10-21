@@ -154,7 +154,7 @@ API.addTaskToPipeline = (pipelineURL, funcURL, args) => fetch(API.ENDPOINTS.TASK
   arguments: JSON.stringify(args)
 })).then(parseResponse);
 
-API.enablePipeline = (pipelineURL) => fetch(pipelineURL, createPOSTRequestOptionsForObjWithAuth({
+API.enablePipeline = (pipelineURL) => fetch(pipelineURL, createPATCHRequestOptionsForObjWithAuth({
   enabled: true
 }));
 

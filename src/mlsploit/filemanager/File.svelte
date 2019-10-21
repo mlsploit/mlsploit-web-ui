@@ -7,6 +7,8 @@
 
 <script>
   import { afterUpdate } from 'svelte';
+  import FileTagEditor from './FileTagEditor.svelte';
+  import API from '../../rest.js';
 
   export let file;
   export let enableSelect;
@@ -14,6 +16,7 @@
 
   let fileComponent;
   let isSelected = false;
+  let isFileTagEditorOpen = false;
 
   const onDeleteConfirmClick = e => {
     e.preventDefault();
@@ -68,6 +71,7 @@
       <i class="fas fa-check"></i>
     {/if}
     {file.name}
+    <FileTagEditor file={file} isOpen={isFileTagEditorOpen}></FileTagEditor>
   </td>
   
   <td class="text-right controls">
@@ -89,15 +93,26 @@
       </a>
 
       {#if file.kind === fileKinds.INPUT}
-        <a href="#" class="btn btn-outline-primary btn-sm"
-          data-tooltip-title="Add a tag">
+        <button
+          class="btn btn-outline-primary btn-sm"
+          data-tooltip-title="Add a tag"
+          on:click={() => {
+            isFileTagEditorOpen = true;
+          }}
+        >
           <i class="fas fa-tag"></i>
-        </a>
+        </button>
 
-        <a href="#" class="btn btn-outline-danger btn-sm delete-file" 
-          data-tooltip-title="Delete file">
+        <button
+          class="btn btn-outline-danger btn-sm delete-file" 
+          data-tooltip-title="Delete file"
+          on:click={async () => {
+            await API.deleteResourceFromURLWithAuth(file.url);
+            // TODO: Re-pull to update state? Notification to users?
+          }}
+        >
           <i class="fas fa-trash"></i>
-        </a>
+        </button>
       {/if}
     {/if}
   </td>

@@ -37,9 +37,11 @@
   import { fileStore } from '../../store.js';
   import { fileKinds } from './File.svelte';
   import File from './File.svelte';
+  import API from '../../rest.js';
 
   let filesVisible = [];
   let filesSelected = [];
+  let filesToUpload = [];
 
   let fileManagerTitle;
   fileManagerModeStore.subscribe(mode => {
@@ -148,7 +150,19 @@
       </div>
       {#if $fileManagerModeStore == fileManagerModes.MANAGE}
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">
+          <input type=file multiple on:change={(event) => {
+            filesToUpload = event.target.files;
+          }}>
+          <!-- TODO: Disable this button if filesToUpload is null -->
+          <button type="button" class="btn btn-primary" on:click={() =>{
+            if (filesToUpload) {
+              API.uploadFiles(filesToUpload).then(() => {
+                // TODO: Notify the users that files are uploaded.
+                // TODO: fetch state again.
+              });
+            }
+            console.error('No file selected to upload');
+          }}>
             <i class="fas fa-file-upload"></i>
             Upload a new file
           </button>

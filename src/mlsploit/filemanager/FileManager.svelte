@@ -108,6 +108,7 @@
     let pipeline = $fileManagerMetaStore.pipeline;
     if (pipeline !== undefined) {
       console.log('run', pipeline.url, filesSelected);
+      API.runPipeline(pipeline.url, filesSelected);
     }
   }
 
@@ -159,8 +160,9 @@
                 // TODO: Notify the users that files are uploaded.
                 // TODO: fetch state again.
               });
+            } else {
+              console.error('No file selected to upload');
             }
-            console.error('No file selected to upload');
           }}>
             <i class="fas fa-file-upload"></i>
             Upload a new file

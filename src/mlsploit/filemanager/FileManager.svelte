@@ -41,7 +41,7 @@
 
   let filesVisible = [];
   let filesSelected = [];
-  let filesToUpload = [];
+  let filesToUpload = null;
 
   let fileManagerTitle;
   fileManagerModeStore.subscribe(mode => {
@@ -153,8 +153,7 @@
           <input type=file multiple on:change={(event) => {
             filesToUpload = event.target.files;
           }}>
-          <!-- TODO: Disable this button if filesToUpload is null -->
-          <button type="button" class="btn btn-primary" on:click={() =>{
+          <button type="button" class="btn btn-primary" disabled={filesToUpload == null} on:click={() =>{
             if (filesToUpload) {
               API.uploadFiles(filesToUpload).then(() => {
                 // TODO: Notify the users that files are uploaded.

@@ -81,7 +81,7 @@ const createPOSTRequestOptionsForObj = (obj) => ({
 });
 
 const createPOSTRequestOptionsForObjWithAuth = (obj) => {
-  requestOptionsForObj = createPOSTRequestOptionsForObj(obj);
+  const requestOptionsForObj = createPOSTRequestOptionsForObj(obj);
   requestOptionsForObj.headers['Authorization'] = `Token ${API.TOKEN}`;
   return requestOptionsForObj;
 };

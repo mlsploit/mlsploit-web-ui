@@ -7,11 +7,12 @@
 
 <script>
   import { afterUpdate } from 'svelte';
+  import { deleteFileWithURL } from '../../state.js';
   import FileTagEditor from './FileTagEditor.svelte';
-  import API from '../../rest.js';
 
   export let file;
   export let enableSelect;
+  export let onFileMutated;
   export let onFileSelectionChanged;
 
   let fileComponent;
@@ -20,7 +21,8 @@
 
   const onDeleteConfirmClick = e => {
     e.preventDefault();
-    console.log('delete', file.url);
+    deleteFileWithURL(file.url).then(onFileMutated);
+    jQuery(fileComponent).find('.controls a,button').remove();
   }
 
   const toggleFileSelected = () => {
@@ -73,11 +75,11 @@
     {file.name}
     <FileTagEditor file={file} isOpen={isFileTagEditorOpen}></FileTagEditor>
   </td>
-  
+
   <td class="text-right controls">
     {#if enableSelect}
-      <!-- 
-        Choose later if we want to show check marks here 
+      <!--
+        Choose later if we want to show check marks here
         or beside the file name. Hiding these for now.
       -->
       {#if isSelected}
@@ -103,16 +105,10 @@
           <i class="fas fa-tag"></i>
         </button>
 
-        <button
-          class="btn btn-outline-danger btn-sm delete-file" 
-          data-tooltip-title="Delete file"
-          on:click={async () => {
-            await API.deleteResourceFromURLWithAuth(file.url);
-            // TODO: Re-pull to update state? Notification to users?
-          }}
-        >
+        <a href="#" class="btn btn-outline-danger btn-sm delete-file"
+           data-tooltip-title="Delete file">
           <i class="fas fa-trash"></i>
-        </button>
+        </a>
       {/if}
     {/if}
   </td>

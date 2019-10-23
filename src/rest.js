@@ -103,21 +103,21 @@ const parseResponse = (response) => {
     throw new Error(
       `[REQUEST FAILED] ${response.status}: ${response.statusText}`);
   }
-  
+
   return response.json();
 };
 
 // Auth requests
 
 API.signin = (username, password) => fetch(
-  API.ENDPOINTS.SIGNIN, 
+  API.ENDPOINTS.SIGNIN,
   createPOSTRequestOptionsForObj({
     username, password
   })
 ).then(parseResponse);
 
 API.signup = (username, password1, password2) => fetch(
-  API.ENDPOINTS.SIGNUP, 
+  API.ENDPOINTS.SIGNUP,
   createPOSTRequestOptionsForObj({
     username, password1, password2
   })
@@ -149,13 +149,13 @@ API.deleteResourceByURLWithAuth = resourceURL => fetch(
 // Mutation requests
 
 API.createNewPipeline = (pipelineName) => fetch(
-  API.ENDPOINTS.PIPELINES, 
+  API.ENDPOINTS.PIPELINES,
   createPOSTRequestOptionsForObjWithAuth({
     name: pipelineName
 })).then(parseResponse);
 
 API.addTaskToPipeline = (pipelineURL, functionURL, args) => fetch(
-  API.ENDPOINTS.TASKS, 
+  API.ENDPOINTS.TASKS,
   createPOSTRequestOptionsForObjWithAuth({
     pipeline: pipelineURL,
     function: functionURL,
@@ -163,7 +163,7 @@ API.addTaskToPipeline = (pipelineURL, functionURL, args) => fetch(
 })).then(parseResponse);
 
 API.enablePipeline = (pipelineURL) => fetch(
-  pipelineURL, 
+  pipelineURL,
   createPATCHRequestOptionsForObjWithAuth({
     enabled: true
 }));
@@ -174,8 +174,8 @@ API.createNewPipelineWithTasks = (pipelineName, tasks) => API.createNewPipeline(
   const pipelineURL = pipeline.url;
   for (const task of tasks) {
     await API.addTaskToPipeline(
-      pipelineURL, 
-      task.function.url, 
+      pipelineURL,
+      task.function.url,
       task.arguments
     );
   }
@@ -185,14 +185,14 @@ API.createNewPipelineWithTasks = (pipelineName, tasks) => API.createNewPipeline(
 });
 
 API.runPipeline = (pipelineURL, targetFileURLs) => fetch(
-  API.ENDPOINTS.RUNS, 
+  API.ENDPOINTS.RUNS,
   createPOSTRequestOptionsForObjWithAuth({
     pipeline: pipelineURL,
     files: targetFileURLs,
 })).then(parseResponse);
 
 API.editFileTags = (file, tags) => fetch(
-  file.url, 
+  file.url,
   createPATCHRequestOptionsForObjWithAuth({
     tags: JSON.stringify(Object.assign(file.tags, tags))
 })).then(parseResponse);
@@ -200,19 +200,30 @@ API.editFileTags = (file, tags) => fetch(
 API.uploadFile = (fileBlob) => {
   const formData = new FormData();
   formData.append('blob', fileBlob);
-  
+
   // this request is the only post request that sends form data not JSON.
   const requestOptions = createPOSTRequestOptionsForObjWithAuth({});
-  requestOptions.headers['Content-Type'] = 'multipart/form-data';
+  delete requestOptions.headers['Content-Type'];
   requestOptions.body = formData;
-  
+
   return fetch(
-    API.ENDPOINTS.FILES, 
+    API.ENDPOINTS.FILES,
     requestOptions
   ).then(parseResponse);
 };
 
-API.uploadFiles = (fileBlobs) => Promise.all(fileBlobs.map(API.uploadFile));
+API.uploadFiles = async (fileList) => {
+  let uploadedFiles = []
+
+  // fileList is a JS FileList, not an Array
+  for (let i = 0; i < fileList.length; i++) {
+    uploadedFiles.push(
+      await API.uploadFile(fileList[i])
+    );
+  }
+
+  return uploadedFiles;
+};
 
 window.API = API;
 export default API;

@@ -14,30 +14,28 @@
     fileManagerMetaStore.set(
       meta !== undefined ? meta : {}
     );
-    
+
     fileManagerModeStore.set(
-      mode !== undefined 
-      ? fileManagerModes[mode] 
+      mode !== undefined
+      ? fileManagerModes[mode]
       : fileManagerModes.DEFAULT
     );
   };
 
-  export const showFileManager = () => {
-    jQuery('#file-manager').modal('show');
-  };
-
   export const setAndShowFileManager = (mode, meta) => {
     setFileManagerMode(mode, meta);
-    showFileManager();
+    jQuery('#file-manager').modal('show');
   };
 </script>
 
 <script>
   import { onMount } from 'svelte';
   import { fileStore } from '../../store.js';
+  import { uploadFiles } from '../../state.js';
   import { fileKinds } from './File.svelte';
   import File from './File.svelte';
-  import API from '../../rest.js';
+
+  let fileUploadInputElement;
 
   let filesVisible = [];
   let filesSelected = [];
@@ -61,7 +59,6 @@
     }
   });
 
-  
   const getFilesByURL = fileURLs => Promise.all(
     fileURLs.map(getResourceByURL)
   );
@@ -73,7 +70,8 @@
   const setVisibleFiles = () => {
     filesVisible = [];
     filesSelected = [];
-    
+    filesToUpload = null;
+
     // Run after a timeout to re-render the files
     setTimeout(() => {
       if ($fileManagerModeStore == fileManagerModes.OUTPUT) {
@@ -96,6 +94,14 @@
     }, 10);
   };
 
+  const onUploadButtonClicked = e => {
+    if (filesToUpload === null) jQuery(fileUploadInputElement).click();
+    else {
+      uploadFiles(filesToUpload).then(onFileMutated);
+      filesToUpload = null;
+    }
+  }
+
   const onFileSelectionChanged = (fileURL, isSelected) => {
     let newFilesSelected = isSelected
       ? [...new Set([...filesSelected, fileURL])]
@@ -112,6 +118,10 @@
     }
   }
 
+  const onFileMutated = () => {
+    setVisibleFiles();
+  }
+
   onMount(() => {
     setFileManagerMode();
     fileManagerModeStore.subscribe(setVisibleFiles);
@@ -126,10 +136,10 @@
   }
 </style>
 
-<div id="file-manager" 
-     class="modal fade" 
-     tabindex="-1" 
-     role="dialog" 
+<div id="file-manager"
+     class="modal fade"
+     tabindex="-1"
+     role="dialog"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -140,32 +150,41 @@
         </button>
       </div>
       <div class="modal-body">
-        <table class="table table-hover table-borderless">
-          <tbody>
-            {#each filesVisible as file}
-              <File file={file} onFileSelectionChanged={onFileSelectionChanged}
-                    enableSelect={$fileManagerModeStore == fileManagerModes.SELECT} />
-            {/each}
-          </tbody>
-        </table>
+        {#if filesVisible.length > 0}
+          <table class="table table-hover table-borderless">
+            <tbody>
+              {#each filesVisible as file}
+                <File file={file}
+                      onFileMutated={onFileMutated}
+                      onFileSelectionChanged={onFileSelectionChanged}
+                      enableSelect={$fileManagerModeStore == fileManagerModes.SELECT} />
+              {/each}
+            </tbody>
+          </table>
+        {:else}
+          No files to show.
+        {/if}
       </div>
       {#if $fileManagerModeStore == fileManagerModes.MANAGE}
         <div class="modal-footer">
-          <input type=file multiple on:change={(event) => {
-            filesToUpload = event.target.files;
-          }}>
-          <button type="button" class="btn btn-primary" disabled={filesToUpload == null} on:click={() =>{
-            if (filesToUpload) {
-              API.uploadFiles(filesToUpload).then(() => {
-                // TODO: Notify the users that files are uploaded.
-                // TODO: fetch state again.
-              });
-            } else {
-              console.error('No file selected to upload');
-            }
-          }}>
-            <i class="fas fa-file-upload"></i>
-            Upload a new file
+          <input type="file" multiple style="display:none"
+                 bind:this={fileUploadInputElement}
+                 on:change={e => { filesToUpload = e.target.files; }}>
+          <button type="button" class="btn"
+                  class:btn-primary={filesToUpload === null}
+                  class:btn-success={filesToUpload !== null}
+                  on:click={onUploadButtonClicked}>
+            {#if filesToUpload !== null}
+              <i class="fas fa-upload"></i>
+              {#if filesToUpload.length > 1}
+                Upload {filesToUpload.length} file
+              {:else}
+                Upload {filesToUpload[0].name}
+              {/if}
+            {:else}
+              <i class="fas fa-file-upload"></i>
+              Select files to upload
+            {/if}
           </button>
         </div>
       {/if}

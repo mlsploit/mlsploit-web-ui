@@ -44,7 +44,7 @@ export const populateResourceStore = resourceType => {
       resourceStore.set(dummydata[resourceType])
     );
   }
-  
+
   return new Promise((resolve, reject) => {
     getResourcesFromAPI()
       .then(resourceStore.set)
@@ -70,8 +70,8 @@ export const getResourceByURL = resourceURL => {
       r => resourceURL.includes(resourceMap[r].STUB)
     );
 
-    if (resourceType === undefined) { 
-      reject('Invalid resource URL'); 
+    if (resourceType === undefined) {
+      reject('Invalid resource URL');
     }
 
     // Check if the data is in the corresponding store.
@@ -110,5 +110,15 @@ export const createNewPipelineWithTasks = async (pipelineName, tasks) => {
 
 export const deletePipelineWithURL = pipelineURL => {
   return API.deleteResourceByURLWithAuth(pipelineURL)
+            .then(populateAllResourceStores);
+};
+
+export const uploadFiles = fileList => {
+  return API.uploadFiles(fileList)
+            .then(populateAllResourceStores);
+};
+
+export const deleteFileWithURL = fileURL => {
+  return API.deleteResourceByURLWithAuth(fileURL)
             .then(populateAllResourceStores);
 };

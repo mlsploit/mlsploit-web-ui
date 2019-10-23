@@ -174,7 +174,7 @@ API.runPipeline = (pipelineURL, targetFileURLs) => fetch(API.ENDPOINTS.RUNS, cre
   files: targetFileURLs,
 })).then(parseResponse);
 
-API.editFileTags = (file, tags) => fetch(resourceURL, createPATCHRequestOptionsForObjWithAuth({
+API.editFileTags = (file, tags) => fetch(file.url, createPATCHRequestOptionsForObjWithAuth({
   tags: JSON.stringify(Object.assign(file.tags, tags))
 })).then(parseResponse);
 

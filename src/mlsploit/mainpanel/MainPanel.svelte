@@ -1,12 +1,10 @@
 <script>
-  import { get } from 'svelte/store';
   import { newPipelineVisibleStore, pipelineStore } from '../../store.js';
   import Pipeline from './pipeline/Pipeline.svelte';
-  
-  let pipelines = get(pipelineStore);
-  pipelineStore.subscribe(pipelines_ => {
-    pipelines = pipelines_;
-  });
+
+  $: pipelines = $pipelineStore.sort(
+    (p1, p2) => (p1.date_created > p2.date_created ? -1 : 1)
+  );
 </script>
 
 <style>
@@ -20,7 +18,7 @@
   {#if $newPipelineVisibleStore}
     <Pipeline isNewPipeline={true} />
   {/if}
-  
+
   {#each pipelines as pipeline}
     <Pipeline {pipeline} />
   {/each}

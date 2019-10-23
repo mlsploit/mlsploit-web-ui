@@ -1,6 +1,5 @@
 <script context="module">
   import { get } from 'svelte/store';
-  import API from '../../../rest.js';
   import { getResourceByURL } from '../../../state.js';
   import { functionStore } from '../../../store.js';
 

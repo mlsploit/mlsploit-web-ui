@@ -13,7 +13,12 @@
   let taskListComponent;
 
   let numTasks = tasks.length;
+  let visualizationItems = [];
   const hasNewPipelineTasks = Boolean(showDropzone);
+
+  getVisualizationItems(runURLs[runURLs.length - 1], numTasks).then(items => {
+    visualizationItems = items;
+  });
 
   // newPipelineTasksData will track the task data for the rendered UI elements
   // so DO NOT modify tasks directly, use the below helper functions
@@ -211,46 +216,51 @@
 
   <div class="task-list rounded" bind:this={taskListComponent}>
 
-    {#await getVisualizationItems(runURLs[runURLs.length - 1], numTasks) then visualizationItems}
-      {#each tasks as task, idx}
-        <!-- Add an input component if this task requires to show one -->
-        {#if !hasNewPipelineTasks && visualizationItems[idx].show && visualizationItems[idx].type === 'INPUT'}
-          <ImageVis imageURL={visualizationItems[idx].item} isInput/>
-          <i class="fas fa-arrow-right arrow"></i>
-        {/if}
-
-        <Task task={task}
-              taskIndex={idx}
-              onRemoveTask={removeTask}
-              isLastTask={idx == tasks.length - 1}
-              isNewPipelineTask={hasNewPipelineTasks}
-              onNewTaskDataUpdated={updateNewPipelineTaskData} />
-
-        <!-- Add an output component if this task requires to show one -->
-        {#if !hasNewPipelineTasks && visualizationItems[idx].show && visualizationItems[idx].type === 'OUTPUT'}
-          <i class="fas fa-arrow-right arrow"></i>
-          <ImageVis imageURL={visualizationItems[idx].item} />
-        {/if}
-
-        {#if idx !== tasks.length - 1}
-          <i class="fas fa-arrow-right arrow"></i>
-        {/if}
-      {/each}
-
-      {#if showDropzone}
-        {#if tasks.length > 0}
-          <i class="fas fa-arrow-right arrow"></i>
-        {/if}
-
-        <div class="dropzone"
-            on:dragenter={handleDragEnter}
-            on:dragleave={handleDragLeave}
-            on:dragover={handleDragOver}
-            on:drop={handleDrop}>
-          <div class="dragzone-label">drag here...</div>
-        </div>
+    {#each tasks as task, idx}
+      <!-- Add an input component if this task requires to show one -->
+      {#if !hasNewPipelineTasks
+           && visualizationItems[idx]
+           && visualizationItems[idx].show
+           && visualizationItems[idx].type === 'INPUT'}
+        <ImageVis imageURL={visualizationItems[idx].item} isInput/>
+        <i class="fas fa-arrow-right arrow"></i>
       {/if}
-    {/await}
+
+      <Task task={task}
+            taskIndex={idx}
+            onRemoveTask={removeTask}
+            isLastTask={idx == tasks.length - 1}
+            isNewPipelineTask={hasNewPipelineTasks}
+            onNewTaskDataUpdated={updateNewPipelineTaskData} />
+
+      <!-- Add an output component if this task requires to show one -->
+      {#if !hasNewPipelineTasks
+           && visualizationItems[idx]
+           && visualizationItems[idx].show
+           && visualizationItems[idx].type === 'OUTPUT'}
+        <i class="fas fa-arrow-right arrow"></i>
+        <ImageVis imageURL={visualizationItems[idx].item} />
+      {/if}
+
+      {#if idx !== tasks.length - 1}
+        <i class="fas fa-arrow-right arrow"></i>
+      {/if}
+    {/each}
+
+    {#if showDropzone}
+      {#if tasks.length > 0}
+        <i class="fas fa-arrow-right arrow"></i>
+      {/if}
+
+      <div class="dropzone"
+          on:dragenter={handleDragEnter}
+          on:dragleave={handleDragLeave}
+          on:dragover={handleDragOver}
+          on:drop={handleDrop}>
+        <div class="dragzone-label">drag here...</div>
+      </div>
+    {/if}
+
     <span class="over" style="width:2px;opacity:0;">|</span>
   </div>
 </div>

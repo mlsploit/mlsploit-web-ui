@@ -1,13 +1,13 @@
 <script>
   import data from '../../../dummydata.js';
   import { onMount } from 'svelte';
-  
+
   export let imageURL;
   export let isInput = false;
 
   // Enable tooltips
   onMount(() => {
-    jQuery('[data-toggle="popover"]').popover({
+    jQuery('.image-vis[data-toggle="popover"]').popover({
       delay: { show: 200 }
     })
   });
@@ -16,7 +16,7 @@
   let tooltipImageTemplate = `
     <img src="${imageURL}"
       alt="Larger Visualization of the input/output image.">
-  ` 
+  `
 </script>
 
 <style>
@@ -35,7 +35,7 @@
 </style>
 
 <div class="image-vis"
-  lass:input={isInput}
+  class:input={isInput}
   data-toggle="popover"
   data-container="#image-vis-popover-container"
   data-trigger="hover"

@@ -74,8 +74,8 @@ const createPOSTRequestOptionsForObj = (obj) => ({
   ...commonRequestOptions,
   method: 'POST',
   headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': getCookie('csrftoken')
+    'Content-Type': 'application/json',
+    'X-CSRFToken': getCookie('csrftoken')
   },
   body: JSON.stringify(obj)
 });
@@ -141,64 +141,78 @@ API.getJobs = () => API.getResourceFromURLWithAuth(API.ENDPOINTS.JOBS);
 
 // Delete requests
 
-API.deleteResourceFromURLWithAuth = resourceURL => fetch(
+API.deleteResourceByURLWithAuth = resourceURL => fetch(
   resourceURL,
   createDELETERequestOptionsWithAuth()
-).then(parseResponse);
+);
 
 // Mutation requests
 
-API.addTaskToPipeline = (pipelineURL, funcURL, args) => fetch(API.ENDPOINTS.TASKS, createPOSTRequestOptionsForObjWithAuth({
-  pipeline: pipelineURL,
-  function: funcURL,
-  arguments: JSON.stringify(args)
+API.createNewPipeline = (pipelineName) => fetch(
+  API.ENDPOINTS.PIPELINES, 
+  createPOSTRequestOptionsForObjWithAuth({
+    name: pipelineName
 })).then(parseResponse);
 
-API.enablePipeline = (pipelineURL) => fetch(pipelineURL, createPATCHRequestOptionsForObjWithAuth({
-  enabled: true
+API.addTaskToPipeline = (pipelineURL, functionURL, args) => fetch(
+  API.ENDPOINTS.TASKS, 
+  createPOSTRequestOptionsForObjWithAuth({
+    pipeline: pipelineURL,
+    function: functionURL,
+    arguments: JSON.stringify(args)
+})).then(parseResponse);
+
+API.enablePipeline = (pipelineURL) => fetch(
+  pipelineURL, 
+  createPATCHRequestOptionsForObjWithAuth({
+    enabled: true
 }));
 
-API.createPipeline = (myPipeline) => fetch(API.ENDPOINTS.PIPELINES, createPOSTRequestOptionsForObjWithAuth({
-  name: myPipeline.name
-})).then(parseResponse).then(async pipeline => {
+API.createNewPipelineWithTasks = (pipelineName, tasks) => API.createNewPipeline(
+  pipelineName
+).then(async pipeline => {
   const pipelineURL = pipeline.url;
-  for (const component of myPipeline.components) {
-    await API.addTaskToPipeline(pipelineURL, component.funcURL, component.arguments);
+  for (const task of tasks) {
+    await API.addTaskToPipeline(
+      pipelineURL, 
+      task.function.url, 
+      task.arguments
+    );
   }
   await API.enablePipeline(pipelineURL);
-  return pipeline;
+  const updatedPipeline = await API.getResourceFromURLWithAuth(pipelineURL);
+  return updatedPipeline;
 });
 
-API.runPipeline = (pipelineURL, targetFileURLs) => fetch(API.ENDPOINTS.RUNS, createPOSTRequestOptionsForObjWithAuth({
-  pipeline: pipelineURL,
-  files: targetFileURLs,
+API.runPipeline = (pipelineURL, targetFileURLs) => fetch(
+  API.ENDPOINTS.RUNS, 
+  createPOSTRequestOptionsForObjWithAuth({
+    pipeline: pipelineURL,
+    files: targetFileURLs,
 })).then(parseResponse);
 
-API.editFileTags = (file, tags) => fetch(file.url, createPATCHRequestOptionsForObjWithAuth({
-  tags: JSON.stringify(Object.assign(file.tags, tags))
+API.editFileTags = (file, tags) => fetch(
+  file.url, 
+  createPATCHRequestOptionsForObjWithAuth({
+    tags: JSON.stringify(Object.assign(file.tags, tags))
 })).then(parseResponse);
 
-API.uploadFile = (file) => {
+API.uploadFile = (fileBlob) => {
   const formData = new FormData();
-  formData.append('blob', file);
-  // this request is the only post request that sends form data but not JSON.
-  return fetch(API.ENDPOINTS.FILES, {
-      headers: {
-          'Authorization': `Token ${window.token}`,
-          'X-CSRFToken': getCookie('csrftoken')
-      },
-      method: 'POST',
-      body: formData,
-  });
+  formData.append('blob', fileBlob);
+  
+  // this request is the only post request that sends form data not JSON.
+  const requestOptions = createPOSTRequestOptionsForObjWithAuth({});
+  requestOptions.headers['Content-Type'] = 'multipart/form-data';
+  requestOptions.body = formData;
+  
+  return fetch(
+    API.ENDPOINTS.FILES, 
+    requestOptions
+  ).then(parseResponse);
 };
 
-API.uploadFiles = (listOfFiles) => {
-  const listOfPromises = [];
-  for (let i = 0; i < listOfFiles.length; i++) {
-    listOfPromises.push(API.uploadFile(listOfFiles[i]));
-  }
-  return Promise.all(listOfPromises);
-};
+API.uploadFiles = (fileBlobs) => Promise.all(fileBlobs.map(API.uploadFile));
 
 window.API = API;
 export default API;

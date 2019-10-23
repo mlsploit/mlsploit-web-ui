@@ -14,7 +14,7 @@
       }
     }).then(taskFunction => {
       return {
-        ...taskFunction, 
+        ...taskFunction,
         options: JSON.parse(taskFunction.options)
       };
     });
@@ -25,7 +25,7 @@
   import { onMount } from 'svelte';
   import { setupDetailViewHandlers } from '../../rightpanel/detailview.js';
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
-  
+
   export let task;
   export let taskIndex = null;
   export let isLastTask = false;
@@ -47,7 +47,7 @@
     item: task,
     meta: {
       taskIndex,
-      isModuleTask, 
+      isModuleTask,
       isNewPipelineTask,
       onNewTaskArgumentValueChanged
     }
@@ -68,12 +68,12 @@
 
   onMount(() => {
     setupDetailViewHandlers(taskComponent, taskDetailViewItem);
-    
+
     getTaskFunction(task).then(taskFunction => {
       newTaskData.function = taskFunction;
       onNewTaskDataUpdated(taskIndex, newTaskData);
     });
-    
+
     if (isNewPipelineTask) { jQuery(taskComponent).focus(); }
   });
 </script>
@@ -149,17 +149,17 @@
       class:module={isModuleTask}
       bind:this={taskComponent}
       tabindex="-1"
-      draggable={isModuleTask} 
+      draggable={isModuleTask}
       on:dragstart={handleDragStart}
       on:dragend={handleDragEnd}>
-  
+
   <!-- Use div instead of span for text ellipsis overflow -->
   {#await getTaskFunction(task) then task_function}
     <div class="function-name">{task_function.name}</div>
   {/await}
 
   {#if isNewPipelineTask && isLastTask}
-    <!-- Current logic only supports deletion 
+    <!-- Current logic only supports deletion
          if it is the last task of a new pipeline -->
     <i class="fas fa-minus-circle delete"
        on:click={onRemoveTaskBtnClicked}>

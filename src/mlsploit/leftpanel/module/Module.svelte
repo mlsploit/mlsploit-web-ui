@@ -3,7 +3,7 @@
   import { setupDetailViewHandlers } from '../../rightpanel/detailview.js';
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
   import Task from '../../mainpanel/tasklist/Task.svelte';
-  
+
   export let module;
 
   let moduleComponent;
@@ -29,7 +29,7 @@
 
   onMount(() => {
     setupDetailViewHandlers(
-      moduleComponent, 
+      moduleComponent,
       moduleDetailViewItem
     );
   });
@@ -67,7 +67,7 @@
     transition: color 300ms ease-in-out;
   }
 
-  .module:focus h6 {    
+  .module:focus h6 {
     color: black;
   }
 
@@ -120,7 +120,7 @@
         <div class="col-md-3 module-icon">
           <div><img src="{moduleIconURL}" alt={module.name} /></div>
         </div>
-        
+
         <div class="col-md-9">
           <i class="fas fa-chevron-{isExpanded ? 'up' : 'down'} expand-btn" on:click={toggleIsExpanded}></i>
           <h4 class="module-name">{module.name}</h4>

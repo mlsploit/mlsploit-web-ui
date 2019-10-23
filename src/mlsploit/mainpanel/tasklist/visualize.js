@@ -32,8 +32,8 @@ const gatherAllData = runURL => {
 
 export const getVisualizationItems = (runURL, numTasks) => {
   const visualizationItems = Array(numTasks).fill({show: false});
-  
-  if (runURL === undefined) 
+
+  if (runURL === undefined)
     return Promise.resolve(visualizationItems);
 
   return new Promise((resolve, reject) => {
@@ -43,10 +43,10 @@ export const getVisualizationItems = (runURL, numTasks) => {
       let outputFiles = data.outputFiles;
 
       let inputFileCandidate = inputFiles[0];
-      
+
       jobs.forEach((job, i) => {
-        if (i == 0 
-            && inputFileCandidate 
+        if (i == 0
+            && inputFileCandidate
             && inputFileCandidate.name.endsWith('.jpg')) {
           visualizationItems[i].item = {
             url: inputFileCandidate.blob_url
@@ -57,10 +57,10 @@ export const getVisualizationItems = (runURL, numTasks) => {
         } else {
           let outputFilesForJob = outputFiles[i];
           let outputFileCandidate = outputFilesForJob[0];
-          let outputFileTags = outputFileCandidate 
-            ? JSON.parse(outputFileCandidate.tags) 
+          let outputFileTags = outputFileCandidate
+            ? JSON.parse(outputFileCandidate.tags)
             : {}
-          
+
             if (outputFileTags['mlsploit-visualize'] == 'image') {
               visualizationItems[i].item = {
                 url: outputFileCandidate.blob_url,

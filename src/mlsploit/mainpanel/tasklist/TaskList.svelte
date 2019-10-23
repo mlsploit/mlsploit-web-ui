@@ -1,6 +1,5 @@
 <script>
-  import { afterUpdate } from 'svelte';
-  import { onMount } from 'svelte';
+  import { afterUpdate, onMount } from 'svelte';
   import Task from './Task.svelte';
   import { getVisualizationItems } from './visualize.js';
   import ImageVis from './ImageVis.svelte'
@@ -12,25 +11,25 @@
 
   let taskListWrapperComponent;
   let taskListComponent;
-  
+
   let numTasks = tasks.length;
   const hasNewPipelineTasks = Boolean(showDropzone);
 
   // newPipelineTasksData will track the task data for the rendered UI elements
   // so DO NOT modify tasks directly, use the below helper functions
-  let newPipelineTasksData = []; 
+  let newPipelineTasksData = [];
   const addNewTask = t => {
     newPipelineTasksData = [...newPipelineTasksData, t];
     onNewPipelineTasksUpdated(newPipelineTasksData);
-    
-    // update UI elements AFTER updating store 
+
+    // update UI elements AFTER updating store
     tasks = [...tasks, t];
   };
   const removeTask = idx => {
     newPipelineTasksData.splice(idx, 1);
     onNewPipelineTasksUpdated(newPipelineTasksData);
 
-    // update UI elements AFTER updating store 
+    // update UI elements AFTER updating store
     let tempTasks = [...tasks];
     tempTasks.splice(idx, 1);
     tasks = [...tempTasks];
@@ -45,7 +44,7 @@
 
   const handleDragOver = e => {
     e.preventDefault();
-    e.dataTransfer.dropEffect = 'move'; 
+    e.dataTransfer.dropEffect = 'move';
     return false;
   };
 
@@ -70,20 +69,20 @@
 
     let scrolledLeft = (scrolled == 0);
     let scrolledRight = (scrolled + innerWidth >= contentWidth);
-    
+
     // User scrolls to the left end
     if (scrolledLeft) {
       // JQuery slim needs these two lines to trigger CSS transition
       jqLeftEdge.css('opacity');
       jqLeftEdge.css('opacity', 0.0);
     }
-    
+
     // User scrolls to the right end
     if (scrolledRight) {
       jqRightEdge.css('opacity');
       jqRightEdge.css('opacity', 0.0);
     }
-    
+
     // User is in the middle of scrolling
     if (!(scrolledLeft || scrolledRight)) {
       jqLeftEdge.css('opacity');
@@ -98,6 +97,13 @@
     }
   };
 
+  onMount(() => {
+    // Need timeout, because TaskList's onMount is called before all its tasks
+    // are rendered (so every TaskList is considered as unscrollable)
+    setTimeout(handleScrollPosition, 100);
+    jQuery(taskListComponent).on('scroll', handleScrollPosition);
+  });
+
   afterUpdate(() => {
     let newNumTasks = tasks.length;
     if (numTasks !== newNumTasks) {
@@ -109,7 +115,6 @@
 
     // Auto scroll the new pipeline, so the placeholder is always on screen
     if (showDropzone && numTasks > 0) {
-
       // Improve
       // Need this timeout function, because somehow the program automatically
       // scrolls back to the left when new task is added
@@ -122,19 +127,9 @@
           jqLeftEdge.css('opacity');
           jqLeftEdge.css('opacity', 1.0);
         };
-      }, 0.5);
+      }, 10);
     };
   });
-
-  onMount(() => {
-    // Need timeout, because TaskList's onMount is called before all its tasks
-    // are rendered (so every TaskList is considered as unscrollable)
-    setTimeout(() => {
-      handleScrollPosition();
-    }, 0.5);
-
-    jQuery(taskListComponent).on('scroll', handleScrollPosition);
-  })
 
 </script>
 
@@ -224,7 +219,7 @@
           <i class="fas fa-arrow-right arrow"></i>
         {/if}
 
-        <Task task={task} 
+        <Task task={task}
               taskIndex={idx}
               onRemoveTask={removeTask}
               isLastTask={idx == tasks.length - 1}
@@ -246,8 +241,8 @@
         {#if tasks.length > 0}
           <i class="fas fa-arrow-right arrow"></i>
         {/if}
-        
-        <div class="dropzone" 
+
+        <div class="dropzone"
             on:dragenter={handleDragEnter}
             on:dragleave={handleDragLeave}
             on:dragover={handleDragOver}

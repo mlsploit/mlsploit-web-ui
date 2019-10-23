@@ -42,7 +42,7 @@
     <div class="sidebar-header text-center">
       <h3>Research Modules</h3>
     </div>
-    
+
     <div class="sidebar-contents">
       {#each modules as module}
         <Module {module} />

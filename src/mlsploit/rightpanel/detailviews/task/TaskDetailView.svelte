@@ -22,7 +22,7 @@
     {#if taskFunction.options.length > 0}
       <form>
         {#each taskFunction.options as option}
-          <TaskParam config={option}
+          <TaskParam option={option}
                      value={taskArguments[option.name]}
                      hasInput={!isModuleTaskDetailView}
                      isReadonly={isDefaultTaskDetailView}

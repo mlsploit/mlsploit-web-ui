@@ -2,7 +2,6 @@
   import { get } from 'svelte/store';
   import { newPipelineVisibleStore, pipelineStore } from '../../store.js';
   import Pipeline from './pipeline/Pipeline.svelte';
-  import Modal from './filemanager/Modal.svelte';
   
   let pipelines = get(pipelineStore);
   pipelineStore.subscribe(pipelines_ => {
@@ -25,16 +24,6 @@
   {#each pipelines as pipeline}
     <Pipeline {pipeline} />
   {/each}
-  {#each pipelines as pipeline}
-    <Pipeline {pipeline} />
-  {/each}
-  {#each pipelines as pipeline}
-    <Pipeline {pipeline} />
-  {/each}
-
-  <!-- Filemanager modal -->
-  <Modal></Modal>
-  
 </div>
 
 

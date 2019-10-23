@@ -8,7 +8,7 @@
   const loadRuns = () => {
     if (!pipeline)
       Promise.resolve([]);
-    
+
     let promises = [];
     for (let runURL of pipeline.runs) {
       promises.push(
@@ -34,15 +34,11 @@
       {#if runs.length > 0}
         <table class="table table-hover table-borderless">
           <tbody>
+
             {#each runs as run}
               <Run run={run} />
             {/each}
-            {#each runs as run}
-              <Run run={run} />
-            {/each}
-            {#each runs as run}
-              <Run run={run} />
-            {/each}
+
           </tbody>
         </table>
       {:else}

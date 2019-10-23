@@ -1,5 +1,14 @@
 <script>
+  import { deletePipelineWithURL } from '../../../state.js';
+
   export let pipeline;
+
+  const onDeleteConfirmationBtnClicked = e => {
+    // Note: Let event propagate to close the modal
+    e.preventDefault();
+
+    deletePipelineWithURL(pipeline.url);
+  };
 </script>
 
 <style>
@@ -23,7 +32,8 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Cancel
         </button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">
+        <button type="button" class="btn btn-danger" data-dismiss="modal"
+                on:click={onDeleteConfirmationBtnClicked}>
           Yes, delete it
         </button>
       </div>

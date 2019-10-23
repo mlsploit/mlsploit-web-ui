@@ -5,14 +5,15 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { setupDetailViewHandlers } from '../../rightpanel/detailview.js';
-  import { 
+  import {
     detailViewItemStore,
-    newPipelineDataStore, 
-    newPipelineVisibleStore 
+    newPipelineDataStore,
+    newPipelineVisibleStore
   } from '../../../store.js';
-  import { 
-    fileManagerModes, 
-    setAndShowFileManager 
+  import { createNewPipelineWithTasks } from '../../../state.js';
+  import {
+    fileManagerModes,
+    setAndShowFileManager
   } from '../../filemanager/FileManager.svelte';
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
   import TaskList from '../tasklist/TaskList.svelte';
@@ -28,21 +29,24 @@
     type: detailViewTypes.PIPELINE,
     item: pipeline
   }
-  
+
   let tasks = isNewPipeline ? [] : pipeline.tasks;
   let runURLs = isNewPipeline ? [] : pipeline.runs;
   const showDropzone = Boolean(isNewPipeline);
   const cursorStyle = isNewPipeline ? 'default' : 'pointer';
 
-  const deletePipeline = (e) => {
-    if (isNewPipeline) { 
-      $newPipelineVisibleStore = false;
-      $newPipelineDataStore = null;
-      $detailViewItemStore = null;
-    } else {
-      // Toggle the deletion confirmation dialog
-      jQuery(`#delete-pipeline-${pipeline.id}-confirm`).modal('toggle');
-    }
+  const hideNewPipeline = () => {
+    $newPipelineVisibleStore = false;
+    $newPipelineDataStore = null;
+    $detailViewItemStore = null;
+  }
+
+  const onDeletePipelineBtnClicked = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (isNewPipeline) { hideNewPipeline(); }
+    else { jQuery(`#delete-pipeline-${pipeline.id}-confirm`).modal('toggle'); }
   };
 
   const onRunPipelineBtnClicked = e => {
@@ -54,8 +58,13 @@
   const onSavePipelineBtnClicked = e => {
     e.preventDefault();
     e.stopPropagation();
+
     newPipelineName = newPipelineName || DEFAULT_NEW_PIPELINE_NAME;
-    console.log('create new pipeline:', newPipelineName, $newPipelineDataStore);
+    createNewPipelineWithTasks(
+      newPipelineName,
+      $newPipelineDataStore.tasks
+    );
+    hideNewPipeline();
   }
 
   const onNewPipelineTasksUpdated = tasks => {
@@ -147,11 +156,11 @@
   }
 </style>
 
-<div class="pipeline card" 
+<div class="pipeline card"
      bind:this={pipelineComponent}
-     style="cursor:{cursorStyle};" 
+     style="cursor:{cursorStyle};"
      tabindex="-1">
-  
+
   <div class="title">
     {#if isNewPipeline}
       <input id="name-input" type="text" class="form-control w-50"
@@ -160,18 +169,18 @@
     {:else}
       <h5>{pipeline.name}</h5>
     {/if}
-    
+
     <div class="title-controls">
       {#if isNewPipeline}
         <i class="fa fa-lg fa-check-circle sticky-check" on:click={onSavePipelineBtnClicked}></i>
-        <i class="fa fa-lg fa-times-circle sticky-delete" on:click={deletePipeline}></i>
+        <i class="fa fa-lg fa-times-circle sticky-delete" on:click={onDeletePipelineBtnClicked}></i>
       {:else}
         <i class="fa fa-lg fa-play-circle play" on:click={onRunPipelineBtnClicked}></i>
-        <i class="fa fa-lg fa-times-circle delete" on:click={deletePipeline}></i>
+        <i class="fa fa-lg fa-times-circle delete" on:click={onDeletePipelineBtnClicked}></i>
       {/if}
     </div>
   </div>
-  
+
   <TaskList tasks={tasks} runURLs={runURLs} showDropzone={showDropzone}
             onNewPipelineTasksUpdated={onNewPipelineTasksUpdated} />
 

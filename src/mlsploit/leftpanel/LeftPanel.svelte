@@ -11,7 +11,6 @@
 <style>
   #left-panel {
     padding: 2rem;
-    background-color: var(--g-light-gray);
   }
 
   .sidebar {

@@ -6,7 +6,7 @@
   import ModuleDetailView from './detailviews/module/ModuleDetailView.svelte';
   import PipelineDetailView from './detailviews/pipeline/PipelineDetailView.svelte';
   import TaskDetailView from './detailviews/task/TaskDetailView.svelte';
-  
+
   let detailViewContainer;
 
   const resizeDetailViewContainer = () => {
@@ -24,7 +24,7 @@
   onMount(() => {
     resizeDetailViewContainer();
     jQuery(window).resize(resizeDetailViewContainer);
-    
+
     setupDetailViewHandlers(detailViewContainer);
   });
 </script>
@@ -37,28 +37,24 @@
       right: 15px;
     }
   }
-
-  #right-panel {
-    background-color: var(--g-light-gray);
-  }
 </style>
 
 <div id="right-panel" class="col-md-3">
   <div class="detail-view-container" tabindex="-1" bind:this={detailViewContainer}>
     {#if $detailViewItemStore !== null}
-      
+
       {#if $detailViewItemStore.type === detailViewTypes.MODULE}
         <ModuleDetailView module={$detailViewItemStore.item} />
-      
+
       {:else if $detailViewItemStore.type === detailViewTypes.PIPELINE}
         <PipelineDetailView pipeline={$detailViewItemStore.item} />
-      
+
       {:else if $detailViewItemStore.type === detailViewTypes.TASK}
-        <TaskDetailView task={$detailViewItemStore.item} 
+        <TaskDetailView task={$detailViewItemStore.item}
                         meta={$detailViewItemStore.meta || {}} />
-      
+
       {/if}
-    
+
     {/if}
   </div>
 </div>

@@ -10,7 +10,6 @@
 <style>
   #main-panel {
     padding: 2rem;
-    background-color: var(--g-light-gray);
   }
 </style>
 

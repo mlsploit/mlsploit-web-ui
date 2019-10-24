@@ -95,7 +95,7 @@
       </a>
 
       {#if file.kind === fileKinds.INPUT}
-        <button
+        <!-- <button
           class="btn btn-outline-primary btn-sm"
           data-tooltip-title="Add a tag"
           on:click={() => {
@@ -103,7 +103,7 @@
           }}
         >
           <i class="fas fa-tag"></i>
-        </button>
+        </button> -->
 
         <a href="#" class="btn btn-outline-danger btn-sm delete-file"
            data-tooltip-title="Delete file">

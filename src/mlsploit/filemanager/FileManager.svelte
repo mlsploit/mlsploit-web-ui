@@ -1,6 +1,6 @@
 <script context="module">
   import { get } from 'svelte/store';
-  import { getResourceByURL } from '../../state.js';
+  import { getResourceByURL, runPipeline } from '../../state.js';
   import { fileManagerModeStore, fileManagerMetaStore } from '../../store.js';
 
   export const fileManagerModes = {
@@ -113,8 +113,8 @@
   const onRunPipelineBtnClicked = e => {
     let pipeline = $fileManagerMetaStore.pipeline;
     if (pipeline !== undefined) {
-      console.log('run', pipeline.url, filesSelected);
-      API.runPipeline(pipeline.url, filesSelected);
+      jQuery('#file-manager').modal('hide');
+      runPipeline(pipeline.url, filesSelected);
     }
   }
 

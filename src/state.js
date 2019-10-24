@@ -109,8 +109,15 @@ export const createNewPipelineWithTasks = async (pipelineName, tasks) => {
 };
 
 export const deletePipelineWithURL = pipelineURL => {
-  return API.deleteResourceByURLWithAuth(pipelineURL)
-            .then(populateAllResourceStores);
+  return API.deleteResourceByURLWithAuth(pipelineURL).then(() => {
+    window.location.reload(false);
+  });
+};
+
+export const runPipeline = (pipelineURL, fileURLs) => {
+  return API.runPipeline(pipelineURL, fileURLs).then(() => {
+    window.location.reload(false);
+  });
 };
 
 export const uploadFiles = fileList => {

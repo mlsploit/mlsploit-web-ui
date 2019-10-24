@@ -156,10 +156,10 @@
   }
 </style>
 
-<div class="pipeline card"
+<div id="pipeline-id-{pipeline ? pipeline.id : 'none'}"
+     class="pipeline card" tabindex="-1"
      bind:this={pipelineComponent}
-     style="cursor:{cursorStyle};"
-     tabindex="-1">
+     style="cursor:{cursorStyle};">
 
   <div class="title">
     {#if isNewPipeline}

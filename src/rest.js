@@ -184,11 +184,11 @@ API.createNewPipelineWithTasks = (pipelineName, tasks) => API.createNewPipeline(
   return updatedPipeline;
 });
 
-API.runPipeline = (pipelineURL, targetFileURLs) => fetch(
+API.runPipeline = (pipelineURL, fileURLs) => fetch(
   API.ENDPOINTS.RUNS,
   createPOSTRequestOptionsForObjWithAuth({
     pipeline: pipelineURL,
-    files: targetFileURLs,
+    files: fileURLs,
 })).then(parseResponse);
 
 API.editFileTags = (file, tags) => fetch(

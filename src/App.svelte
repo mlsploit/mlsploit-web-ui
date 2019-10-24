@@ -5,7 +5,7 @@
   import {
     NO_TOKEN,
     loadTokenFromStorage,
-    createStorageEventListenerForToken 
+    createStorageEventListenerForToken
   } from './auth/token.js';
 
   loadTokenFromStorage();

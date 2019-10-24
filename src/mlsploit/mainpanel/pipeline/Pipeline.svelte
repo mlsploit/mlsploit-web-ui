@@ -1,5 +1,14 @@
 <script context="module">
+  import { getResourceByURL } from '../../../state.js';
+
   const DEFAULT_NEW_PIPELINE_NAME = 'New Pipeline';
+
+  export const loadRuns = pipeline_ => {
+    if (!pipeline_)
+      return Promise.resolve([]);
+
+    return Promise.all(pipeline_.runs.map(getResourceByURL));
+  };
 </script>
 
 <script>
@@ -17,6 +26,7 @@
   } from '../../filemanager/FileManager.svelte';
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
   import TaskList from '../tasklist/TaskList.svelte';
+  import LogsModal from './LogsModal.svelte';
   import DeleteConfirmationAlert from './DeleteConfirmationAlert.svelte';
 
   export let pipeline = null;
@@ -185,5 +195,11 @@
             onNewPipelineTasksUpdated={onNewPipelineTasksUpdated} />
 
   <DeleteConfirmationAlert {pipeline} />
+
+  {#await loadRuns(pipeline) then runs}
+    {#each runs as run}
+      <LogsModal run={run} />
+    {/each}
+  {/await}
 
 </div>

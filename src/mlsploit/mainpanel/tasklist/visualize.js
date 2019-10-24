@@ -21,7 +21,6 @@ const gatherAllData = runURL => {
           data.jobs = jobs;
           data.inputFiles = inputFiles;
           data.outputFiles = outputFiles;
-
           resolve(data);
         });
       });
@@ -31,7 +30,7 @@ const gatherAllData = runURL => {
 
 
 export const getVisualizationItems = (runURL, numTasks) => {
-  const visualizationItems = Array(numTasks).fill({show: false});
+  const visualizationItems = Array(numTasks).fill(null);
 
   if (runURL === undefined)
     return Promise.resolve(visualizationItems);
@@ -45,31 +44,35 @@ export const getVisualizationItems = (runURL, numTasks) => {
       let inputFileCandidate = inputFiles[0];
 
       jobs.forEach((job, i) => {
+        visualizationItems[i] = {};
+
         if (i == 0
             && inputFileCandidate
             && inputFileCandidate.name.endsWith('.jpg')) {
-          visualizationItems[i].item = {
-            url: inputFileCandidate.blob_url
-          };
-          visualizationItems[i].renderAs = 'image';
-          visualizationItems[i].type = 'INPUT';
-          visualizationItems[i].show = true;
-        } else {
+          visualizationItems[i].input = {
+            item: {
+              url: inputFileCandidate.blob_url
+            },
+            renderAs: 'image'
+          }
+        }
+
+        if (outputFiles[i].length > 0) {
           let outputFilesForJob = outputFiles[i];
           let outputFileCandidate = outputFilesForJob[0];
           let outputFileTags = outputFileCandidate
             ? JSON.parse(outputFileCandidate.tags)
             : {}
 
-            if (outputFileTags['mlsploit-visualize'] == 'image') {
-              visualizationItems[i].item = {
+          if (outputFileTags['mlsploit-visualize'] == 'image') {
+            visualizationItems[i].output = {
+              item: {
                 url: outputFileCandidate.blob_url,
                 label: outputFileTags['label']
-              };
-              visualizationItems[i].renderAs = 'image';
-              visualizationItems[i].type = 'OUTPUT';
-              visualizationItems[i].show = true;
+              },
+              renderAs: 'image',
             }
+          }
         }
       });
 

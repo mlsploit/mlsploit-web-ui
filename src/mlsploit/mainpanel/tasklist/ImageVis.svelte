@@ -24,14 +24,14 @@
 
 .image-vis img {
   object-fit: cover;
-  width: 60px;
-  height: 60px;
+  width: 100px;
+  height: 100px;
   border-radius: 3px;
 }
 
 </style>
 
-<div class="image-vis"
+<div class="image-vis text-center"
      class:input={isInput}
      data-toggle="popover"
      data-container="#image-vis-popover-container"
@@ -41,4 +41,8 @@
      data-delay={{show: 500}}
      data-content={tooltipImageTemplate}>
   <img src="{visItem.url}" alt="">
+  {#if visItem.label}
+    <br />
+    <span class="badge badge-info">{visItem.label}</span>
+  {/if}
 </div>

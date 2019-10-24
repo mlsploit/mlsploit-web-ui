@@ -220,9 +220,8 @@
       <!-- Add an input component if this task requires to show one -->
       {#if !hasNewPipelineTasks
            && visualizationItems[idx]
-           && visualizationItems[idx].show
-           && visualizationItems[idx].type === 'INPUT'}
-        <ImageVis visItem={visualizationItems[idx].item} isInput/>
+           && visualizationItems[idx].input !== undefined}
+        <ImageVis visItem={visualizationItems[idx].input.item} isInput/>
         <i class="fas fa-arrow-right arrow"></i>
       {/if}
 
@@ -236,10 +235,9 @@
       <!-- Add an output component if this task requires to show one -->
       {#if !hasNewPipelineTasks
            && visualizationItems[idx]
-           && visualizationItems[idx].show
-           && visualizationItems[idx].type === 'OUTPUT'}
+           && visualizationItems[idx].output !== undefined}
         <i class="fas fa-arrow-right arrow"></i>
-        <ImageVis visItem={visualizationItems[idx].item} />
+        <ImageVis visItem={visualizationItems[idx].output.item} />
       {/if}
 
       {#if idx !== tasks.length - 1}

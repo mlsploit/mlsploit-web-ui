@@ -35,6 +35,7 @@
   let pipelineComponent;
   let newPipelineName = '';
 
+  let destroyDetailView;
   const pipelineDetailViewItem = {
     type: detailViewTypes.PIPELINE,
     item: pipeline
@@ -82,11 +83,17 @@
   };
 
   onMount(() => {
-    setupDetailViewHandlers(pipelineComponent, pipelineDetailViewItem);
+    destroyDetailView = setupDetailViewHandlers(
+      pipelineComponent, pipelineDetailViewItem
+    );
+
     if (isNewPipeline) { jQuery(pipelineComponent).focus(); }
   });
 
-  onDestroy(() => { if (isNewPipeline) $newPipelineDataStore = null; });
+  onDestroy(() => {
+    destroyDetailView();
+    if (isNewPipeline) $newPipelineDataStore = null;
+  });
 </script>
 
 <style>

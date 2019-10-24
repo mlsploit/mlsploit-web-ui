@@ -6,10 +6,12 @@ import { detailViewItemStore } from '../../store.js';
 // We also need to make sure that it doesn't get reset
 // if the detail view itself gets the focus.
 
-let resetTimeout = null;
 const TIMEOUT_INTERVAL = 10;
+let itemURLInFocus = null;
+let resetTimeout = null;
 const resetDetailViewItemStore = () => {
   detailViewItemStore.set(null);
+  itemURLInFocus = null;
   resetTimeout = null;
 };
 
@@ -35,6 +37,11 @@ export const setupDetailViewHandlers = (el, detailViewItem) => {
       setTimeout(() => {
         detailViewItem.target = el;
         detailViewItemStore.set(detailViewItem);
+        itemURLInFocus = (
+          detailViewItem.item
+          ? detailViewItem.item.url
+          : null
+        );
       }, TIMEOUT_INTERVAL);
     }
   });
@@ -47,4 +54,14 @@ export const setupDetailViewHandlers = (el, detailViewItem) => {
       resetDetailViewItemStore, TIMEOUT_INTERVAL
     );
   });
+
+  const destroyDetailView = () => {
+    if (detailViewItem.item
+        && detailViewItem.item.url == itemURLInFocus) {
+      jQuery(el).off();
+      resetDetailViewItemStore();
+    }
+  }
+
+  return destroyDetailView;
 };

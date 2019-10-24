@@ -2,7 +2,7 @@
   import data from '../../../dummydata.js';
   import { onMount } from 'svelte';
 
-  export let imageURL;
+  export let visItem;
   export let isInput = false;
 
   // Enable tooltips
@@ -13,10 +13,7 @@
   });
 
   // Can't set style in this html tag -> set in global.css instead
-  let tooltipImageTemplate = `
-    <img src="${imageURL}"
-      alt="Larger Visualization of the input/output image.">
-  `
+  let tooltipImageTemplate = `<img src="${visItem.url}" alt="">`
 </script>
 
 <style>
@@ -35,13 +32,13 @@
 </style>
 
 <div class="image-vis"
-  class:input={isInput}
-  data-toggle="popover"
-  data-container="#image-vis-popover-container"
-  data-trigger="hover"
-  data-offset=100%p
-  data-html="true"
-  data-delay={{show: 500}}
-  data-content={tooltipImageTemplate}>
-  <img src="{imageURL}" alt="Visualization of the input/output image.">
+     class:input={isInput}
+     data-toggle="popover"
+     data-container="#image-vis-popover-container"
+     data-trigger="hover"
+     data-offset=100%p
+     data-html="true"
+     data-delay={{show: 500}}
+     data-content={tooltipImageTemplate}>
+  <img src="{visItem.url}" alt="">
 </div>

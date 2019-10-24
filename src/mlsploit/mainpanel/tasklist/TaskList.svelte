@@ -222,7 +222,7 @@
            && visualizationItems[idx]
            && visualizationItems[idx].show
            && visualizationItems[idx].type === 'INPUT'}
-        <ImageVis imageURL={visualizationItems[idx].item} isInput/>
+        <ImageVis visItem={visualizationItems[idx].item} isInput/>
         <i class="fas fa-arrow-right arrow"></i>
       {/if}
 
@@ -239,7 +239,7 @@
            && visualizationItems[idx].show
            && visualizationItems[idx].type === 'OUTPUT'}
         <i class="fas fa-arrow-right arrow"></i>
-        <ImageVis imageURL={visualizationItems[idx].item} />
+        <ImageVis visItem={visualizationItems[idx].item} />
       {/if}
 
       {#if idx !== tasks.length - 1}

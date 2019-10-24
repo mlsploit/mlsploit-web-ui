@@ -17,7 +17,8 @@
     const statusRanks = {
       PENDING: 0,
       RUNNING: 1,
-      FINISHED: 2
+      FINISHED: 2,
+      FAILED: 3
     }
 
     let rank = 0, status = 'PENDING';

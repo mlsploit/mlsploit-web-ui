@@ -165,6 +165,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    font-size: large;
   }
 
   #name-input, #name-input::placeholder {

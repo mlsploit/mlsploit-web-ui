@@ -8,6 +8,7 @@
   // Enable tooltips
   onMount(() => {
     jQuery('.image-vis[data-toggle="popover"]').popover({
+      trigger: 'focus hover',
       delay: { show: 200 }
     })
   });
@@ -20,6 +21,7 @@
 
 .image-vis {
   margin: 0 0;
+  position: relative;
 }
 
 .image-vis img {
@@ -27,6 +29,16 @@
   width: 100px;
   height: 100px;
   border-radius: 3px;
+}
+
+.badge {
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  max-width: 90px;
+  text-overflow: ellipsis;
 }
 
 </style>

@@ -109,15 +109,13 @@ export const createNewPipelineWithTasks = async (pipelineName, tasks) => {
 };
 
 export const deletePipelineWithURL = pipelineURL => {
-  return API.deleteResourceByURLWithAuth(pipelineURL).then(() => {
-    window.location.reload(false);
-  });
+  return API.deleteResourceByURLWithAuth(pipelineURL)
+            .then(populateAllResourceStores);
 };
 
 export const runPipeline = (pipelineURL, fileURLs) => {
-  return API.runPipeline(pipelineURL, fileURLs).then(() => {
-    window.location.reload(false);
-  });
+  return API.runPipeline(pipelineURL, fileURLs)
+            .then(populateAllResourceStores);
 };
 
 export const uploadFiles = fileList => {
@@ -129,3 +127,5 @@ export const deleteFileWithURL = fileURL => {
   return API.deleteResourceByURLWithAuth(fileURL)
             .then(populateAllResourceStores);
 };
+
+window.populateAllResourceStores = populateAllResourceStores;

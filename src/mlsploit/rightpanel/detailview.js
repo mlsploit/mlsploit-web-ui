@@ -7,7 +7,7 @@ import { detailViewItemStore } from '../../store.js';
 // if the detail view itself gets the focus.
 
 let resetTimeout = null;
-const TIMEOUT_INTERVAL = 20;
+const TIMEOUT_INTERVAL = 10;
 const resetDetailViewItemStore = () => {
   detailViewItemStore.set(null);
   resetTimeout = null;
@@ -25,20 +25,20 @@ export const setupDetailViewHandlers = (el, detailViewItem) => {
       clearTimeout(resetTimeout);
       resetTimeout = null;
     }
-    
-    
+
+
     if (detailViewItem !== undefined) {
       // Resetting the store to null
       // and then re-setting it with a timeout
       // will force the view to re-render and avoid stale artifacts.
       resetDetailViewItemStore();
-      setTimeout(() => { 
+      setTimeout(() => {
         detailViewItem.target = el;
-        detailViewItemStore.set(detailViewItem); 
+        detailViewItemStore.set(detailViewItem);
       }, TIMEOUT_INTERVAL);
     }
   });
-  
+
   jQuery(el).focusout(e => {
     e.preventDefault();
     e.stopPropagation();

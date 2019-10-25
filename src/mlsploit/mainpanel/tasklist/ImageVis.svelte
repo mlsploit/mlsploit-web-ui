@@ -38,6 +38,8 @@
   right: 0;
   margin: auto;
   max-width: 90px;
+  overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
 
@@ -55,6 +57,6 @@
   <img src="{visItem.url}" alt="">
   {#if visItem.label}
     <br />
-    <span class="badge badge-info">{visItem.label}</span>
+    <div class="badge badge-info">{visItem.label}</div>
   {/if}
 </div>

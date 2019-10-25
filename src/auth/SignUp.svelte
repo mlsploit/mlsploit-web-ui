@@ -41,20 +41,26 @@
   };
 </script>
 
+<style>
+  .textbox {
+    font-size: 1.25rem;
+  }
+</style>
+
 <form class="container">
   <div class="form-group">
     <!-- <label for="username">Username</label> -->
-    <input type="text" class="form-control" name="username" placeholder="Username" bind:value={username} />
+    <input type="text" class="form-control textbox" name="username" placeholder="Username" bind:value={username} />
   </div>
 
   <div class="form-group">
     <!-- <label for="password1">Password</label> -->
-    <input type="password" class="form-control" name="password1" placeholder="Password" bind:value={password1} />
+    <input type="password" class="form-control textbox" name="password1" placeholder="Password" bind:value={password1} />
   </div>
 
   <div class="form-group">
     <!-- <label for="password2">Password (again)</label> -->
-    <input type="password" class="form-control" name="password2" placeholder="Password (again)" bind:value={password2} />
+    <input type="password" class="form-control textbox" name="password2" placeholder="Password (again)" bind:value={password2} />
   </div>
 
   <input type="submit" class="btn btn-lg btn-primary"
@@ -62,7 +68,7 @@
     disabled={!signUpEnabled}
     on:click={handleSignUpClick}
   />
-  <input type="button" class="btn btn-lg btn-outline-primary" value="Sign In"
+  <input type="button" class="btn btn-lg btn-outline-dark" value="Sign In"
     disabled={!signInEnabled}
     on:click={toggleShowSignIn}
   />

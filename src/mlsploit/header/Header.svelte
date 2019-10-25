@@ -33,13 +33,13 @@
   }
 
   .brand-name {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: white;
   }
 
   .brand-tagline {
-    margin-left: 0.5rem;
-    font-size: 1rem;
+    margin-left: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 200;
     color: rgba(255, 255, 255, 0.5);
   }
@@ -52,6 +52,7 @@
 
   .navbar-buttons button {
     margin: 0 0.1rem;
+    font-size: 1.2rem;
   }
 
   @media all and (max-width: 920px) {

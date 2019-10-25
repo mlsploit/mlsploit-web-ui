@@ -38,7 +38,7 @@
 <div id="left-panel" class="col-md-3">
 
   <div class="accordion card shadow sidebar">
-    <div class="sidebar-header text-center">
+    <div class="sidebar-header">
       <h3>Research Modules</h3>
     </div>
 

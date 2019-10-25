@@ -10,11 +10,15 @@
   .dropdown-menu {
     padding: 10px;
   }
+
+  .dropdown-btn {
+    font-size: 1.2rem;
+  }
 </style>
 
 <div class="dropdown">
   <button type="button"
-          class="btn btn-secondary"
+          class="btn btn-secondary dropdown-btn"
           style="order: 1;"
           data-toggle="dropdown"
           aria-haspopup="true"

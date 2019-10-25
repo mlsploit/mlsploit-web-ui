@@ -32,15 +32,21 @@
   };
 </script>
 
+<style>
+  .textbox {
+    font-size: 1.25rem;
+  }
+</style>
+
 <form class="container">
   <div class="form-group">
     <!-- <label for="username">Username</label> -->
-    <input type="text" class="form-control" name="username" placeholder="Username" bind:value={username} />
+    <input type="text" class="form-control textbox" name="username" placeholder="Username" bind:value={username} />
   </div>
 
   <div class="form-group">
     <!-- <label for="password">Password</label> -->
-    <input type="password" class="form-control" name="password" placeholder="Password" bind:value={password} />
+    <input type="password" class="form-control textbox" name="password" placeholder="Password" bind:value={password} />
   </div>
 
   <input type="submit" class="btn btn-lg btn-primary"
@@ -48,7 +54,7 @@
     disabled={!signInEnabled}
     on:click={handleSignInClick}
   />
-  <input type="button" class="btn btn-lg btn-outline-primary" value="Sign Up"
+  <input type="button" class="btn btn-lg btn-outline-dark" value="Sign Up"
     disabled={!signUpEnabled}
     on:click={toggleShowSignIn}
   />

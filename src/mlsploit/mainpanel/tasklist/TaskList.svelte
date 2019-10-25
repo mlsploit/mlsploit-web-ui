@@ -139,6 +139,10 @@
 </script>
 
 <style>
+  .task-list-wrapper {
+    position: relative;
+  }
+
   .task-list {
     width: 100%;
     margin-top: 5px;
@@ -152,22 +156,21 @@
 
   .fade-edge {
     width: 7%;
-    height: 65px;
+    height: 100%;
     z-index: 10;
     pointer-events: none;
     position: absolute;
-    top: 55px;
     transition: opacity 0.3s ease-in-out;
   }
 
   .right {
-    right: 1.5rem;
+    right: 0;
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0),
       rgba(255, 255, 255, 0.8));
   }
 
   .left {
-    left: 1.5rem;
+    left: 0;
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0.8),
       rgba(255, 255, 255, 0));
   }

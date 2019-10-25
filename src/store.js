@@ -1,8 +1,5 @@
 import { writable } from 'svelte/store';
 
-export const detailViewItemStore = writable(null);
-export const newPipelineVisibleStore = writable(false);
-
 export const tokenStore = writable('');
 
 export const moduleStore = writable([]);
@@ -13,7 +10,11 @@ export const taskStore = writable([]);
 export const runStore = writable([]);
 export const jobStore = writable([]);
 
-export const fileManagerModeStore = writable(null);
-export const fileManagerMetaStore = writable({});
-
+export const detailViewItemStore = writable(null);
 export const newPipelineDataStore = writable(null);
+export const newPipelineVisibleStore = writable(false);
+
+export const fileManagerMetaStore = writable({});
+export const fileManagerModeStore = writable(null);
+
+export const shouldPollFilesAndRunsStore = writable(false);

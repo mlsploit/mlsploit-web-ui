@@ -1,6 +1,6 @@
 <script>
-  import { afterUpdate } from 'svelte';
-  import { getResourceByURL } from '../../../../state.js';
+  import { afterUpdate, onDestroy } from 'svelte';
+  import { runStatusTypes, getRunStatus } from '../../../../state.js';
   import {
     fileManagerModes,
     setAndShowFileManager
@@ -9,29 +9,20 @@
 
   export let run;
 
+  let runStatus = '';
+  let runStatusChecker;
   let momentString = moment(run.date_created).fromNow();
 
-  const loadJobs = () => Promise.all(run.jobs.map(getResourceByURL));
-
-  const getStatus = jobs => {
-    const statusRanks = {
-      PENDING: 0,
-      RUNNING: 1,
-      FINISHED: 2,
-      FAILED: 3
-    }
-
-    let rank = 0, status = 'PENDING';
-    for (let job of jobs) {
-      let currentJobRank = statusRanks[job.status];
-      if (currentJobRank > rank) {
-        rank = currentJobRank;
-        status = job.status;
-      }
-    }
-
-    return status;
+  const getAndShowRunStatus = () => {
+    getRunStatus(run.url).then(s => {
+      console.log(s);
+      runStatus = s;
+      if (s === runStatusTypes.PENDING
+          || s === runStatusTypes.RUNNING)
+        runStatusChecker = setTimeout(getAndShowRunStatus, 5000);
+    });
   };
+  getAndShowRunStatus();
 
   const onShowOutputFilesBtnClicked = e => {
     e.preventDefault();
@@ -49,31 +40,33 @@
 
   afterUpdate(() => {
     setTimeout(() => {
-      jQuery('[data-toggle="tooltip"]').tooltip();
-    }, 1000);
+      jQuery('.run a[data-toggle="tooltip"]').tooltip();
+    }, 100);
   });
 
+  onDestroy(() => {
+    if (runStatusChecker !== null)
+      clearTimeout(runStatusChecker);
+  });
 </script>
 
-<tr>
-  {#await loadJobs() then jobs}
-    <td>
-      {momentString}
-    </td>
+<tr class="run">
+  <td>
+    {momentString}
+  </td>
 
-    <td>
-      {getStatus(jobs)}
-    </td>
+  <td>
+    {runStatus}
+  </td>
 
-    <td class="text-right">
-      <a href="#" on:click={onShowLogsBtnClicked}
+  <td class="text-right">
+    <a href="#" on:click={onShowLogsBtnClicked}
         data-toggle="tooltip" data-placement="top" title="Show logs">
-        <i class="fas fa-scroll"></i>
-      </a>
-      <a href="#" on:click={onShowOutputFilesBtnClicked}
-         data-toggle="tooltip" data-placement="top" title="View output files">
-        <i class="fas fa-file"></i>
-      </a>
-    </td>
-  {/await}
+      <i class="fas fa-scroll"></i>
+    </a>
+    <a href="#" on:click={onShowOutputFilesBtnClicked}
+        data-toggle="tooltip" data-placement="top" title="View output files">
+      <i class="fas fa-file"></i>
+    </a>
+  </td>
 </tr>

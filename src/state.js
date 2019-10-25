@@ -10,7 +10,8 @@ import {
   pipelineStore,
   taskStore,
   runStore,
-  jobStore
+  jobStore,
+  shouldPollFilesAndRunsStore
 } from './store.js';
 
 export const resourceTypes = {
@@ -22,6 +23,13 @@ export const resourceTypes = {
   RUN: 'RUN',
   JOB: 'JOB'
 }
+
+export const runStatusTypes = {
+  PENDING: 'PENDING',
+  RUNNING: 'RUNNING',
+  FINISHED: 'FINISHED',
+  FAILED: 'FAILED'
+};
 
 const m = (ep, sb, af, s) => ({ENDPOINT: ep, STUB: sb, API_FN: af, STORE: s});
 export const resourceMap = {
@@ -49,9 +57,21 @@ export const populateResourceStore = resourceType => {
     getResourcesFromAPI().then(newResources => {
       const str = JSON.stringify;
       const currentResources = get(resourceStore);
-      if (str(newResources) != str(currentResources))
+      if (str(newResources) != str(currentResources)) {
         resourceStore.set(newResources);
-    }).then(resolve).catch(reject);
+      }
+
+      resolve(newResources);
+
+      if (resourceType === resourceTypes.RUN) {
+        let runURLs = newResources.map(r => r.url);
+        Promise.all(runURLs.map(getRunStatus)).then(runStatuses => {
+          let someRunsArePending = runStatuses.some(s => s === runStatusTypes.PENDING);
+          let someRunsAreRunning = runStatuses.some(s => s === runStatusTypes.RUNNING);
+          shouldPollFilesAndRunsStore.set(someRunsArePending || someRunsAreRunning);
+        });
+      }
+    }).catch(reject);
   });
 };
 
@@ -128,6 +148,22 @@ export const uploadFiles = fileList => {
 export const deleteFileWithURL = fileURL => {
   return API.deleteResourceByURLWithAuth(fileURL)
             .then(populateAllResourceStores);
+};
+
+// Helper function used in polling and other places
+export const getRunStatus = async (runURL) => {
+  let run = await getResourceByURL(runURL);
+  let jobs = await Promise.all(run.jobs.map(getResourceByURL));
+  let jobStatuses = jobs.map(j => j.status);
+
+  if (jobStatuses.every(v => v === runStatusTypes.PENDING))
+    return runStatusTypes.PENDING;
+  else if (jobStatuses.some(v => v === runStatusTypes.FAILED))
+    return runStatusTypes.FAILED;
+  else if (jobStatuses.some(v => v === runStatusTypes.RUNNING))
+    return runStatusTypes.RUNNING;
+  if (jobStatuses.every(v => v === runStatusTypes.FINISHED))
+    return runStatusTypes.FINISHED;
 };
 
 window.populateAllResourceStores = populateAllResourceStores;

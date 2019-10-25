@@ -46,10 +46,12 @@ export const populateResourceStore = resourceType => {
   }
 
   return new Promise((resolve, reject) => {
-    getResourcesFromAPI()
-      .then(resourceStore.set)
-      .then(resolve)
-      .catch(reject);
+    getResourcesFromAPI().then(newResources => {
+      const str = JSON.stringify;
+      const currentResources = get(resourceStore);
+      if (str(newResources) != str(currentResources))
+        resourceStore.set(newResources);
+    }).then(resolve).catch(reject);
   });
 };
 

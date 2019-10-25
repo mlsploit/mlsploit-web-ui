@@ -1,5 +1,6 @@
 <script>
   import { newPipelineVisibleStore } from '../../store.js';
+  import Settings from './Settings.svelte';
 
   const onNewPipelineBtnClicked = (e) => {
     if (e.preventDefault) { e.preventDefault(); }
@@ -35,7 +36,7 @@
     font-size: 2rem;
     color: white;
   }
-  
+
   .brand-tagline {
     margin-left: 0.5rem;
     font-size: 1rem;
@@ -85,7 +86,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="col-md-6 text-right">
         <div class="navbar-buttons">
           <button type="button"
@@ -94,7 +95,7 @@
             on:click={onNewPipelineBtnClicked}>
             <i class="fas fa-plus-square"></i> New Pipeline
           </button>
-          
+
           <button type="button"
             class="btn btn-secondary"
             id="btn-files"
@@ -104,11 +105,7 @@
             <i class="fas fa-file"></i> Files
           </button>
 
-          <button type="button"
-            class="btn btn-secondary"
-            style="order: 1;">
-            <i class="fas fa-cog"></i>
-          </button>
+          <Settings />
 
         </div>
       </div>

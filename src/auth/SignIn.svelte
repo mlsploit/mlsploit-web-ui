@@ -1,19 +1,19 @@
 <script>
   import API from '../rest.js'
   import { setToken } from './token.js';
-  
+
   export let toggleShowSignIn;
 
   const SIGN_IN_MESSAGE = 'Sign In';
   const SIGNING_IN_MESSAGE = 'Signing in...';
-  
+
   let username = '', password = '';
   let busySigningIn = false;
-  
+
   $: signInEnabled = username && password && !busySigningIn;
   $: signUpEnabled = !busySigningIn;
   $: signInBtnValue = busySigningIn ? SIGNING_IN_MESSAGE : SIGN_IN_MESSAGE;
-  
+
   const handleSignInClick = (e) => {
     e.preventDefault();
 
@@ -42,13 +42,13 @@
     <!-- <label for="password">Password</label> -->
     <input type="password" class="form-control" name="password" placeholder="Password" bind:value={password} />
   </div>
-  
-  <input type="submit" class="bp3-button bp3-large bp3-intent-primary" 
-    value={signInBtnValue} 
+
+  <input type="submit" class="btn btn-lg btn-primary"
+    value={signInBtnValue}
     disabled={!signInEnabled}
     on:click={handleSignInClick}
   />
-  <input type="button" class="bp3-button bp3-large" value="Sign Up" 
+  <input type="button" class="btn btn-lg btn-outline-primary" value="Sign Up"
     disabled={!signUpEnabled}
     on:click={toggleShowSignIn}
   />

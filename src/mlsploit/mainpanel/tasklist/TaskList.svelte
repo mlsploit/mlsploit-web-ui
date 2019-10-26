@@ -214,8 +214,10 @@
 </style>
 
 <div class="task-list-wrapper" bind:this={taskListWrapperComponent}>
-  <div class="fade-edge left" class:new-pipeline-edge={showDropzone} style="opacity: 0"></div>
-  <div class="fade-edge right" class:new-pipeline-edge={showDropzone} style="opacity: 0"></div>
+  {#if !hasNewPipelineTasks}
+    <div class="fade-edge left" class:new-pipeline-edge={showDropzone} style="opacity: 0"></div>
+    <div class="fade-edge right" class:new-pipeline-edge={showDropzone} style="opacity: 0"></div>
+  {/if}
 
   <div class="task-list rounded" bind:this={taskListComponent}>
 

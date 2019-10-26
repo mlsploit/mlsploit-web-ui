@@ -33,9 +33,13 @@
   .sidebar-contents {
     overflow-y: scroll;
   }
+
+  .left-panel {
+    max-width: 400px;
+  }
 </style>
 
-<div id="left-panel" class="col-md-3">
+<div id="left-panel" class="left-panel col-md-3">
 
   <div class="accordion card shadow sidebar">
     <div class="sidebar-header">

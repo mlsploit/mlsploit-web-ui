@@ -27,7 +27,7 @@
   </div>
 
   <!-- Main page-->
-  <div class="row h-100">
+  <div class="row h-100 justify-content-center">
     <LeftPanel />
     <MainPanel />
     <RightPanel />

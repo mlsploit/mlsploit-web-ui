@@ -55,7 +55,7 @@
     font-size: 1.2rem;
   }
 
-  @media all and (max-width: 960px) {
+  @media all and (max-width: 966px) {
     .brand-text {
       margin-left: 1rem;
       display: flex;
@@ -75,11 +75,20 @@
     }
   }
 
+  @media all and (max-width: 768px) {
+    .navbar-buttons {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+
 </style>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm sticky-top">
   <div class="container-fluid">
-    <div class="row w-100 align-items-center">
+    <div class="row w-100 align-items-center justify-content-start">
       <div class="col-md-8">
         <div class="brand">
           <div class="logo">

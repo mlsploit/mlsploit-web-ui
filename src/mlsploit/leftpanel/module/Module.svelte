@@ -182,7 +182,7 @@
   <div class="card-body">
     <div class="container">
 
-      <div class="row align-items-center justify-content-center">
+      <div class="row align-items-center justify-content-center flex-nowrap">
         <div class="col-md-3 module-icon">
           <div><img src="{moduleIconURL}" alt={module.name} /></div>
         </div>

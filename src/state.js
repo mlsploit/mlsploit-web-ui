@@ -26,6 +26,7 @@ export const resourceTypes = {
 
 export const runStatusTypes = {
   PENDING: 'PENDING',
+  QUEUED: 'QUEUED',
   RUNNING: 'RUNNING',
   FINISHED: 'FINISHED',
   FAILED: 'FAILED'
@@ -164,6 +165,8 @@ export const getRunStatus = async (runURL) => {
     return runStatusTypes.FAILED;
   else if (jobStatuses.some(v => v === runStatusTypes.RUNNING))
     return runStatusTypes.RUNNING;
+  else if (jobStatuses.some(v => v === runStatusTypes.QUEUED))
+    return runStatusTypes.QUEUED;
   if (jobStatuses.every(v => v === runStatusTypes.FINISHED))
     return runStatusTypes.FINISHED;
 };

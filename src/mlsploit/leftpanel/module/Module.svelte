@@ -5,8 +5,6 @@
   import Task from '../../mainpanel/tasklist/Task.svelte';
 
   export let module;
-  console.log(module);
-
 
   let moduleComponent;
   let moduleIconURL = '/assets/img/module-icon-placeholder.svg';

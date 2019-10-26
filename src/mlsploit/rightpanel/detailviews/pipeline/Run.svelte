@@ -15,10 +15,9 @@
 
   const getAndShowRunStatus = () => {
     getRunStatus(run.url).then(s => {
-      console.log(s);
       runStatus = s;
-      if (s === runStatusTypes.PENDING
-          || s === runStatusTypes.RUNNING)
+      if (!(s === runStatusTypes.FINISHED)
+          && !(s === runStatusTypes.FAILED))
         runStatusChecker = setTimeout(getAndShowRunStatus, 5000);
     });
   };
@@ -56,7 +55,9 @@
   </td>
 
   <td>
-    {runStatus}
+    {#if runStatus}
+      {runStatus}
+    {/if}
   </td>
 
   <td class="text-right">

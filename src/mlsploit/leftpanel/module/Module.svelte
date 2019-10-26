@@ -1,3 +1,15 @@
+<script context="module">
+  export const MODULE_NAME_OVERRIDES = {
+    'shield': 'SHIELD',
+    'foolbox': 'Foolbox',
+    'avpass': 'AVPASS',
+    'elf': 'ELF',
+    'barnum': 'Barnum',
+    'pe': 'PE',
+    'network': 'Network'
+  }
+</script>
+
 <script>
   import { onMount } from 'svelte';
   import { setupDetailViewHandlers } from '../../rightpanel/detailview.js';
@@ -177,7 +189,7 @@
 
         <div class="col-md-9">
           <i class="fas fa-chevron-{isExpanded ? 'up' : 'down'} expand-btn" on:click={toggleIsExpanded}></i>
-          <h4 class="module-name">{module.name}</h4>
+          <h4 class="module-name">{MODULE_NAME_OVERRIDES[module.name]}</h4>
           {#if tagline}
             <h6 class="mb-2">{tagline}</h6>
           {/if}

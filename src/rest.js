@@ -66,6 +66,7 @@ const createGETRequestOptionsWithAuth = () => ({
 const createDELETERequestOptionsWithAuth = () => ({
   ...commonDELETERequestOptions,
   headers: {
+    'X-CSRFToken': getCookie('csrftoken'),
     'Authorization': `Token ${API.TOKEN}`
   }
 });

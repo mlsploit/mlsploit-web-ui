@@ -153,6 +153,11 @@ export const deleteFileWithURL = fileURL => {
             .then(populateAllResourceStores);
 };
 
+export const deleteRunWithURL = runURL => {
+  return API.deleteResourceByURLWithAuth(runURL)
+            .then(populateAllResourceStores);
+};
+
 // Helper function used in polling and other places
 export const getRunStatus = async (runURL) => {
   let run = await getResourceByURL(runURL);

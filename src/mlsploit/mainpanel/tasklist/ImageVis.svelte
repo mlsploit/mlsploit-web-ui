@@ -57,6 +57,6 @@
   <img src="{visItem.url}" alt="">
   {#if visItem.label}
     <br />
-    <div class="badge badge-info">{visItem.label}</div>
+    <div class="badge badge-info" title={visItem.label}>{visItem.label}</div>
   {/if}
 </div>

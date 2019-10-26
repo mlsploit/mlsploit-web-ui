@@ -20,6 +20,7 @@
 {#await getTaskFunction(task) then taskFunction}
   <DetailViewTemplate title="Task: {taskFunction.name}">
     {#if taskFunction.options.length > 0}
+      <h6>Parameters:</h6>
       <form>
         {#each taskFunction.options as option}
           <TaskParam option={option}

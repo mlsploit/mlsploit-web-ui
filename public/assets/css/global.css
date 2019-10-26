@@ -23,6 +23,12 @@ html, body {
 	background-color: var(--g-light-gray);
 }
 
+@media all and (min-width: 768px) {
+	#app {
+		min-width: 840px;
+	}
+}
+
 #image-vis-popover-container .popover {
 	max-width: 400px;
 	/* Prevent overlay popover flashing */

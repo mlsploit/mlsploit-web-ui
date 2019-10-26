@@ -55,7 +55,7 @@
     font-size: 1.2rem;
   }
 
-  @media all and (max-width: 920px) {
+  @media all and (max-width: 960px) {
     .brand-text {
       margin-left: 1rem;
       display: flex;
@@ -65,9 +65,13 @@
 
     .brand-tagline {
       margin-left: 0;
-      font-size: 1rem;
+      font-size: 1.5rem;
       font-weight: 200;
       color: rgba(255, 255, 255, 0.5);
+    }
+
+    .navbar-buttons button {
+      font-size: 1rem;
     }
   }
 
@@ -76,7 +80,7 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm sticky-top">
   <div class="container-fluid">
     <div class="row w-100 align-items-center">
-      <div class="col-md-6">
+      <div class="col-md-8">
         <div class="brand">
           <div class="logo">
               <img src="/assets/img/mlsploit-icon.png" alt="MLsploit" />
@@ -88,7 +92,7 @@
         </div>
       </div>
 
-      <div class="col-md-6 text-right">
+      <div class="col-md-4 text-md-right text-sm-left">
         <div class="navbar-buttons">
           <button type="button"
             class="btn btn-primary"

@@ -14,6 +14,12 @@
   .dropdown-btn {
     font-size: 1.2rem;
   }
+
+  @media all and (max-width: 960px) {
+    .dropdown-btn {
+      font-size: 1rem;
+    }
+  }
 </style>
 
 <div class="dropdown">

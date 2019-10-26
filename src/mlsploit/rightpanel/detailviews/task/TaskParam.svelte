@@ -20,6 +20,7 @@
 
   $: name = option.name;
   $: type = option.type;
+  $: doctxt = option.doctxt;
   $: default_ = option.default;
   $: required = option.required;
   $: allowed_values = get_allowed_values(type);
@@ -91,7 +92,9 @@
     {/if}
   {/if}
 
-  <small class="form-text text-muted">
-    Option help text will appear here...
-  </small>
+  {#if doctxt}
+    <small class="form-text text-muted">
+      {doctxt}
+    </small>
+  {/if}
 </div>

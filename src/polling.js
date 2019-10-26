@@ -1,12 +1,14 @@
 import { get } from 'svelte/store';
 import {
   resourceTypes,
-  populateResourceStore
+  populateResourceStore,
+  populateAllResourceStores
 } from './state.js';
 import { shouldPollFilesAndRunsStore } from './store.js';
 
 let isPolling = false;
-const POLLING_INTERVAL = 5000;
+const ALL_DATA_POLLING_INTERVAL = 2 * 60 * 1000;
+const FILES_AND_RUNS_POLLING_INTERVAL = 5000;
 
 const poll = async (fn, pollingInterval) => {
   let pollAgain = await fn();
@@ -35,9 +37,14 @@ export const beginPolling = () => {
             resolve(get(shouldPollFilesAndRunsStore));
           });
         });
-      }, POLLING_INTERVAL);
+      }, FILES_AND_RUNS_POLLING_INTERVAL);
     }
   });
+
+  poll(async () => {
+    await populateAllResourceStores();
+    return true;
+  }, ALL_DATA_POLLING_INTERVAL);
 };
 
 window.beginPolling = beginPolling;

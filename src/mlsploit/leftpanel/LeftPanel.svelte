@@ -4,7 +4,7 @@
   import Module from './module/Module.svelte';
 
   $: modules = $moduleStore.sort(
-    (a, b) => ((a.name > b.name) ? 1 : -1)
+    (a, b) => ((a.id > b.id) ? 1 : -1)
   );
 </script>
 

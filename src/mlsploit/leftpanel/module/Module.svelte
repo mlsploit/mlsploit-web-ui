@@ -7,7 +7,61 @@
   export let module;
 
   let moduleComponent;
-  let moduleIconURL = '/assets/img/module-icon-placeholder.svg';
+
+  let moduleIconURL;
+  switch (module.name) {
+    case 'shield':
+      moduleIconURL = '/assets/img/module-icon-shield.png';
+      break;
+    case 'foolbox':
+      moduleIconURL = '/assets/img/module-icon-foolbox.png';
+      break;
+    case 'avpass':
+      moduleIconURL = '/assets/img/module-icon-avpass.png';
+      break;
+    case 'elf':
+      moduleIconURL = '/assets/img/module-icon-elf.png';
+      break;
+    case 'barnum':
+      moduleIconURL = '/assets/img/module-icon-barnum.png';
+      break;
+    case 'pe':
+      moduleIconURL = '/assets/img/module-icon-pe.png';
+      break;
+    case 'network':
+      moduleIconURL = '/assets/img/module-icon-network.png';
+      break;
+    default:
+      moduleIconURL = '/assets/img/module-icon-placeholder.png';
+  }
+
+  let tagline;
+  if (module.tagline) {
+    tagline = module.tagline;
+
+  } else {
+    switch (module.name) {
+      case 'avpass':
+        tagline = 'Android Malware Detection Bypass';
+        break;
+      case 'elf':
+        tagline = 'ELF File Malware Detection and Bypassing';
+        break;
+      case 'barnum':
+        tagline = 'Deep Learning Software Anomaly Detection';
+        break;
+      case 'pe':
+        tagline = 'PE Malware Detection and Evasion';
+        break;
+      case 'network':
+        tagline = 'Network Intrusion Detection and Evasion';
+        break;
+      default:
+        tagline = '';
+    }
+  }
+
+
 
   const moduleDetailViewItem = {
     type: detailViewTypes.MODULE,
@@ -124,8 +178,8 @@
         <div class="col-md-9">
           <i class="fas fa-chevron-{isExpanded ? 'up' : 'down'} expand-btn" on:click={toggleIsExpanded}></i>
           <h4 class="module-name">{module.name}</h4>
-          {#if module.tagline}
-            <h6 class="mb-2">{module.tagline}</h6>
+          {#if tagline}
+            <h6 class="mb-2">{tagline}</h6>
           {/if}
         </div>
       </div>

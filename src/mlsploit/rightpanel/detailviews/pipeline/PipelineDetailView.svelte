@@ -5,6 +5,14 @@
   import Run from './Run.svelte';
 
   export let pipeline;
+
+  const sortRuns = runs => {
+    return runs.sort((r1, r2) => {
+      let r1Timestamp = new Date(r1.date_created);
+      let r2Timestamp = new Date(r2.date_created);
+      return (r1Timestamp > r2Timestamp ? -1 : 1);
+    });
+  };
 </script>
 
 <style>
@@ -22,7 +30,7 @@
         <table class="table table-hover table-borderless">
           <tbody>
 
-            {#each runs as run}
+            {#each sortRuns(runs) as run}
               <Run run={run} />
             {/each}
 

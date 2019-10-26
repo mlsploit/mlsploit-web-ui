@@ -125,9 +125,11 @@ export const getResourcesByURLs = resourceURLs => {
 // i.e., NEVER "import API from rest.js" inside a UI component
 
 export const createNewPipelineWithTasks = async (pipelineName, tasks) => {
-  const newPipeline = await API.createNewPipelineWithTasks(pipelineName, tasks);
-  await populateAllResourceStores();
-  return newPipeline;
+  if (tasks.length > 0) {
+    const newPipeline = await API.createNewPipelineWithTasks(pipelineName, tasks);
+    await populateAllResourceStores();
+    return newPipeline;
+  }
 };
 
 export const deletePipelineWithURL = pipelineURL => {

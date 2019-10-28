@@ -164,16 +164,19 @@ export const getRunStatus = async (runURL) => {
   let jobs = await Promise.all(run.jobs.map(getResourceByURL));
   let jobStatuses = jobs.map(j => j.status);
 
-  if (jobStatuses.every(v => v === runStatusTypes.PENDING))
-    return runStatusTypes.PENDING;
-  else if (jobStatuses.some(v => v === runStatusTypes.FAILED))
+  if (jobStatuses.some(v => v === runStatusTypes.FAILED))
     return runStatusTypes.FAILED;
   else if (jobStatuses.some(v => v === runStatusTypes.RUNNING))
     return runStatusTypes.RUNNING;
   else if (jobStatuses.some(v => v === runStatusTypes.QUEUED))
     return runStatusTypes.QUEUED;
-  if (jobStatuses.every(v => v === runStatusTypes.FINISHED))
+  else if (jobStatuses.every(v => v === runStatusTypes.PENDING))
+    return runStatusTypes.PENDING;
+  else if (jobStatuses.every(v => v === runStatusTypes.FINISHED))
     return runStatusTypes.FINISHED;
+  else
+    console.log(jobStatuses);
+    return runStatusTypes.PENDING;
 };
 
 window.populateAllResourceStores = populateAllResourceStores;

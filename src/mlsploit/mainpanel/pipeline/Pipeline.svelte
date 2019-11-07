@@ -54,7 +54,6 @@
 
   const onDeletePipelineBtnClicked = (e) => {
     e.preventDefault();
-    e.stopPropagation();
 
     if (isNewPipeline) { hideNewPipeline(); }
     else { jQuery(`#delete-pipeline-${pipeline.id}-confirm`).modal('toggle'); }
@@ -62,7 +61,6 @@
 
   const onRunPipelineBtnClicked = e => {
     e.preventDefault();
-    e.stopPropagation();
     setAndShowFileManager(fileManagerModes.SELECT, {pipeline});
   }
 
@@ -76,7 +74,7 @@
       $newPipelineDataStore.tasks
     );
     hideNewPipeline();
-  }
+  };
 
   const onNewPipelineTasksUpdated = tasks => {
     if (isNewPipeline) { $newPipelineDataStore = {tasks}; }
@@ -87,7 +85,11 @@
       pipelineComponent, pipelineDetailViewItem
     );
 
-    if (isNewPipeline) { jQuery(pipelineComponent).focus(); }
+    if (isNewPipeline) {
+      setTimeout(e => {
+        jQuery(pipelineComponent).trigger('click');
+      }, 10);
+    }
   });
 
   onDestroy(() => {

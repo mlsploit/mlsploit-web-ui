@@ -15,10 +15,20 @@ const resetDetailViewItemStore = () => {
   resetTimeout = null;
 };
 
-export const setupDetailViewHandlers = (el, detailViewItem) => {
-  jQuery(el).focusin(e => {
+(() => {
+  jQuery('body').click(e => {
     e.preventDefault();
-    e.stopPropagation();
+
+    resetTimeout = setTimeout(
+        resetDetailViewItemStore, TIMEOUT_INTERVAL
+    );
+  });
+})();
+
+export const setupDetailViewHandlers = (el, detailViewItem) => {
+  jQuery(el).click(e => {
+    e.preventDefault();
+    e.stopPropagation(); // IMPORTANT
 
     // Stop from resetting the store asynchronously
     // since we will be resetting it synchronously
@@ -46,22 +56,13 @@ export const setupDetailViewHandlers = (el, detailViewItem) => {
     }
   });
 
-  jQuery(el).focusout(e => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    resetTimeout = setTimeout(
-      resetDetailViewItemStore, TIMEOUT_INTERVAL
-    );
-  });
-
   const destroyDetailView = () => {
     if (detailViewItem.item
         && detailViewItem.item.url == itemURLInFocus) {
       jQuery(el).off();
       resetDetailViewItemStore();
     }
-  }
+  };
 
   return destroyDetailView;
 };

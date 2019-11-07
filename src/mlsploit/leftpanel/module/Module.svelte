@@ -82,8 +82,7 @@
 
   let isExpanded = false;
   const toggleIsExpanded = e => {
-    if (e.preventDefault) { e.preventDefault(); }
-    if (e.stopPropagation) { e.stopPropagation(); }
+    e.preventDefault();
 
     isExpanded = !isExpanded;
     jQuery('#module-'+module.id+'-tasks').collapse('toggle');
@@ -188,7 +187,7 @@
         </div>
 
         <div class="col-md-9">
-          <i class="fas fa-chevron-{isExpanded ? 'up' : 'down'} expand-btn" on:click={toggleIsExpanded}></i>
+          <i class="fas fa-chevron-circle-{isExpanded ? 'up' : 'down'} expand-btn" on:click={toggleIsExpanded}></i>
           <h4 class="module-name">{MODULE_NAME_OVERRIDES[module.name]}</h4>
           {#if tagline}
             <h6 class="mb-2">{tagline}</h6>

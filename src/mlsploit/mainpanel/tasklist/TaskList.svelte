@@ -54,7 +54,7 @@
   };
 
   const handleDrop = e => {
-    e.stopPropagation();
+    e.stopPropagation(); // IMPORTANT
     let newTaskData = JSON.parse(
       e.dataTransfer.getData('text/json')
     );
@@ -114,7 +114,7 @@
     if (numTasks !== newNumTasks) {
       const taskElements = jQuery(taskListComponent).children('.task');
       const newTaskElement = taskElements[newNumTasks - 1];
-      jQuery(newTaskElement).focus();
+      setTimeout(e => jQuery(newTaskElement).trigger('click'), 10);
       numTasks = newNumTasks;
     }
 

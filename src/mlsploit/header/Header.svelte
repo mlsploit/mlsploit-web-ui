@@ -2,8 +2,8 @@
   import { newPipelineVisibleStore } from '../../store.js';
   import Settings from './Settings.svelte';
 
-  const onNewPipelineBtnClicked = (e) => {
-    if (e.preventDefault) { e.preventDefault(); }
+  const onNewPipelineBtnClicked = e => {
+    e.preventDefault();
     $newPipelineVisibleStore = true;
   };
 

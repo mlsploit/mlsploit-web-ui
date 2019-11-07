@@ -21,7 +21,7 @@
 </script>
 
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { setupDetailViewHandlers } from '../../rightpanel/detailview.js';
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
 
@@ -41,6 +41,7 @@
     onNewTaskDataUpdated(taskIndex, newTaskData);
   };
 
+  let destroyDetailView;
   const taskDetailViewItem = {
     type: detailViewTypes.TASK,
     item: task,
@@ -66,14 +67,18 @@
   const onRemoveTaskBtnClicked = e => { onRemoveTask(taskIndex); };
 
   onMount(() => {
-    setupDetailViewHandlers(taskComponent, taskDetailViewItem);
+    destroyDetailView = setupDetailViewHandlers(taskComponent, taskDetailViewItem);
 
     getTaskFunction(task).then(taskFunction => {
       newTaskData.function = taskFunction;
       onNewTaskDataUpdated(taskIndex, newTaskData);
     });
 
-    if (isNewPipelineTask) { jQuery(taskComponent).focus(); }
+    if (isNewPipelineTask) { jQuery(taskComponent).trigger('click'); }
+  });
+
+  onDestroy(() => {
+    destroyDetailView();
   });
 </script>
 

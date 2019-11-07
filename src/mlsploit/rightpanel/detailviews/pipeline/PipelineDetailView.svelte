@@ -44,7 +44,5 @@
     {/await}
   </DetailViewTemplate>
 {:else}
-  <DetailViewTemplate title="New Pipeline">
-    New pipeline details here...
-  </DetailViewTemplate>
+  <DetailViewTemplate title="New Pipeline"></DetailViewTemplate>
 {/if}

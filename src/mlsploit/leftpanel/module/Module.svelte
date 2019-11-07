@@ -12,6 +12,7 @@
 
 <script>
   import { onMount } from 'svelte';
+  import { detailViewItemStore } from '../../../store.js';
   import { setupDetailViewHandlers } from '../../rightpanel/detailview.js';
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
   import Task from '../../mainpanel/tasklist/Task.svelte';
@@ -73,12 +74,15 @@
     }
   }
 
-
-
   const moduleDetailViewItem = {
     type: detailViewTypes.MODULE,
     item: module
-  }
+  };
+  $: inFocus = (
+    module
+    && $detailViewItemStore
+    && $detailViewItemStore.item == module
+  );
 
   let isExpanded = false;
   const toggleIsExpanded = e => {
@@ -113,7 +117,7 @@
     font-size: 1.5rem;
   }
 
-  .module:hover, .module:focus {
+  .module:hover, .module-focus {
     background: var(--g-light-gray);
   }
 
@@ -121,7 +125,7 @@
     opacity: 0.4;
   }
 
-  .module:focus .module-icon img{
+  .module-focus .module-icon img{
     -webkit-filter: drop-shadow(0 0.2rem 0.25rem rgba(0,0,0,.3));
     filter: drop-shadow(0 0.2rem 0.25rem rgba(0,0,0,.3));
   }
@@ -132,7 +136,7 @@
     transition: color 300ms ease-in-out;
   }
 
-  .module:focus h6 {
+  .module-focus h6 {
     color: black;
   }
 
@@ -177,7 +181,7 @@
   }
 </style>
 
-<div class="module" tabindex="-1" bind:this={moduleComponent}>
+<div class="module" tabindex="-1" bind:this={moduleComponent} class:module-focus={inFocus}>
   <div class="card-body">
     <div class="container">
 

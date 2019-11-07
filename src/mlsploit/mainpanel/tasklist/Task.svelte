@@ -22,6 +22,7 @@
 
 <script>
   import { onMount, onDestroy } from 'svelte';
+  import { detailViewItemStore } from '../../../store.js';
   import { setupDetailViewHandlers } from '../../rightpanel/detailview.js';
   import detailViewTypes from '../../rightpanel/detailviews/types.js';
 
@@ -51,7 +52,12 @@
       isNewPipelineTask,
       onNewTaskArgumentValueChanged
     }
-  }
+  };
+  $: inFocus = (
+    task
+    && $detailViewItemStore
+    && $detailViewItemStore.item == task
+  );
 
   const handleDragStart = e => {
     e.target.style.opacity = 0.4;
@@ -108,7 +114,7 @@
     background: var(--g-light-gray);
   }
 
-  .task:focus {
+  .task-focus {
     border-color: var(--g-dark-gray);
     background: var(--g-light-gray);
     box-shadow: var(--outer-shadow);
@@ -150,6 +156,7 @@
   and flex parent, so we are not using it here.
 -->
 <div class="task"
+      class:task-focus={inFocus}
       class:module={isModuleTask}
       bind:this={taskComponent}
       tabindex="-1"

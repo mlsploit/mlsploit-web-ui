@@ -39,7 +39,12 @@
   const pipelineDetailViewItem = {
     type: detailViewTypes.PIPELINE,
     item: pipeline
-  }
+  };
+  $: inFocus = (
+    pipeline
+    && $detailViewItemStore
+    && $detailViewItemStore.item == pipeline
+  );
 
   let tasks = isNewPipeline ? [] : pipeline.tasks;
   let runURLs = isNewPipeline ? [] : pipeline.runs;
@@ -111,7 +116,7 @@
     border-color: var(--g-dark-gray);
   }
 
-  .pipeline:focus {
+  .pipeline-focus {
     border-color: var(--g-dark-gray);
     box-shadow: var(--outer-shadow);
   }
@@ -179,6 +184,7 @@
 <div id="pipeline-id-{pipeline ? pipeline.id : 'none'}"
      class="pipeline card" tabindex="-1"
      bind:this={pipelineComponent}
+     class:pipeline-focus={inFocus}
      style="cursor:{cursorStyle};">
 
   <div class="title">

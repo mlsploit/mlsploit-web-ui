@@ -2,6 +2,7 @@
   export const MODULE_NAME_OVERRIDES = {
     'shield': 'SHIELD',
     'foolbox': 'Foolbox',
+    'captum': 'Captum',
     'avpass': 'AVPASS',
     'elf': 'ELF',
     'barnum': 'Barnum',
@@ -192,7 +193,7 @@
 
         <div class="col-md-9">
           <i class="fas fa-chevron-circle-{isExpanded ? 'up' : 'down'} expand-btn" on:click={toggleIsExpanded}></i>
-          <h4 class="module-name">{MODULE_NAME_OVERRIDES[module.name]}</h4>
+          <h4 class="module-name">{MODULE_NAME_OVERRIDES[module.name] || module.name}</h4>
           {#if tagline}
             <h6 class="mb-2">{tagline}</h6>
           {/if}

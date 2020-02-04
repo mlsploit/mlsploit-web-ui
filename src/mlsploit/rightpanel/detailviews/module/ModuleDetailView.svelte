@@ -5,7 +5,7 @@
   export let module;
 </script>
 
-<DetailViewTemplate title="Module: {MODULE_NAME_OVERRIDES[module.name]}">
+<DetailViewTemplate title="Module: {MODULE_NAME_OVERRIDES[module.name] || module.name}">
   {#if module.doctxt}
     <span style="white-space: pre-line">
       {module.doctxt}

@@ -17,8 +17,6 @@ const resetDetailViewItemStore = () => {
 
 (() => {
   jQuery('body').click(e => {
-    e.preventDefault();
-
     resetTimeout = setTimeout(
         resetDetailViewItemStore, TIMEOUT_INTERVAL
     );

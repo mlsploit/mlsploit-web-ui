@@ -75,14 +75,17 @@
   </td>
 
   <td class="text-right">
+    <!-- svelte-ignore a11y-invalid-attribute -->
     <a href="#" on:click={onShowLogsBtnClicked}
         data-toggle="tooltip" data-placement="top" title="Show logs">
       <i class="fas fa-scroll"></i>
     </a>
+    <!-- svelte-ignore a11y-invalid-attribute -->
     <a href="#" on:click={onShowOutputFilesBtnClicked}
         data-toggle="tooltip" data-placement="top" title="View output files">
       <i class="fas fa-file"></i>
     </a>
+    <!-- svelte-ignore a11y-invalid-attribute -->
     <a href="#" on:click={onDeleteRunBtnClicked}
         data-toggle="tooltip" data-placement="top" title="Delete this run">
       <i class="fas fa-times delete"></i>

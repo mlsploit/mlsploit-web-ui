@@ -105,6 +105,7 @@
           <i class="fas fa-tag"></i>
         </button> -->
 
+        <!-- svelte-ignore a11y-invalid-attribute -->
         <a href="#" class="btn btn-outline-danger btn-sm delete-file"
            data-tooltip-title="Delete file">
           <i class="fas fa-trash"></i>

@@ -46,6 +46,7 @@
 
     <div class="dropdown-divider"></div>
 
+    <!-- svelte-ignore a11y-invalid-attribute -->
     <a class="btn btn-danger btn-block"
           href="#" tabindex="0"
           on:click={purgeToken}>

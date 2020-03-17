@@ -7,7 +7,7 @@
 Install the dependencies...
 
 ```bash
-cd mlsploit-new-web-ui 
+cd mlsploit-new-web-ui
 npm install
 ```
 
@@ -18,6 +18,14 @@ npm run dev
 ```
 
 Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
+
+
+### Run with Docker
+To start the UI server using docker, run the following command:
+
+```
+bash docker-start-ui.sh
+```
 
 
 ## Deploying to the web

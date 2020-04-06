@@ -60,13 +60,13 @@ export const getVisualizationItems = (runURL, numTasks) => {
         if (outputFiles[i].length > 0) {
           let outputFilesForJob = outputFiles[i];
           let outputFileCandidate = outputFilesForJob.find(
-            el => (JSON.parse(el.tags)['mlsploit-visualize'] !== undefined)
+            el => (JSON.parse(el.tags)['visualize'] !== undefined)
           );
           let outputFileTags = outputFileCandidate
             ? JSON.parse(outputFileCandidate.tags)
             : {}
 
-          if (outputFileTags['mlsploit-visualize'] == 'image') {
+          if (outputFileTags['visualize'] == 'image') {
             visualizationItems[i].output = {
               item: {
                 url: outputFileCandidate.blob_url,

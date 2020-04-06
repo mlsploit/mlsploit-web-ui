@@ -1,16 +1,3 @@
-<script context="module">
-  export const MODULE_NAME_OVERRIDES = {
-    'shield': 'SHIELD',
-    'foolbox': 'Foolbox',
-    'captum': 'Captum',
-    'avpass': 'AVPASS',
-    'elf': 'ELF',
-    'barnum': 'Barnum',
-    'pe': 'PE',
-    'network': 'Network'
-  }
-</script>
-
 <script>
   import { onMount } from 'svelte';
   import { detailViewItemStore } from '../../../store.js';
@@ -21,33 +8,6 @@
   export let module;
 
   let moduleComponent;
-
-  let moduleIconURL;
-  switch (module.name) {
-    case 'shield':
-      moduleIconURL = '/assets/img/module-icon-shield.png';
-      break;
-    case 'foolbox':
-      moduleIconURL = '/assets/img/module-icon-foolbox.png';
-      break;
-    case 'avpass':
-      moduleIconURL = '/assets/img/module-icon-avpass.png';
-      break;
-    case 'elf':
-      moduleIconURL = '/assets/img/module-icon-elf.png';
-      break;
-    case 'barnum':
-      moduleIconURL = '/assets/img/module-icon-barnum.png';
-      break;
-    case 'pe':
-      moduleIconURL = '/assets/img/module-icon-pe.png';
-      break;
-    case 'network':
-      moduleIconURL = '/assets/img/module-icon-network.png';
-      break;
-    default:
-      moduleIconURL = '/assets/img/module-icon-placeholder.png';
-  }
 
   let tagline;
   if (module.tagline) {
@@ -149,6 +109,7 @@
   .module-icon {
     padding: 0;
     max-width: 65px;
+    max-height: 65px;
   }
 
   .module-icon img {
@@ -188,12 +149,12 @@
 
       <div class="row align-items-center justify-content-center flex-nowrap">
         <div class="col-md-3 module-icon">
-          <div><img src="{moduleIconURL}" alt={module.name} /></div>
+          <div><img src="{module.icon_url || '/assets/img/module-icon-placeholder.png'}" alt={module.name} /></div>
         </div>
 
         <div class="col-md-9">
           <i class="fas fa-chevron-circle-{isExpanded ? 'up' : 'down'} expand-btn" on:click={toggleIsExpanded}></i>
-          <h4 class="module-name">{MODULE_NAME_OVERRIDES[module.name] || module.name}</h4>
+          <h4 class="module-name">{module.display_name}</h4>
           {#if tagline}
             <h6 class="mb-2">{tagline}</h6>
           {/if}

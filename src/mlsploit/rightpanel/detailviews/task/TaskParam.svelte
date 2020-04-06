@@ -10,7 +10,7 @@
   const get_allowed_values = (t) => {
     switch(type) {
       case 'enum':
-        return option.values;
+        return option.enum_values;
       case 'bool':
         return [true, false];
       default:

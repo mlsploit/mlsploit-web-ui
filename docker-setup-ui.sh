@@ -2,4 +2,4 @@
 
 cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null && pwd -P)"
 
-docker-compose up
+docker-compose build

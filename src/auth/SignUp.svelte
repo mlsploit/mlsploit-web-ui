@@ -55,7 +55,7 @@
 
   <div class="form-group">
     <!-- <label for="password1">Password</label> -->
-    <input type="password" class="form-control textbox" name="password1" placeholder="Password" bind:value={password1} />
+    <input type="password" class="form-control textbox" name="password1" placeholder="Password (min. 8 characters)" bind:value={password1} />
   </div>
 
   <div class="form-group">

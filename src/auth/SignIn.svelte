@@ -36,6 +36,9 @@
   .textbox {
     font-size: 1.25rem;
   }
+
+  #btn-signin {float: left;}
+  #btn-signup {float: right;}
 </style>
 
 <form class="container">
@@ -49,12 +52,13 @@
     <input type="password" class="form-control textbox" name="password" placeholder="Password" bind:value={password} />
   </div>
 
-  <input type="submit" class="btn btn-lg btn-primary"
+  <input type="submit" id="btn-signin" class="btn btn-lg btn-primary"
     value={signInBtnValue}
     disabled={!signInEnabled}
     on:click={handleSignInClick}
   />
-  <input type="button" class="btn btn-lg btn-outline-dark" value="Sign Up"
+  <input type="button" id="btn-signup" class="btn btn-lg btn-outline-dark"
+    value="Sign Up"
     disabled={!signUpEnabled}
     on:click={toggleShowSignIn}
   />
